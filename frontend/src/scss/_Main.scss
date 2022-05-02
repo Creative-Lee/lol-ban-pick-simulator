@@ -1,0 +1,35 @@
+.board-top{
+  .team1,
+  .team2,
+  .match-info{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border : solid 1px #2f2f2f;
+  }
+
+  .match-info{
+    flex-direction: column;
+  }
+}
+
+
+
+.board-middle{
+  .team1__summoners,
+  .team2__summoners,
+  .todays-goal{
+    display: flex;
+    flex-direction: column;    
+    border : solid 1px #2f2f2f;
+  }
+
+  .todays-goal{
+    align-items: center;
+  }
+
+  .team2__summoner{
+    align-items: flex-end;
+  }
+
+}
