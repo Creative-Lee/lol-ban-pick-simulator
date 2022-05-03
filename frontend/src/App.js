@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState , useEffect} from 'react';
-import {Routes, Route, Link} from 'react-router-dom'
+import {Routes, Route, Link } from 'react-router-dom'
 
-import { Main } from './components'
+import { Board, Main } from './components'
+import Layout from './layout/Layout'
 
-import './scss/App.scss'
+
+import './App.scss'
 import axios from 'axios';
 
 export default function App() {
@@ -47,9 +49,18 @@ export default function App() {
     }    
   },[recentVersion])
 
-  return (
-  <>
-    <Main recentVersion={recentVersion} championDataList={championDataList} />
-  </>
-  );
+  return (  
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={
+            <Main />
+          }/>
+          <Route path="board" element={
+            <Board recentVersion={recentVersion} championDataList={championDataList}/>
+          }/>
+        </Route>
+      </Routes>
+    </div>   
+  )
 }

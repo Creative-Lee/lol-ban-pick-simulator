@@ -1,0 +1,39 @@
+.header{
+  height: 60px;
+  background : linear-gradient(0.3turn , #F5A06B, #E07E58, #FF7859);
+
+  position: sticky;
+  top: 0;
+
+  .header-container{   
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding : 0 40px ;
+    
+  }
+
+  a{
+    text-decoration: none;
+    color: #f7feff;
+    margin-left: 2em;
+    letter-spacing: 1px;
+    font-size: 15px;
+    font-weight: 700; 
+
+    &:hover{
+      color: rgb(255, 65, 65);
+    }
+  }
+
+  .logo-wrap{
+    width: 50px;
+    margin: 0px; 
+    
+    .logo{
+      width:100%;
+    }
+  }
+}
+
+
