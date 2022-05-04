@@ -1,9 +1,9 @@
 .header{
   height: 60px;
   background : linear-gradient(0.3turn , #F5A06B, #E07E58, #FF7859);
-
   position: sticky;
   top: 0;
+  z-index: 3;
 
   .header-container{   
     display: flex;
