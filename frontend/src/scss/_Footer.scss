@@ -1,8 +1,8 @@
 .footer{
-  background-color: #ffc49623;
-  height: 300px;
   margin-top: 30px;
+  background-color: #ffc49623;  
 
+  
   .footer__inner{
     display: flex;
     flex-direction: column;
@@ -90,9 +90,11 @@
       background-color: #000;
       width: 100%;
       color: #fff;
+      border-top: 1px solid #fff;
+
 
       .copyright__text{
-        font-size: 15px;
+        font-size: 14px;
         padding: 10px;
       }
     }
