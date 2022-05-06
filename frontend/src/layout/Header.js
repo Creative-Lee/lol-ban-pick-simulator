@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container, Row} from 'react-bootstrap'
+import {Container} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
 export default function Header() {
@@ -10,7 +10,7 @@ export default function Header() {
           <img className='logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/KWANGDONG.png`} />
         </Link>
         <Link to="/board">Ban-Pick</Link >
-        <Link to="/statistics">Match analysis</Link >
+        <Link to="/analysis">Match analysis</Link >
       </Container>
     </header>
     

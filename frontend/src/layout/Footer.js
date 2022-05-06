@@ -1,5 +1,6 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React from 'react'
-import {Container, Row} from 'react-bootstrap'
+import {Container} from 'react-bootstrap'
 
 
 export default function Footer() {
@@ -21,18 +22,18 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer__etc">
-          <p className="etc__contact">
+          <div className="etc__contact">
             <h1>CONTACT</h1>
-            <h2>EMAIL :</h2>
+            <h2>Email :</h2>
             <span>spirit777@gmail.com</span>
-            <h2>PHONE :</h2>
+            <h2>Phone :</h2>
             <span>010-1234-5678</span>
-            <h2>INSTAGRAM :</h2>
+            <h2>Instagram :</h2>
             <a href="https://www.instagram.com/kdf_lol/" target="_blank">
               <span>@kdf_lol</span>
             </a>
-          </p>
-          <p className="etc__partners">
+          </div>
+          <div className="etc__partners">
             <h1>PARTNERS</h1>
             <h2>Thanks for :</h2>
             <a href="http://www.ekdp.com/main/main.asp" target="_blank">
@@ -47,7 +48,7 @@ export default function Footer() {
             <a href="https://shop.descentekorea.co.kr/index.do" target="_blank">
               <span>le coq sportif</span> 
             </a>  
-          </p>
+          </div>
         </div>
         <div className="footer__copyright">
           <span className="copyright__text">

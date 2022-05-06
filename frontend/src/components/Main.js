@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React from 'react'
 import { Container } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
@@ -7,11 +8,11 @@ export default function Main() {
     <Container id="main-container">
       <div className="main-banner-wrap">
         <a href="http://freecs.gg/main/main.html" target='_blank'>
-          <img className="main-banner" src={`${process.env.PUBLIC_URL}/assets/useful/KWANGDONG_banner.jpg`}/>
+          <img className="main-banner" alt="main-banner" src={`${process.env.PUBLIC_URL}/assets/useful/KWANGDONG_banner.jpg`}/>
         </a>
       </div>
       <div className="spirit-img-wrap">
-        <img className="spirit-img" src={`${process.env.PUBLIC_URL}/assets/useful/spirit_coach_blur.png`}/>
+        <img className="spirit-img" alt="spirit-img" src={`${process.env.PUBLIC_URL}/assets/useful/spirit_coach_blur.png`}/>
         <div className="text-wrap">
           <span className="spirit__text">SPIRIT</span>
           <span className="spirit__text">KING IS BACK</span>

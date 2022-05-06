@@ -9,7 +9,13 @@ export default function Board({recentVersion, championDataList}) {
       <Row className='board-top'>
         <Col className="team1">
           <div className='team1__title'>
-            team1
+            <select className="team1__select">
+              <option>Select Team!</option>
+              <option>Select Team!</option>
+              <option>Select Team!</option>
+              <option>Select Team!</option>
+              <option>Select Team!</option>
+            </select>
           </div>
           <div className='team1__logo'>
             team1 logo
