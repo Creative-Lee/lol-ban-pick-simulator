@@ -34,3 +34,10 @@ td,th{
 a{
   text-decoration: none;
 }
+select{
+  -webkit-appearance: none;  /* 네이티브 외형 감추기 */
+  -moz-appearance: none;
+  appearance: none;
+}
+
+

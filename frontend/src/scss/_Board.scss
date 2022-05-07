@@ -1,17 +1,108 @@
-.board-top{
+.ban-pick-board{
+  color: #fff;
+  position: relative;
+
+  &::after{
+    content:"";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url(../img/wallpaper.jpg);
+    background-size: cover;
+    opacity: 0.9;
+    z-index: -1;
+  }   
+
+  &::before{
+    content:"";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #000, #fff 50% ,#fff 50% , #000);
+    opacity: 1;
+    z-index: -1;
+  } 
+}
+.board-top{ 
+  position: relative;
+
+
+
+  &::before{
+    content:"";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%; 
+    width: 100%;
+    background: linear-gradient(90deg, #000000, transparent , #000000);
+    opacity: 1;
+    z-index: -1;
+  } 
+
   .team1,
   .team2,
   .match-info{
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    border : solid 1px #2f2f2f;
+    justify-content: space-around;    
   }
 
+  .team1{
+    .team1__logo{
+      width : 20%
+    }
+  }
+
+  .team2{
+    .team2__logo{
+      width : 20%
+    }
+  }
+  .logo{
+    width : 100%;
+    padding: 10px
+  }
+  
+  .team1__name{
+    position: relative;
+    .ululul{     
+      position: absolute;
+      top: 0;
+      left: 0;
+    
+      .lilili{
+        width : 50px;
+        background-color: #fff;
+      }
+    }
+  }
+  
+
+  .team__select{
+    color: #fff;
+    text-align: center;
+    font-size : 40px;
+    background-color: transparent;
+    border: none;
+    
+    .option{
+      background-color: black;      
+    }
+  }
   .match-info{
     flex-direction: column;
   }
 }
+
+
 
 .board-middle{
   .team1__summoners,
@@ -19,7 +110,6 @@
   .todays-goal{
     display: flex;
     flex-direction: column;    
-    border : solid 1px #2f2f2f;
   }
 
   .todays-goal{
