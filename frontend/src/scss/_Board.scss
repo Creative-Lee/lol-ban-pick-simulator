@@ -31,9 +31,7 @@
 }
 .board-top{ 
   position: relative;
-
-
-
+  
   &::before{
     content:"";
     display: block;
@@ -45,46 +43,44 @@
     background: linear-gradient(90deg, #000000, transparent , #000000);
     opacity: 1;
     z-index: -1;
-  } 
+  }
 
   .team1,
   .team2,
   .match-info{
     display: flex;
     align-items: center;
-    justify-content: space-around;    
-  }
-
-  .team1{
-    .team1__logo{
-      width : 20%
-    }
-  }
-
-  .team2{
-    .team2__logo{
-      width : 20%
-    }
-  }
-  .logo{
-    width : 100%;
-    padding: 10px
-  }
-  
-  .team1__name{
-    position: relative;
-    .ululul{     
-      position: absolute;
-      top: 0;
-      left: 0;
+    justify-content: space-around;  
     
-      .lilili{
-        width : 50px;
-        background-color: #fff;
-      }
-    }
+    &:hover{
+      background-color: #bcbcbc78
+    }  
   }
   
+  .team1{
+    flex: 2 1;
+
+    .team1__logo{
+      width : 25%
+    }
+  }
+  .team2{
+    flex: 2 1;
+
+    .team2__logo{
+      width : 25%
+    }
+  }
+  .match-info{
+    flex: 1 0 ;
+    flex-direction: column;
+
+  }  
+}
+
+.team1__name,
+.team2__name{  
+  position: relative;
 
   .team__select{
     color: #fff;
@@ -93,15 +89,22 @@
     background-color: transparent;
     border: none;
     
+    
     .option{
       background-color: black;      
     }
   }
-  .match-info{
-    flex-direction: column;
-  }
 }
 
+
+
+
+.logo{
+  width : 100%;
+  padding: 10px
+}
+
+  
 
 
 .board-middle{
