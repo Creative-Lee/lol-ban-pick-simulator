@@ -1,21 +1,36 @@
 import React,{ useState } from 'react'
-import { useSelect } from 'downshift'
 import { Container, Row, Col } from 'react-bootstrap'
 
 export default function Board({recentVersion, championDataList}) {
 
-  const [team1, setTeam1] = useState('')
-  const [team2, setTeam2] = useState('')
+  const [selectedTeam1, setSelectedTeam1] = useState('')
+  const [isTeam1MenuOpen, setIsTeam1MenuOpen] = useState(false)
+  const [selectedTeam2, setSelectedTeam2] = useState('')
+  const [isTeam2MenuOpen, setisTeam2MenuOpen] = useState(false)
+  const [date, setDate] = useState('2022-00-00')
+  const [round, setRound] = useState('GAME 1')
   
   const teamArr = ['KDF', 'T1', 'DK' ,'BRO' , 'DRX', 'GEN', 'HLE', 'KT', 'LSB', 'NS']
+
+  
 
   return (
     <Container className='ban-pick-board'> 
       <Row className='board-top'>
-        <label className="team1">
+        <label className="team1" onClick={()=> setIsTeam1MenuOpen(!isTeam1MenuOpen)} >
           <div className='team1__name'>
-            <select className="team__select" defaultValue={'Select Team!'} onChange={e => setTeam1(e.target.value)}>
-              <option disabled>Select Team!</option>
+            <input id='team1' type='button' className='name__button' value={ selectedTeam1 ||  'Blue' } />             
+            <ul className="name__select" >
+            {isTeam1MenuOpen && teamArr.map((team, index) => (
+              <li className={`name__option`} key={index} onClick={()=> setSelectedTeam1(team)}> 
+                <img className='option__logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${team}.png`} />
+                <div>{team}</div>
+              </li>  
+              ))}
+            </ul>
+
+            {/* <select className="team__select" defaultValue={'Blue'} onChange={e => setTeam1(e.target.value)}>
+              <option disabled>Blue</option>
               {            
               teamArr.map((team, index)=> (
                 <option className="option" value={team} key={index}>
@@ -23,38 +38,42 @@ export default function Board({recentVersion, championDataList}) {
                 </option>)
               )
               }
-            </select>
+            </select> */}
           </div>
           <div className='team1__logo'> 
             {
-              team1 && <img className='logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${team1}.png`} />            
+              selectedTeam1 && <img className='logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${selectedTeam1}.png`} />            
             }
             {/* <img className='logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${team1}.png`} /> */}
           </div>
         </label>
 
         <Col className="match-info">
-          <div className="date">2022-05-07</div>
-          <div className="round">GAME 1</div>
+          <div className="date-wrap">
+            <input className='date' type='text' value={date} onChange={e=>setDate(e.target.value)} />
+          </div>
+          <div className="round-wrap">
+            <input className='round' type='text' value={round} onChange={e=>setRound(e.target.value)}/>         
+          </div>
         </Col>
 
         <label className="team2">
           <div className='team2__logo'>
             {
-              team2 && <img className='logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${team2}.png`} />            
+              selectedTeam2 && <img className='logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${selectedTeam2}.png`} />            
             }
             {/* <img className='logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${team2}.png`} />             */}
           </div>
-          <div className='team2__name'>            
-            <select className="team__select" defaultValue={'Select Team!'} onChange={e => setTeam2(e.target.value)}>
-              <option disabled>Select Team!</option>
+          {/* <div className='team2__name'>            
+            <select className="team__select" defaultValue={'Red'} onChange={e => setTeam2(e.target.value)}>
+              <option disabled>Red</option>
               {
-              teamArr.map(team =>{
-                return ( <option className="option" defaultValue={"KDF"}>{team}</option>)
+              teamArr.map((team, index) =>{
+                return ( <option className="option" defaultValue={"KDF"} key={index}> {team}</option>)
               })
               }
             </select>
-          </div>
+          </div> */}
         </label>
       </Row>
 

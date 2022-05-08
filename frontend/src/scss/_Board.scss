@@ -1,6 +1,9 @@
+$teamArr : (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
+
 .ban-pick-board{
   color: #fff;
   position: relative;
+  min-height: 700px;
 
   &::after{
     content:"";
@@ -11,7 +14,7 @@
     height: 100%;
     width: 100%;
     background-image: url(../img/wallpaper.jpg);
-    background-size: cover;
+    background-size:cover;
     opacity: 0.9;
     z-index: -1;
   }   
@@ -29,6 +32,7 @@
     z-index: -1;
   } 
 }
+
 .board-top{ 
   position: relative;
   
@@ -40,17 +44,16 @@
     left: 0;
     height: 100%; 
     width: 100%;
-    background: linear-gradient(90deg, #000000, transparent , #000000);
+    background: linear-gradient(90deg, #0026ff, transparent , #ff3831);
     opacity: 1;
     z-index: -1;
   }
 
   .team1,
-  .team2,
-  .match-info{
+  .team2{
     display: flex;
-    align-items: center;
-    justify-content: space-around;  
+    align-items: center; 
+    justify-content: center;  
     
     &:hover{
       background-color: #bcbcbc78
@@ -58,53 +61,102 @@
   }
   
   .team1{
+    cursor: pointer;
     flex: 2 1;
+    position: relative;
+
+    .team1__name{
+      position: relative;
+      margin : 0 20px;
+
+      .name__button{        
+        color: #fff;
+        text-align: center;
+        font-size : 36px;
+        background-color: transparent;
+        border: none; 
+      }
+      .name__select{
+        position: absolute;
+        left: 0;
+        top: 100%;
+        color: #fff;
+        font-size : 24px;
+        margin : 0;
+        padding: 0; 
+        min-width: 30px;
+        
+        .name__option{
+          display: flex;
+          align-items: center;
+          min-width: 30px;
+
+          .option__logo{
+            width : 60%;
+            padding: 10px;
+          }
+        }
+      }
+    }
 
     .team1__logo{
-      width : 25%
+      width : 20%
     }
   }
+
   .team2{
     flex: 2 1;
 
+    .team2__name{
+      margin : 0 20px;
+    }
+
     .team2__logo{
-      width : 25%
+      width : 20%
     }
   }
-  .match-info{
-    flex: 1 0 ;
-    flex-direction: column;
 
-  }  
-}
-
-.team1__name,
-.team2__name{  
-  position: relative;
-
-  .team__select{
-    color: #fff;
-    text-align: center;
-    font-size : 40px;
-    background-color: transparent;
-    border: none;
-    
-    
-    .option{
-      background-color: black;      
-    }
+  .logo{
+    padding: 10px
   }
-}
-
-
-
-
-.logo{
-  width : 100%;
-  padding: 10px
-}
 
   
+
+  // .team__select{
+  //   color: #fff;
+  //   text-align: center;
+  //   font-size : 36px;
+  //   background-color: transparent;
+  //   border: none;    
+    
+  //   .option{
+  //     background-color: black;      
+  //   }
+  // }
+
+  .match-info{
+    display: flex;
+    align-items: center;     
+    flex-direction: column;
+    justify-content: space-evenly;  
+
+    .date,
+    .round{
+      text-align: center;
+      border: none;
+      background-color: transparent;
+      color: #fff;
+
+      &:hover{
+        background-color: #bcbcbc78
+      }        
+    }
+    .round{
+      font-size: 20px;
+    }
+
+  } 
+}
 
 
 .board-middle{
