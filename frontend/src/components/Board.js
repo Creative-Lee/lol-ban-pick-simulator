@@ -17,14 +17,14 @@ export default function Board({recentVersion, championDataList}) {
   return (
     <Container className='ban-pick-board'> 
       <Row className='board-top'>
-        <label className="team1" onClick={()=> setIsTeam1MenuOpen(!isTeam1MenuOpen)} >
+        <label className="team1" onClick={()=> setIsTeam1MenuOpen(true)} >
           <div className='team1__name'>
-            <input id='team1' type='button' className='name__button' value={ selectedTeam1 ||  'Blue' } />             
+            <input type='button' className='name__button' value={ selectedTeam1 ||  'Blue' } />             
             <ul className="name__select" >
             {isTeam1MenuOpen && teamArr.map((team, index) => (
               <li className={`name__option`} key={index} onClick={()=> setSelectedTeam1(team)}> 
                 <img className='option__logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${team}.png`} />
-                <div>{team}</div>
+                <span className='option__span'>{team}</span>
               </li>  
               ))}
             </ul>
@@ -57,23 +57,33 @@ export default function Board({recentVersion, championDataList}) {
           </div>
         </Col>
 
-        <label className="team2">
+        <label className="team2" onClick={()=>setisTeam2MenuOpen(true)}>
           <div className='team2__logo'>
             {
               selectedTeam2 && <img className='logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${selectedTeam2}.png`} />            
             }
             {/* <img className='logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${team2}.png`} />             */}
           </div>
-          {/* <div className='team2__name'>            
-            <select className="team__select" defaultValue={'Red'} onChange={e => setTeam2(e.target.value)}>
+          
+          <div className='team2__name'>  
+            <input type='button' className='name__button' value={ selectedTeam2 ||  'Red' } />             
+            <ul className="name__select" >
+            {isTeam2MenuOpen && teamArr.map((team, index) => (
+              <li className={`name__option`} key={index} onClick={()=> setSelectedTeam2(team)}> 
+                <img className='option__logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${team}.png`} />
+                <span className='option__span'>{team}</span>
+              </li>  
+              ))}
+            </ul>         
+            {/* <select className="team__select" defaultValue={'Red'} onChange={e => setTeam2(e.target.value)}>
               <option disabled>Red</option>
               {
               teamArr.map((team, index) =>{
                 return ( <option className="option" defaultValue={"KDF"} key={index}> {team}</option>)
               })
               }
-            </select>
-          </div> */}
+            </select> */}
+          </div>
         </label>
       </Row>
 
