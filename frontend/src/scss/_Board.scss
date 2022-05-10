@@ -18,7 +18,6 @@ $teamArr : (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
   color: #fff;
   min-height: 700px;
 
-
   &::after{
     content:"";
     display: block;
@@ -45,203 +44,194 @@ $teamArr : (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     background: linear-gradient(90deg, #000, #fff 50% ,#fff 50% , #000);
     opacity: 1;
     z-index: -1;
-  }  
-}
-
-.board-top{ 
-  position: relative;
+  } 
   
-  &::before{
-    content:"";
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%; 
-    width: 100%;
-    background: linear-gradient(90deg, #0026ff, transparent , #ff3831);
-    opacity: 1;
-    z-index: -1;
-  }
-
-  .team1,
-  .team2{
-    display: flex;
-    align-items: center; 
-    justify-content: center;  
-    
-    &:hover{
-      background-color: #bcbcbc78
-    }  
-  }
-  
-  .team1{
+  .board-top{ 
     position: relative;
-    z-index: 1;
-    cursor: pointer;
-    flex: 2 1;
-
-    .team1__name{
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-
-      width : 100px;
-      height: 100%;
-
-      .name__button{        
-        color: #fff;
-        text-align: center;
-        font-size : 36px;
-        background-color: transparent;
-        border: none; 
-      }
-      .name__select{
-        position: absolute;
-        left: 20%;
-        top: 100%;
-        color: #fff;
-        font-size : 24px;
-        margin : 0;
-        padding: 0; 
-        width: 100%;
-        
-
-        .name__option{          
-          display: flex;
-          align-items: center;
-          border: solid 1px rgba(187, 187, 187, 0.151);
-          width: 100%;
-
-          &:hover{
-            background-color: #bcbcbc78
-          }  
-
-          .option__logo{
-            flex : 1 0;
-            width : 50px;
-            padding: 5px;
-          }
-
-          .option__span{
-            flex : 1 0;
-            font-size : 16px;
-          }
-        }
-      }
-    }
-
-    .team1__logo{
-      width : 20%
-    }
-  }
-
-  .team2{
-    position: relative;
-    z-index: 1;
-    cursor: pointer;
-    flex: 2 1;
-
-    .team2__name{
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-
-      width : 100px;
-      height: 100%;
-
-      .name__button{        
-        color: #fff;
-        text-align: center;
-        font-size : 36px;
-        background-color: transparent;
-        border: none; 
-      }
-      .name__select{
-        position: absolute;
-        right: 20%;
-        top: 100%;
-        color: #fff;
-        font-size : 24px;
-        margin : 0;
-        padding: 0; 
-        width: 100%;
-        
-
-        .name__option{          
-          display: flex;
-          align-items: center;
-          border: solid 1px rgba(187, 187, 187, 0.151);
-          width: 100%;
-
-          &:hover{
-            background-color: #bcbcbc78
-          }  
-
-          .option__logo{
-            flex : 1 0;
-            width : 50px;
-            padding: 5px;
-          }
-
-          .option__span{
-            flex : 1 0;
-            font-size : 16px;
-          }
-        }
-      }
-    }
-
-    .team2__logo{
-      width : 20%
-    }
-  }
-
-  .logo{
-    padding: 10px
-  }
-
-  
-
-  // .team__select{
-  //   color: #fff;
-  //   text-align: center;
-  //   font-size : 36px;
-  //   background-color: transparent;
-  //   border: none;    
+    flex-wrap: nowrap;
     
-  //   .option{
-  //     background-color: black;      
-  //   }
-  // }
-
-  .match-info{
-    display: flex;
-    align-items: center;     
-    flex-direction: column;
-    justify-content: space-evenly;  
-
-    .date,
-    .round{
-      text-align: center;
-      border: none;
-      background-color: transparent;
-      color: #fff;
-
+    &::before{
+      content:"";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%; 
+      width: 100%;
+      background: linear-gradient(90deg, #0026ff, transparent , #ff3831);
+      opacity: 1;
+      z-index: -1;
+    }
+  
+    .team1,
+    .team2{
+      display: flex;
+      align-items: center; 
+      justify-content: center;  
+      
       &:hover{
         background-color: #bcbcbc78
-      }        
+      }  
     }
-    .round{
-      font-size: 20px;
+    
+    .team1{
+      position: relative;
+      z-index: 1;
+      cursor: pointer;
+      flex: 2 1;
+  
+      .team1__name{
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+  
+        width : 100px;
+        height: 100%;
+  
+        .name__button{        
+          color: #fff;
+          text-align: center;
+          font-size : 36px;
+          background-color: transparent;
+          border: none; 
+        }
+        .name__select{
+          position: absolute;
+          left: 20%;
+          top: 100%;
+          color: #fff;
+          font-size : 24px;
+          margin : 0;
+          padding: 0; 
+          width: 100%;
+          
+  
+          .name__option{          
+            display: flex;
+            align-items: center;
+            border: solid 1px rgba(187, 187, 187, 0.151);
+            width: 100%;
+  
+            &:hover{
+              background-color: #bcbcbc78
+            }  
+  
+            .option__logo{
+              flex : 1 0;
+              width : 50px;
+              padding: 5px;
+            }
+  
+            .option__span{
+              flex : 1 0;
+              font-size : 16px;
+            }
+          }
+        }
+      }
+  
+      .team1__logo{
+        width : 20%
+      }
     }
-
-  } 
+  
+    .team2{
+      position: relative;
+      z-index: 1;
+      cursor: pointer;
+      flex: 2 1;
+  
+      .team2__name{
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+  
+        width : 100px;
+        height: 100%;
+  
+        .name__button{        
+          color: #fff;
+          text-align: center;
+          font-size : 36px;
+          background-color: transparent;
+          border: none; 
+        }
+        .name__select{  
+          position: absolute;
+          right: 20%;
+          top: 100%;
+          color: #fff;
+          font-size : 24px;
+          margin : 0;
+          padding: 0; 
+          width: 100%;
+          
+  
+          .name__option{
+            display: flex;
+            align-items: center;
+            border: solid 1px rgba(187, 187, 187, 0.151);
+            width: 100%;
+  
+            &:hover{
+              background-color: #bcbcbc78
+            }  
+  
+            .option__logo{
+              flex : 1 0;
+              width : 50px;
+              padding: 5px;
+            }
+  
+            .option__span{
+              flex : 1 0;
+              font-size : 16px;
+            }
+          }
+        }
+      }
+  
+      .team2__logo{
+        width : 20%
+      }
+    }
+  
+    .logo{
+      padding: 10px
+    }
+  
+    .match-info{
+      display: flex;
+      flex: 1 2 0;
+      align-items: center;     
+      flex-direction: column;
+      justify-content: space-evenly;  
+  
+      .date,
+      .round{
+        width: 100%;
+        text-align: center;
+        border: none;
+        background-color: transparent;
+        color: #fff;
+  
+        &:hover{
+          background-color: #bcbcbc78
+        }        
+      }
+      .round{
+        font-size: 20px;
+      }
+  
+    } 
+  }
 }
+
+
 
 
 .board-middle{

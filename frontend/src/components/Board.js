@@ -4,25 +4,55 @@ import { Container, Row, Col } from 'react-bootstrap'
 export default function Board({recentVersion, championDataList}) {
 
   const [selectedTeam1, setSelectedTeam1] = useState('')
-  const [isTeam1MenuOpen, setIsTeam1MenuOpen] = useState(false)
   const [selectedTeam2, setSelectedTeam2] = useState('')
-  const [isTeam2MenuOpen, setisTeam2MenuOpen] = useState(false)
   const [date, setDate] = useState('2022-00-00')
   const [round, setRound] = useState('GAME 1')
-  
+  const [isTeamSelectMenuOpen , setIsTeamSelectMenuOpen] = useState({
+    blue : false,
+    red : false
+  }) 
+
+  const toggleIsTeamSelectMenuOpen = teamColor => {
+    setIsTeamSelectMenuOpen(prevState=> ({...prevState , [teamColor] : !prevState[teamColor]}))
+    console.log('toggle')
+  }
+  const closeTeamSelectMenu = teamColor => {
+    setIsTeamSelectMenuOpen(prevState => ({...prevState , [teamColor] : false}))
+    console.log('close')
+  }
   const teamArr = ['KDF', 'T1', 'DK' ,'BRO' , 'DRX', 'GEN', 'HLE', 'KT', 'LSB', 'NS']
 
-  
+  // const teamSelectMenuController = (teamColor) => {
+  //   if(isTeamSelectMenuOpen[teamColor]){
+  //     setIsTeamSelectMenuOpen({...isTeamSelectMenuOpen, [teamColor] : false});
+  //     console.log(isTeamSelectMenuOpen[teamColor])
+  //     return
+  //   }
+  //   setIsTeamSelectMenuOpen({...isTeamSelectMenuOpen, [teamColor] : true});
+  //   console.log(isTeamSelectMenuOpen[teamColor])
+  // }
 
   return (
     <Container className='ban-pick-board'> 
       <Row className='board-top'>
-        <label className="team1" onClick={()=> setIsTeam1MenuOpen(true)} >
+        <label  className="team1">
           <div className='team1__name'>
-            <input type='button' className='name__button' value={ selectedTeam1 ||  'Blue' } />             
-            <ul className="name__select" >
-            {isTeam1MenuOpen && teamArr.map((team, index) => (
-              <li className={`name__option`} key={index} onClick={()=> setSelectedTeam1(team)}> 
+            <input  type='button' className='name__button'
+            onClick={()=>{
+              toggleIsTeamSelectMenuOpen('blue')              
+            }}           
+            onBlur={()=>{
+              closeTeamSelectMenu('blue')              
+            }}           
+            value={ selectedTeam1 ||  'Blue' } 
+            />             
+            <ul className="name__select">
+            {isTeamSelectMenuOpen.blue && teamArr.map((team, index) => (
+              <li className={`name__option`} key={index} 
+              onMouseDown={()=> {
+                setSelectedTeam1(team) ; console.log('selected')
+              }}
+              > 
                 <img className='option__logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${team}.png`} />
                 <span className='option__span'>{team}</span>
               </li>  
@@ -57,7 +87,7 @@ export default function Board({recentVersion, championDataList}) {
           </div>
         </Col>
 
-        <label className="team2" onClick={()=>setisTeam2MenuOpen(true)}>
+        <label className="team2" >
           <div className='team2__logo'>
             {
               selectedTeam2 && <img className='logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${selectedTeam2}.png`} />            
@@ -66,10 +96,20 @@ export default function Board({recentVersion, championDataList}) {
           </div>
           
           <div className='team2__name'>  
-            <input type='button' className='name__button' value={ selectedTeam2 ||  'Red' } />             
+          <input type='button' className='name__button'
+            onClick={()=>{
+              toggleIsTeamSelectMenuOpen('red')              
+            }}           
+            onBlur={()=>{
+              closeTeamSelectMenu('red')              
+            }}           
+            value={ selectedTeam2 ||  'Red' } 
+            />                       
             <ul className="name__select" >
-            {isTeam2MenuOpen && teamArr.map((team, index) => (
-              <li className={`name__option`} key={index} onClick={()=> setSelectedTeam2(team)}> 
+            {isTeamSelectMenuOpen.red && teamArr.map((team, index) => (
+              <li className={`name__option`} key={index}
+              onMouseDown={()=> setSelectedTeam2(team)}
+              > 
                 <img className='option__logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${team}.png`} />
                 <span className='option__span'>{team}</span>
               </li>  

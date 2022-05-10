@@ -1,5 +1,8 @@
 {
   "cSpell.words": [
     "KWANGDONG"
-  ]
+  ],
+  "editor.formatOnSave": true,
+  "editor.rename.enablePreview": true,
+  "workbench.editor.enablePreview": false
 }
