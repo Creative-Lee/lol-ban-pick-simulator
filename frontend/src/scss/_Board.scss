@@ -26,7 +26,7 @@ $teamArr : (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     left: 0;
     height: 100%;
     width: 100%;
-    background-image: url(../img/wallpaper.jpg);
+    background-image: url(../img/board_background.jpg);
     background-size:cover;
     opacity: 0.9;
     z-index: -1;
@@ -63,8 +63,8 @@ $teamArr : (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       z-index: -1;
     }
   
-    .team1,
-    .team2{
+    .blue-team,
+    .red-team{
       display: flex;
       align-items: center; 
       justify-content: center;  
@@ -74,13 +74,13 @@ $teamArr : (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       }  
     }
     
-    .team1{
+    .blue-team{
       position: relative;
       z-index: 1;
       cursor: pointer;
       flex: 2 1;
   
-      .team1__name{
+      .blue-team__name{
         position: relative;
         display: flex;
         align-items: center;
@@ -132,18 +132,18 @@ $teamArr : (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         }
       }
   
-      .team1__logo{
+      .blue-team__logo{
         width : 20%
       }
     }
   
-    .team2{
+    .red-team{
       position: relative;
       z-index: 1;
       cursor: pointer;
       flex: 2 1;
   
-      .team2__name{
+      .red-team__name{
         position: relative;
         display: flex;
         align-items: center;
@@ -195,7 +195,7 @@ $teamArr : (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         }
       }
   
-      .team2__logo{
+      .red-team__logo{
         width : 20%
       }
     }
@@ -235,8 +235,8 @@ $teamArr : (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 
 
 .board-middle{
-  .team1__summoners,
-  .team2__summoners,
+  .blue-team__summoners,
+  .red-team__summoners,
   .todays-goal{
     display: flex;
     flex-direction: column;    
@@ -246,7 +246,7 @@ $teamArr : (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     align-items: center;
   }
 
-  .team2__summoners{
+  .red-team__summoners{
     text-align: right;
     align-items: flex-end;
   }

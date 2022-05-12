@@ -1,16 +1,20 @@
-import React,{ useState } from 'react'
+import React,{ useEffect, useState , useMemo} from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 
-export default function Board({recentVersion, championDataList}) {
+export default function Board({recentVersion, championDataList}) {  
 
-  const [selectedTeam1, setSelectedTeam1] = useState('')
-  const [selectedTeam2, setSelectedTeam2] = useState('')
+  const [isSimulationInProgress, setIsSimulationInProgress] = useState(true)
+  const [selectedBlueTeam, setSelectedBlueTeam] = useState('')
+  const [selectedRedTeam, setSelectedRedTeam] = useState('')
   const [date, setDate] = useState('2022-00-00')
   const [round, setRound] = useState('GAME 1')
   const [isTeamSelectMenuOpen , setIsTeamSelectMenuOpen] = useState({
     blue : false,
     red : false
   }) 
+
+  const squareImgUrl = `http://ddragon.leagueoflegends.com/cdn/${recentVersion}/img/champion/Aatrox.png`
+  const splashImgUrl = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg`
 
   const toggleIsTeamSelectMenuOpen = teamColor => {
     setIsTeamSelectMenuOpen(prevState=> ({...prevState , [teamColor] : !prevState[teamColor]}))
@@ -22,21 +26,22 @@ export default function Board({recentVersion, championDataList}) {
   }
   const teamArr = ['KDF', 'T1', 'DK' ,'BRO' , 'DRX', 'GEN', 'HLE', 'KT', 'LSB', 'NS']
 
-  // const teamSelectMenuController = (teamColor) => {
-  //   if(isTeamSelectMenuOpen[teamColor]){
-  //     setIsTeamSelectMenuOpen({...isTeamSelectMenuOpen, [teamColor] : false});
-  //     console.log(isTeamSelectMenuOpen[teamColor])
-  //     return
-  //   }
-  //   setIsTeamSelectMenuOpen({...isTeamSelectMenuOpen, [teamColor] : true});
-  //   console.log(isTeamSelectMenuOpen[teamColor])
-  // }
+  useEffect(() => {
+    console.log(championDataList)
+  },[])
 
-  return (
+  return (    
+    /*     
+    {
+      isTeamSelected ? <></> : <></>
+      추후에 팀 선택 화면과 기존 밴픽보드 창을 나누어 개발예정
+      존재하는 모든 팀을 검색조건하에 선택 후 밴픽 보드로 넘어가게!      
+    } 
+    */
     <Container className='ban-pick-board'> 
       <Row className='board-top'>
-        <label  className="team1">
-          <div className='team1__name'>
+        <label className="blue-team">
+          <div className='blue-team__name'>
             <input  type='button' className='name__button'
             onClick={()=>{
               toggleIsTeamSelectMenuOpen('blue')              
@@ -44,13 +49,13 @@ export default function Board({recentVersion, championDataList}) {
             onBlur={()=>{
               closeTeamSelectMenu('blue')              
             }}           
-            value={ selectedTeam1 ||  'Blue' } 
+            value={ selectedBlueTeam ||  'Blue' } 
             />             
             <ul className="name__select">
             {isTeamSelectMenuOpen.blue && teamArr.map((team, index) => (
               <li className={`name__option`} key={index} 
               onMouseDown={()=> {
-                setSelectedTeam1(team) ; console.log('selected')
+                setSelectedBlueTeam(team) ; console.log('selected')
               }}
               > 
                 <img className='option__logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${team}.png`} />
@@ -58,23 +63,11 @@ export default function Board({recentVersion, championDataList}) {
               </li>  
               ))}
             </ul>
-
-            {/* <select className="team__select" defaultValue={'Blue'} onChange={e => setTeam1(e.target.value)}>
-              <option disabled>Blue</option>
-              {            
-              teamArr.map((team, index)=> (
-                <option className="option" value={team} key={index}>
-                  {team}
-                </option>)
-              )
-              }
-            </select> */}
           </div>
-          <div className='team1__logo'> 
+          <div className='blue-team__logo'> 
             {
-              selectedTeam1 && <img className='logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${selectedTeam1}.png`} />            
+              selectedBlueTeam && <img className='logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${selectedBlueTeam}.png`} />            
             }
-            {/* <img className='logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${team1}.png`} /> */}
           </div>
         </label>
 
@@ -87,15 +80,14 @@ export default function Board({recentVersion, championDataList}) {
           </div>
         </Col>
 
-        <label className="team2" >
-          <div className='team2__logo'>
+        <label className="red-team" >
+          <div className='red-team__logo'>
             {
-              selectedTeam2 && <img className='logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${selectedTeam2}.png`} />            
+              selectedRedTeam && <img className='logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${selectedRedTeam}.png`} />            
             }
-            {/* <img className='logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${team2}.png`} />             */}
           </div>
           
-          <div className='team2__name'>  
+          <div className='red-team__name'>  
           <input type='button' className='name__button'
             onClick={()=>{
               toggleIsTeamSelectMenuOpen('red')              
@@ -103,33 +95,25 @@ export default function Board({recentVersion, championDataList}) {
             onBlur={()=>{
               closeTeamSelectMenu('red')              
             }}           
-            value={ selectedTeam2 ||  'Red' } 
+            value={ selectedRedTeam ||  'Red' } 
             />                       
             <ul className="name__select" >
             {isTeamSelectMenuOpen.red && teamArr.map((team, index) => (
               <li className={`name__option`} key={index}
-              onMouseDown={()=> setSelectedTeam2(team)}
+              onMouseDown={()=> setSelectedRedTeam(team)}
               > 
                 <img className='option__logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${team}.png`} />
                 <span className='option__span'>{team}</span>
               </li>  
               ))}
             </ul>         
-            {/* <select className="team__select" defaultValue={'Red'} onChange={e => setTeam2(e.target.value)}>
-              <option disabled>Red</option>
-              {
-              teamArr.map((team, index) =>{
-                return ( <option className="option" defaultValue={"KDF"} key={index}> {team}</option>)
-              })
-              }
-            </select> */}
           </div>
         </label>
       </Row>
 
       <Row className='board-middle'>
-        <Col className="team1__summoners">
-          <div className="summoner1">
+        <Col className="blue-team__summoners">
+          <div className="summoner first">
             <div className="champion">
               champion1 img
             </div>
@@ -141,7 +125,9 @@ export default function Board({recentVersion, championDataList}) {
               player
             </div>
           </div>
-          <div className="summoner2">
+
+
+          <div className="summoner second">
             <div className="champion">
               champion1 img
             </div>
@@ -153,7 +139,7 @@ export default function Board({recentVersion, championDataList}) {
               player
             </div>
           </div>
-          <div className="summoner3">
+          <div className="summoner third">
             <div className="champion">
               champion1 img
             </div>
@@ -165,7 +151,7 @@ export default function Board({recentVersion, championDataList}) {
               player
             </div>
           </div>
-          <div className="summoner4">
+          <div className="summoner forth">
             <div className="champion">
               champion1 img
             </div>
@@ -177,7 +163,7 @@ export default function Board({recentVersion, championDataList}) {
               player
             </div>
           </div>
-          <div className="summoner5">
+          <div className="summoner fifth">
             <div className="champion">
               champion1 img
             </div>
@@ -191,17 +177,35 @@ export default function Board({recentVersion, championDataList}) {
           </div>
         </Col>
 
+        {
+        isSimulationInProgress 
+        ? 
+        <Col className="champion-select-board">
+          <div className="select-option">
+            <div className="champions-main-lane">
+              
+            </div>
+            <div className="champions-search">
+
+            </div>
+          </div>
+          <div className="champions"></div>
+          <div className=""></div>
+        </Col>
+        : 
         <Col className="todays-goal">
           <h4>
             title
           </h4>
           <div>
             Today's Goal
-          </div>
+          </div>         
         </Col>
+        }
+        
 
-        <Col className="team2__summoners">
-        <div className="summoner1">
+        <Col className="red-team__summoners">
+        <div className="summoner first">
             <div className="champion">
               champion1 img
             </div>
@@ -213,7 +217,7 @@ export default function Board({recentVersion, championDataList}) {
               player
             </div>
           </div>
-          <div className="summoner2">
+          <div className="summoner second">
             <div className="champion">
               champion1 img
             </div>
@@ -225,7 +229,7 @@ export default function Board({recentVersion, championDataList}) {
               player
             </div>
           </div>
-          <div className="summoner3">
+          <div className="summoner third">
             <div className="champion">
               champion1 img
             </div>
@@ -237,7 +241,7 @@ export default function Board({recentVersion, championDataList}) {
               player
             </div>
           </div>
-          <div className="summoner4">
+          <div className="summoner forth">
             <div className="champion">
               champion1 img
             </div>
@@ -249,7 +253,7 @@ export default function Board({recentVersion, championDataList}) {
               player
             </div>
           </div>
-          <div className="summoner5">
+          <div className="summoner fifth">
             <div className="champion">
               champion1 img
             </div>
@@ -267,12 +271,12 @@ export default function Board({recentVersion, championDataList}) {
       <Row className='board-bottom'>
         <Col>
           <div>
-            team1 벤3마리
+            blue-team 벤3마리
           </div>
           <div>
-            team1 벤2마리
+            blue-team 벤2마리
           </div>
-        </Col>
+        </Col>  
         
         <Col>
           <div>
@@ -282,10 +286,10 @@ export default function Board({recentVersion, championDataList}) {
 
         <Col>
           <div>
-            team2 벤3마리
+            red-team 벤3마리
           </div>
           <div>
-            team2 벤2마리
+            red-team 벤2마리
           </div>
         </Col>
       </Row>

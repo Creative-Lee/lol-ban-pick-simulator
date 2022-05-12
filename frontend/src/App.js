@@ -1,52 +1,52 @@
-
-import React, {useState , useEffect} from 'react';
+import React, {useState , useEffect, useRef} from 'react';
 import {Routes, Route, Link } from 'react-router-dom'
 
-import { Board, Main } from './components'
-import Layout from './layout/Layout'
-
+import {Board, Main, Layout} from './components'
 
 import './App.scss'
 import axios from 'axios';
 
 export default function App() {
 
-  const [recentVersion , setRecentVersion] = useState('')
+  const [recentVersion, setRecentVersion] = useState('') 
   const [championDataList, setChampionDataList] = useState({});
-  const [isMount, setIsMount] = useState(false);
+  const isMounted = useRef(false)
 
-  const getRecentVersion = () => {
-    axios.get('https://ddragon.leagueoflegends.com/api/versions.json')
-    .then(result => {
-      const versionList = result.data 
-      console.log(versionList) 
-      setRecentVersion(versionList[0])  
-    })
-    .catch(e=> console.log(e))
+  const getRecentVersion = async () => {
+    try{
+      const response = await axios.get('https://ddragon.leagueoflegends.com/api/versions.json')
+      const versionList = response.data
+      setRecentVersion(versionList[0])
+      console.log(versionList[0])
+    }
+    catch(err){ 
+      console.log(err)
+    }
   }
 
-  const getChampionData = () => {
-    axios.get(`http://ddragon.leagueoflegends.com/cdn/${recentVersion}/data/ko_KR/champion.json`)
-    .then(result => {
-      let championData = result.data.data
-      console.log(championData)
-      setChampionDataList(championData)      
-    })
-    .catch(e=> console.log(e))
+  const getChampionData = async () => {
+    try{ 
+      const response = await axios.get(`http://ddragon.leagueoflegends.com/cdn/${recentVersion}/data/ko_KR/champion.json`)
+      const championData = response.data.data
+      setChampionDataList(championData)
+      console.log(championData);
+    }
+    catch(err){
+      console.log(err)
+    }
   }
-
-
-  // const imgUrl = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championNameList[0]}_0.jpg`
 
   useEffect(()=> {
-    getRecentVersion()    
-    setIsMount(true);
-  },[])
-  
+    getRecentVersion()     
+  },[])   
+
   useEffect(()=>{
-    if(isMount){
-      getChampionData()
-    }    
+    if(isMounted.current){
+      getChampionData();
+    }
+    else{
+      isMounted.current = true 
+    }
   },[recentVersion])
 
   return (  
