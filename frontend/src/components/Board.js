@@ -26,9 +26,9 @@ export default function Board({recentVersion, championDataList}) {
   }
   const teamArr = ['KDF', 'T1', 'DK' ,'BRO' , 'DRX', 'GEN', 'HLE', 'KT', 'LSB', 'NS']
 
-  useEffect(() => {
-    console.log(championDataList)
-  },[])
+  // useEffect(() => {
+  //   console.log(championDataList)
+  // },[])
 
   return (    
     /*     

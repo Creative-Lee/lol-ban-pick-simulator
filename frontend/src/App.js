@@ -1,10 +1,10 @@
-import React, {useState , useEffect, useRef} from 'react';
-import {Routes, Route, Link } from 'react-router-dom'
+import React, {useState , useEffect, useRef, useLayoutEffect} from 'react';
+import {Routes, Route, Link} from 'react-router-dom'
 
 import {Board, Main, Layout} from './components'
+import {getChampionDataList, getRecentVersion} from './apis/get'
 
 import './App.scss'
-import axios from 'axios';
 
 export default function App() {
 
@@ -12,42 +12,21 @@ export default function App() {
   const [championDataList, setChampionDataList] = useState({});
   const isMounted = useRef(false)
 
-  const getRecentVersion = async () => {
-    try{
-      const response = await axios.get('https://ddragon.leagueoflegends.com/api/versions.json')
-      const versionList = response.data
-      setRecentVersion(versionList[0])
-      console.log(versionList[0])
-    }
-    catch(err){ 
-      console.log(err)
-    }
-  }
-
-  const getChampionData = async () => {
-    try{ 
-      const response = await axios.get(`http://ddragon.leagueoflegends.com/cdn/${recentVersion}/data/ko_KR/champion.json`)
-      const championData = response.data.data
-      setChampionDataList(championData)
-      console.log(championData);
-    }
-    catch(err){
-      console.log(err)
-    }
-  }
-
-  useEffect(()=> {
-    getRecentVersion()     
+  useEffect(() => {
+    getRecentVersion()
+    .then(response => setRecentVersion(response))
   },[])   
 
-  useEffect(()=>{
+  useEffect(() => {
     if(isMounted.current){
-      getChampionData();
+      getChampionDataList(recentVersion)
+      .then(response => setChampionDataList(response)) 
     }
     else{
       isMounted.current = true 
     }
   },[recentVersion])
+
 
   return (  
     <div className="App">
