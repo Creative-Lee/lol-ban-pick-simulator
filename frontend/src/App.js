@@ -1,31 +1,33 @@
 import React, {useState , useEffect, useRef, useLayoutEffect} from 'react';
-import {Routes, Route, Link} from 'react-router-dom'
+import {Routes, Route} from 'react-router-dom'
 
 import {Board, Main, Layout} from './components'
-import {getChampionDataList, getRecentVersion} from './apis/get'
+import {getAscendingChampionDataList, getRecentVersion} from './apis/get'
 
 import './App.scss'
 
 export default function App() {
 
   const [recentVersion, setRecentVersion] = useState('') 
-  const [championDataList, setChampionDataList] = useState({});
+  const [ascendingChampionDataList, setAscendingChampionDataList] = useState([]);
   const isMounted = useRef(false)
 
   useEffect(() => {
     getRecentVersion()
     .then(response => setRecentVersion(response))
-  },[])   
+  },[])
 
   useEffect(() => {
     if(isMounted.current){
-      getChampionDataList(recentVersion)
-      .then(response => setChampionDataList(response)) 
+      getAscendingChampionDataList(recentVersion)
+      .then(response => setAscendingChampionDataList(response)) 
     }
     else{
       isMounted.current = true 
     }
   },[recentVersion])
+
+
 
 
   return (  
@@ -36,7 +38,7 @@ export default function App() {
             <Main />
           }/>
           <Route path="board" element={
-            <Board recentVersion={recentVersion} championDataList={championDataList}/>
+            <Board recentVersion={recentVersion} ascendingChampionDataList={ascendingChampionDataList}/>
           }/>
         </Route>
       </Routes>

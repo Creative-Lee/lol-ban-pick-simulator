@@ -1,7 +1,8 @@
 import React,{ useEffect, useState , useMemo} from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
+import {TOP,JGL,MID,BOT,SUP} from '../img/position_icon'
 
-export default function Board({recentVersion, championDataList}) {  
+export default function Board({recentVersion, ascendingChampionDataList}) {  
 
   const [isSimulationInProgress, setIsSimulationInProgress] = useState(true)
   const [selectedBlueTeam, setSelectedBlueTeam] = useState('')
@@ -12,6 +13,8 @@ export default function Board({recentVersion, championDataList}) {
     blue : false,
     red : false
   }) 
+
+  const [selectedChampion, setSelectedChampion] = useState([])
 
   const squareImgUrl = `http://ddragon.leagueoflegends.com/cdn/${recentVersion}/img/champion/Aatrox.png`
   const splashImgUrl = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg`
@@ -26,9 +29,7 @@ export default function Board({recentVersion, championDataList}) {
   }
   const teamArr = ['KDF', 'T1', 'DK' ,'BRO' , 'DRX', 'GEN', 'HLE', 'KT', 'LSB', 'NS']
 
-  // useEffect(() => {
-  //   console.log(championDataList)
-  // },[])
+  
 
   return (    
     /*     
@@ -112,7 +113,7 @@ export default function Board({recentVersion, championDataList}) {
       </Row>
 
       <Row className='board-middle'>
-        <Col className="blue-team__summoners">
+        <div className="blue-team__summoners">
           <div className="summoner first">
             <div className="champion">
               champion1 img
@@ -125,8 +126,6 @@ export default function Board({recentVersion, championDataList}) {
               player
             </div>
           </div>
-
-
           <div className="summoner second">
             <div className="champion">
               champion1 img
@@ -175,36 +174,51 @@ export default function Board({recentVersion, championDataList}) {
               player
             </div>
           </div>
-        </Col>
+        </div>
 
         {
         isSimulationInProgress 
         ? 
-        <Col className="champion-select-board">
-          <div className="select-option">
-            <div className="champions-main-lane">
-              
+        <div className="champion-select-board">
+          <div className="champion__select-option">
+            <div className="main-lane">
+              <img id="top" className="lane-icon" alt="main-lane-top-icon" src={TOP}/>
+              <img id="jgl" className="lane-icon" alt="main-lane-jgl-icon" src={JGL}/>
+              <img id="mid" className="lane-icon" alt="main-lane-mid-icon" src={MID}/>
+              <img id="bot" className="lane-icon" alt="main-lane-bot-icon" src={BOT}/>
+              <img id="sup" className="lane-icon" alt="main-lane-sup-icon" src={SUP}/>
             </div>
-            <div className="champions-search">
-
+            <div className="search">
+              돋보기 아이콘과 인풋 자리
             </div>
           </div>
-          <div className="champions"></div>
-          <div className=""></div>
-        </Col>
+          <div className="champions">
+            {
+              ascendingChampionDataList.map((championData, index) =>(
+                <div className="champion__card">
+                  <img className="champion__img" key={index} alt={championData.id} src={`http://ddragon.leagueoflegends.com/cdn/${recentVersion}/img/champion/${championData.id}.png`}/>
+                  <small className="champion__name">{championData.name}</small>
+                </div>
+              ))
+            } 
+          </div>
+          <div className="champion__select-button">
+            <input type="button" value='선택하기'/>
+          </div>
+        </div>
         : 
-        <Col className="todays-goal">
+        <div className="todays-goal">
           <h4>
             title
           </h4>
           <div>
             Today's Goal
           </div>         
-        </Col>
+        </div>
         }
         
 
-        <Col className="red-team__summoners">
+        <div className="red-team__summoners">
         <div className="summoner first">
             <div className="champion">
               champion1 img
@@ -265,7 +279,7 @@ export default function Board({recentVersion, championDataList}) {
               player
             </div>
           </div>
-        </Col>
+        </div>
       </Row>
 
       <Row className='board-bottom'>
