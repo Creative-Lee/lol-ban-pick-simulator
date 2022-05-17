@@ -26,7 +26,7 @@ export const getAscendingChampionDataList = async (recentVersion) => {
       //   ? 1 
       //   : 0
     })
-    
+    console.log(ascendingChampionDataList)
     return ascendingChampionDataList
   }
   catch(err){

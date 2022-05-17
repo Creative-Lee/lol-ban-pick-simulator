@@ -253,7 +253,11 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
   .champion-select-board{
     flex: 1.5 0;
     width: 100%;
-  
+    align-items: center;
+    margin-top: 10px;
+    border-left: 5px solid rgba(0, 0, 0, 0.3);
+    border-right: 5px solid rgba(0, 0, 0, 0.3);
+
     .champion__select-option{
       display: flex;
       flex-direction: row;
@@ -279,20 +283,21 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       flex-direction: row;
       flex-wrap: wrap;
       gap: 0px 8px;
-      overflow: auto;
-      
+      overflow: auto;      
       height: 50vh;
       
       .champion__card{
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 4vw;
+        width: 55px;
         margin: 5px 0;
         cursor: pointer;
 
-        
-        
+        &:hover{            
+          opacity: 0.4;
+        }
+
         .champion__name{
           width: 100%;
           text-align: center;
@@ -303,18 +308,24 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
           text-overflow : ellipsis;
           white-space: nowrap;
         }
-        
-        .champion__img{
-          background-color: #000;
-          
-          &:hover{            
-            opacity: 0.3;
-          }
-        }
       }
     }
   
-  
+    .champion__select-button{
+      width: 300px;
+      height: 50px;
+      margin-top: 20px;
+      border : none;
+      border-radius : 7px;
+      color : #fff;
+      letter-spacing: 1px;
+      background-color: #00000093;
+      
+      &:hover{
+        background-color: #000000bb;
+      }
+
+    }
 }
 
 .board-bottom {

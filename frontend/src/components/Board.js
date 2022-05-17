@@ -16,7 +16,6 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
 
   const [selectedChampion, setSelectedChampion] = useState([])
 
-  const squareImgUrl = `http://ddragon.leagueoflegends.com/cdn/${recentVersion}/img/champion/Aatrox.png`
   const splashImgUrl = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg`
 
   const toggleIsTeamSelectMenuOpen = teamColor => {
@@ -192,19 +191,17 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
               돋보기 아이콘과 인풋 자리
             </div>
           </div>
-          <div className="champions">
+          <div className="champions"> 
             {
               ascendingChampionDataList.map((championData, index) =>(
-                <div className="champion__card">
-                  <img className="champion__img" key={index} alt={championData.id} src={`http://ddragon.leagueoflegends.com/cdn/${recentVersion}/img/champion/${championData.id}.png`}/>
+                <div className="champion__card" key={index} onClick={()=>{}}>
+                  <img className="champion__img" alt={championData.id} src={`${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${championData.id}.png`}/>
                   <small className="champion__name">{championData.name}</small>
                 </div>
               ))
             } 
           </div>
-          <div className="champion__select-button">
-            <input type="button" value='선택하기'/>
-          </div>
+          <input className="champion__select-button" type="button" value='BAN'/>
         </div>
         : 
         <div className="todays-goal">
