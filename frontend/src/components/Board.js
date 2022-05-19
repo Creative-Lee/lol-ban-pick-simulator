@@ -7,12 +7,18 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
   const [isSimulationInProgress, setIsSimulationInProgress] = useState(true)
   const [selectedBlueTeam, setSelectedBlueTeam] = useState('')
   const [selectedRedTeam, setSelectedRedTeam] = useState('')
-  const [date, setDate] = useState('2022-00-00')
-  const [round, setRound] = useState('GAME 1')
+  
   const [isTeamSelectMenuOpen , setIsTeamSelectMenuOpen] = useState({
     blue : false,
     red : false
   }) 
+
+  const [date, setDate] = useState('2022-00-00')
+  const [round, setRound] = useState('GAME 1')
+  const [player, setPlayer] = useState({
+    blue1: '', blue2: '', blue3: '', blue4: '', blue5: '',
+    red1 : '', red2 : '', red3 : '', red4 : '', red5 : '',    
+  })
 
   const [selectedChampion, setSelectedChampion] = useState([])
 
@@ -28,7 +34,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
   }
   const teamArr = ['KDF', 'T1', 'DK' ,'BRO' , 'DRX', 'GEN', 'HLE', 'KT', 'LSB', 'NS']
 
-  
+  const onChangePlayer = (e, teamNumber) => setPlayer({...player , [teamNumber] : e.target.value})
 
   return (    
     /*     
@@ -121,9 +127,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
               <div>spell1</div>
               <div>spell2</div>              
             </div>
-            <div className="player">
-              player
-            </div>
+            <input className="player" type='text' value={player.blue1} onChange={(e)=>{onChangePlayer(e,'blue1')}}/>
           </div>
           <div className="summoner second">
             <div className="champion">
@@ -133,9 +137,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
               <div>spell1</div>
               <div>spell2</div>              
             </div>
-            <div className="player">
-              player
-            </div>
+            <input className="player" type='text' value={player.blue2} onChange={(e)=>{onChangePlayer(e,'blue2')}}/>
           </div>
           <div className="summoner third">
             <div className="champion">
@@ -145,9 +147,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
               <div>spell1</div>
               <div>spell2</div>              
             </div>
-            <div className="player">
-              player
-            </div>
+            <input className="player" type='text' value={player.blue3} onChange={(e)=>{onChangePlayer(e,'blue3')}}/>
           </div>
           <div className="summoner forth">
             <div className="champion">
@@ -157,9 +157,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
               <div>spell1</div>
               <div>spell2</div>              
             </div>
-            <div className="player">
-              player
-            </div>
+            <input className="player" type='text' value={player.blue4} onChange={(e)=>{onChangePlayer(e,'blue4')}}/>
           </div>
           <div className="summoner fifth">
             <div className="champion">
@@ -169,9 +167,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
               <div>spell1</div>
               <div>spell2</div>              
             </div>
-            <div className="player">
-              player
-            </div>
+            <input className="player" type='text' value={player.blue5} onChange={(e)=>{onChangePlayer(e,'blue5')}}/>
           </div>
         </div>
 
@@ -224,9 +220,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
               <div>spell1</div>
               <div>spell2</div>              
             </div>
-            <div className="player">
-              player
-            </div>
+            <input className="player" type='text' value={player.red1} onChange={(e)=>{onChangePlayer(e,'red1')}}/>
           </div>
           <div className="summoner second">
             <div className="champion">
@@ -236,9 +230,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
               <div>spell1</div>
               <div>spell2</div>              
             </div>
-            <div className="player">
-              player
-            </div>
+            <input className="player" type='text' value={player.red2} onChange={(e)=>{onChangePlayer(e,'red2')}}/>
           </div>
           <div className="summoner third">
             <div className="champion">
@@ -248,9 +240,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
               <div>spell1</div>
               <div>spell2</div>              
             </div>
-            <div className="player">
-              player
-            </div>
+            <input className="player" type='text' value={player.red3} onChange={(e)=>{onChangePlayer(e,'red3')}}/>
           </div>
           <div className="summoner forth">
             <div className="champion">
@@ -260,9 +250,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
               <div>spell1</div>
               <div>spell2</div>              
             </div>
-            <div className="player">
-              player
-            </div>
+            <input className="player" type='text' value={player.red4} onChange={(e)=>{onChangePlayer(e,'red4')}}/>
           </div>
           <div className="summoner fifth">
             <div className="champion">
@@ -272,9 +260,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
               <div>spell1</div>
               <div>spell2</div>              
             </div>
-            <div className="player">
-              player
-            </div>
+            <input className="player" type='text' value={player.red5} onChange={(e)=>{onChangePlayer(e,'red5')}}/>
           </div>
         </div>
       </Row>
