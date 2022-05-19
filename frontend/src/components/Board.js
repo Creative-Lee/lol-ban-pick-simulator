@@ -16,12 +16,12 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
   const [date, setDate] = useState('2022-00-00')
   const [round, setRound] = useState('GAME 1')
   const [player, setPlayer] = useState({
-    blue1: '', blue2: '', blue3: '', blue4: '', blue5: '',
-    red1 : '', red2 : '', red3 : '', red4 : '', red5 : '',    
+    blue1: 'player', blue2: 'player', blue3: 'player', blue4: 'player', blue5: 'player',
+    red1 : 'player', red2 : 'player', red3 : 'player', red4 : 'player', red5 : 'player',    
   })
 
   const [selectedChampion, setSelectedChampion] = useState([])
-
+  const spell = `http://ddragon.leagueoflegends.com/cdn/12.9.1/img/spell/SummonerFlash.png`
   const splashImgUrl = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg`
 
   const toggleIsTeamSelectMenuOpen = teamColor => {
@@ -79,7 +79,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
 
         <Col className="match-info">
           <div className="date-wrap">
-            <input className='date' type='text' value={date} onChange={e=>setDate(e.target.value)} />
+            <input className='date' type='text' value={date} onChange={e=>setDate(e.target.value)}/>
           </div>
           <div className="round-wrap">
             <input className='round' type='text' value={round} onChange={e=>setRound(e.target.value)}/>         
@@ -120,19 +120,15 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
       <Row className='board-middle'>
         <div className="blue-team__summoners">
           <div className="summoner first">
-            <div className="champion">
-              champion1 img
-            </div>
+            <img className="champion" id='Ezreal' alt="champion" src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ezreal_0.jpg' />
             <div className="spell">
-              <div>spell1</div>
-              <div>spell2</div>              
+              <img alt="spell1"  src={spell}/>
+              <img alt="spell2"  src={spell}/>
             </div>
             <input className="player" type='text' value={player.blue1} onChange={(e)=>{onChangePlayer(e,'blue1')}}/>
           </div>
           <div className="summoner second">
-            <div className="champion">
-              champion1 img
-            </div>
+            <img className="champion"  id='Graves' alt="champion" src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Graves_0.jpg' />
             <div className="spell">
               <div>spell1</div>
               <div>spell2</div>              
@@ -140,9 +136,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
             <input className="player" type='text' value={player.blue2} onChange={(e)=>{onChangePlayer(e,'blue2')}}/>
           </div>
           <div className="summoner third">
-            <div className="champion">
-              champion1 img
-            </div>
+            <img className="champion" alt="champion" src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg' />
             <div className="spell">
               <div>spell1</div>
               <div>spell2</div>              
@@ -150,9 +144,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
             <input className="player" type='text' value={player.blue3} onChange={(e)=>{onChangePlayer(e,'blue3')}}/>
           </div>
           <div className="summoner forth">
-            <div className="champion">
-              champion1 img
-            </div>
+            <img className="champion" alt="champion" src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg' />
             <div className="spell">
               <div>spell1</div>
               <div>spell2</div>              
@@ -160,9 +152,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
             <input className="player" type='text' value={player.blue4} onChange={(e)=>{onChangePlayer(e,'blue4')}}/>
           </div>
           <div className="summoner fifth">
-            <div className="champion">
-              champion1 img
-            </div>
+            <img className="champion" alt="champion" src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg' />
             <div className="spell">
               <div>spell1</div>
               <div>spell2</div>              
@@ -212,20 +202,16 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
         
 
         <div className="red-team__summoners">
-        <div className="summoner first">
-            <div className="champion">
-              champion1 img
-            </div>
+          <div className="summoner first">
+            <img className="champion" alt="champion" id="Aatrox" src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg' />
             <div className="spell">
-              <div>spell1</div>
-              <div>spell2</div>              
+              <img alt="spell1"  src={spell}/>
+              <img alt="spell2"  src={spell}/>
             </div>
             <input className="player" type='text' value={player.red1} onChange={(e)=>{onChangePlayer(e,'red1')}}/>
           </div>
           <div className="summoner second">
-            <div className="champion">
-              champion1 img
-            </div>
+            <img className="champion" alt="champion" id='LeeSin' src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/LeeSin_0.jpg' />
             <div className="spell">
               <div>spell1</div>
               <div>spell2</div>              
@@ -233,9 +219,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
             <input className="player" type='text' value={player.red2} onChange={(e)=>{onChangePlayer(e,'red2')}}/>
           </div>
           <div className="summoner third">
-            <div className="champion">
-              champion1 img
-            </div>
+            <img className="champion" alt="champion" src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg' />
             <div className="spell">
               <div>spell1</div>
               <div>spell2</div>              
@@ -243,9 +227,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
             <input className="player" type='text' value={player.red3} onChange={(e)=>{onChangePlayer(e,'red3')}}/>
           </div>
           <div className="summoner forth">
-            <div className="champion">
-              champion1 img
-            </div>
+            <img className="champion" alt="champion" src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg' />
             <div className="spell">
               <div>spell1</div>
               <div>spell2</div>              
@@ -253,9 +235,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
             <input className="player" type='text' value={player.red4} onChange={(e)=>{onChangePlayer(e,'red4')}}/>
           </div>
           <div className="summoner fifth">
-            <div className="champion">
-              champion1 img
-            </div>
+            <img className="champion" alt="champion" src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg' />
             <div className="spell">
               <div>spell1</div>
               <div>spell2</div>              

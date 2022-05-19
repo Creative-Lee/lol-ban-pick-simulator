@@ -108,7 +108,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         margin: 0;
         padding: 0;
         width: 100%;
-
+        z-index: 5;
         .name__option {
           display: flex;
           align-items: center;
@@ -237,26 +237,1099 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
   .champion-select-board {
     display: flex;
     flex-direction: column; 
-    flex: 1 0;
+    flex: 1 1;
+    margin-top: 20px;
+    padding: 0;
   }
 
   .todays-goal {
     align-items: center;
     flex: 1 0;
   }
+  
+  .blue-team__summoners,
+  .red-team__summoners{
+    .summoner{
+      position: relative;
+      width: 100%;
+      height: 120px;
+      margin: 2px 0px;
+      border : 1px solid rgb(0, 0, 0);
+      overflow: hidden;
 
-  .red-team__summoners {
-    text-align: right;
-    align-items: flex-end;
+      .champion{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%; 
+        height: 100%;
+        z-index: 0;
+        object-fit: none;
+
+        &[id=Garen]{
+          object-position: 91% 32%;
+        }
+        &[id=Galio]{
+          object-position: 48% 6%;
+        }
+        &[id=Gangplank]{
+          object-position: 79% 20%;
+        }
+        &[id=Gragas]{
+          object-position: 60% 20%;
+        }
+        &[id=Graves]{
+          object-position: 86% 7%;
+        }
+        &[id=Gwen]{
+          object-position: 50% 10%;
+        }
+        &[id=Gnar]{
+          object-position: 82% 60%;
+        }
+        &[id=Nami]{
+          object-position: 89% 23%;
+        }
+        &[id=Nasus]{
+          object-position: 71% 18%;
+        }
+        &[id=Nautilus]{
+          object-position: 83% 19%;
+        }
+        &[id=Nocturne]{
+          object-position: 65% 49%;
+        }
+        &[id=Nunu]{
+          object-position: 73% 75%;
+        }
+        &[id=Nidalee]{
+          object-position: 88% 12%;
+        }
+        &[id=Neeko]{
+          object-position: 48% 23%;
+        }
+        &[id=Darius]{
+          object-position: 56% 9%;
+        }
+        &[id=Diana]{
+          object-position: 76% 36%;
+        }
+        &[id=Draven]{
+          object-position: 82% 26%;
+        }
+        &[id=Ryze]{
+          object-position: 90% 35%;
+        }
+        &[id=Rakan]{
+          object-position: 55% 10%;
+        }
+        &[id=Rammus]{
+          object-position: 67% 45%;
+        }
+        &[id=Lux]{
+          object-position: 65% 23%;
+        }
+        &[id=Rumble]{
+          object-position: 76% 25%;
+        }
+        &[id=Renata]{
+          object-position: 55% 7%;
+        }
+        &[id=Renekton]{
+          object-position: 65% 17%;
+        }
+        &[id=Leona]{
+          object-position: 86% 7%;
+        }
+        &[id=RekSai]{
+          object-position: 55% 45%;
+        }
+        &[id=Rell]{
+          object-position: 45% 14%;
+        }
+        &[id=Rengar]{
+          object-position: 74% 32%;
+        }
+        &[id=Lucian]{
+          object-position: 81% 40%;
+        }
+        &[id=Lulu]{
+          object-position: 78% 37%;
+        }
+        &[id=Leblanc]{
+          object-position: 45% 43%;
+        }
+        &[id=LeeSin]{
+          object-position: 70% 17%;
+        }
+        &[id=Riven]{
+          object-position: 87% 19%;
+        }
+        &[id=Lissandra]{
+          object-position: 74% 13%;
+        }
+        &[id=Lillia]{
+          object-position: 40% 17%;
+        }
+        &[id=MasterYi]{
+          object-position: 93% 28%;
+        }
+        &[id=Maokai]{
+          object-position: 66% 40%;
+        }
+        &[id=Malzahar]{
+          object-position: 70% 16%;
+        }
+        &[id=Malphite]{
+          object-position: 74% 68%;
+        }
+        &[id=Mordekaiser]{
+          object-position: 42% 12%;
+        }
+        &[id=Morgana]{
+          object-position: 86% 24%;
+        }
+        &[id=DrMundo]{
+          object-position: 54% 12%;
+        }
+        &[id=MissFortune]{
+          object-position: 85% 30%;
+        }
+        &[id=Bard]{
+          object-position: 65% 20%;
+        }
+        &[id=Varus]{
+          object-position: 55% 11%;
+        }
+        &[id=Vi]{
+          object-position: 75% 23%;
+        }
+        &[id=Veigar]{
+          object-position: 71% 25%;
+        }
+        &[id=Vayne]{
+          object-position: 97% 19%;
+        }
+        &[id=Vex]{
+          object-position: 70% 30%;
+        }
+        &[id=Velkoz]{
+          object-position: 61% 40%;
+        }
+        &[id=Volibear]{
+          object-position: 57% 9%;
+        }
+        &[id=Braum]{
+          object-position: 90% 13%;
+        }
+        &[id=Brand]{
+          object-position: 88% 20%;
+        }
+        &[id=Vladimir]{
+          object-position: 87% 15%;
+        }
+        &[id=Blitzcrank]{
+          object-position: 78% 30%;
+        }
+        &[id=Viego]{
+          object-position: 87% 9%;
+        }
+        &[id=Viktor]{
+          object-position: 69% 20%;
+        }
+        &[id=Poppy]{
+          object-position: 74% 20%;
+        }
+        &[id=Samira]{
+          object-position: 60% 15%;
+        }
+        &[id=Sion]{
+          object-position: 75% 13%;
+        }
+        &[id=Sylas]{
+          object-position: 53% 22%;
+        }
+        &[id=Shaco]{
+          object-position: 77% 18%;
+        }
+        &[id=Senna]{
+          object-position: 52% 20%;
+        }
+        &[id=Seraphine]{
+          object-position: 42% 11%;
+        }
+        &[id=Sejuani]{
+          object-position: 57% 10%;
+        }
+        &[id=Sett]{
+          object-position: 48% 3%;
+        }
+        &[id=Sona]{
+          object-position: 72% 15%;
+        }
+        &[id=Soraka]{
+          object-position: 54% 10%;
+        }
+        &[id=Shen]{
+          object-position: 89% 7%;
+        }
+        &[id=Shyvana]{
+          object-position: 77% 16%;
+        }
+        &[id=Swain]{
+          object-position: 76% 6%;
+        }
+        &[id=Skarner]{
+          object-position: 82% 38%;
+        }
+        &[id=Sivir]{
+          object-position: 60% 33%;
+        }
+        &[id=XinZhao]{
+          object-position: 52% 18%;
+        }
+        &[id=Syndra]{
+          object-position: 83% 19%;
+        }
+        &[id=Singed]{
+          object-position: 82% 18%;
+        }
+        &[id=Thresh]{
+          object-position: 67% 22%;
+        }
+        &[id=Ahri]{
+          object-position: 65% 17%;
+        }
+        &[id=Amumu]{
+          object-position: 76% 30%;
+        }
+        &[id=AurelionSol]{
+          object-position: 65% 17%;
+        }
+        &[id=Ivern]{
+          object-position: 55% 20%;
+        }
+        &[id=Azir]{
+          object-position: 85% 18%;
+        }
+        &[id=Akali]{
+          object-position: 50% 10%;
+        }
+        &[id=Akshan]{
+          object-position: 75% 55%;
+        }
+        &[id=Aatrox]{
+          object-position: 74% 27%;
+        }
+        &[id=Aphelios]{
+          object-position: 56% 15%;
+        }
+        &[id=Alistar]{
+          object-position: 63% 42%;
+        }
+        &[id=Annie]{
+          object-position: 91% 33%;
+        }
+        &[id=Anivia]{
+          object-position: 51% 38%;
+        }
+        &[id=Ashe]{
+          object-position: 73% 20%;
+        }
+        &[id=Yasuo]{
+          object-position: 90% 33%;
+        }
+        &[id=Ekko]{
+          object-position: 82% 18%;
+        }
+        &[id=Elise]{
+          object-position: 81% 15%;
+        }
+        &[id=MonkeyKing]{
+          object-position: 67% 25%;
+        }
+        &[id=Ornn]{
+          object-position: 50% 33%;
+        }
+        &[id=Orianna]{
+          object-position: 89% 10%;
+        }
+        &[id=Olaf]{
+          object-position: 67% 26%;
+        }
+        &[id=Yone]{
+          object-position: 62% 5%;
+        }
+        &[id=Yorick]{
+          object-position: 70% 6%;
+        }
+        &[id=Udyr]{
+          object-position: 50% 50%;
+        }
+        &[id=Urgot]{
+          object-position: 59% 8%;
+        }
+        &[id=Warwick]{
+          object-position: 73% 60%;
+        }
+        &[id=Yuumi]{
+          object-position: 43% 18%;
+        }
+        &[id=Irelia]{
+          object-position: 50% 5%;
+        }
+        &[id=Evelynn]{
+          object-position: 51% 13%;
+        }
+        &[id=Ezreal]{
+          object-position: 67% 28%;
+        }
+        &[id=Illaoi]{
+          object-position: 63% 2%;
+        }
+        &[id=JarvanIV]{
+          object-position: 82% 18%;
+        }
+        &[id=Xayah]{
+          object-position: 70% 28%;
+        }
+        &[id=Zyra]{
+          object-position: 85% 23%;
+        }
+        &[id=Zac]{
+          object-position: 74% 59%;
+        }
+        &[id=Janna]{
+          object-position: 98% 27%;
+        }
+        &[id=Jax]{
+          object-position: 81% 18%;
+        }
+        &[id=Zed]{
+          object-position: 70% 13%;
+        }
+        &[id=Xerath]{
+          object-position: 60% 8%;
+        }
+        &[id=Zeri]{
+          object-position: 59% 23%;
+        }
+        &[id=Jayce]{
+          object-position: 90% 25%;
+        }
+        &[id=Zoe]{
+          object-position: 57% 22%;
+        }
+        &[id=Ziggs]{
+          object-position: 80% 47%;
+        }
+        &[id=Jhin]{
+          object-position: 63% 18%;
+        }
+        &[id=Zilean]{
+          object-position: 63% 20%;
+        }
+        &[id=Jinx]{
+          object-position: 71% 17%;
+        }
+        &[id=Chogath]{
+          object-position: 61% 30%;
+        }
+        &[id=Karma]{
+          object-position: 83% 14%;
+        }
+        &[id=Camille]{
+          object-position: 100% 14%;
+        }
+        &[id=Kassadin]{
+          object-position: 72% 5%;
+        }
+        &[id=Karthus]{
+          object-position: 76% 9%;
+        }
+        &[id=Cassiopeia]{
+          object-position: 65% 33%;
+        }
+        &[id=Kaisa]{
+          object-position: 50% 10%;
+        }
+        &[id=Khazix]{
+          object-position: 83% 58%;
+        }
+        &[id=Katarina]{
+          object-position: 67% 40%;
+        }
+        &[id=Kalista]{
+          object-position: 70% 18%;
+        }
+        &[id=Kennen]{
+          object-position: 85% 34%;
+        }
+        &[id=Caitlyn]{
+          object-position: 84% 15%;
+        }
+        &[id=Kayn]{
+          object-position: 50% 45%;
+        }
+        &[id=Kayle]{
+          object-position: 83% 23%;
+        }
+        &[id=KogMaw]{
+          content: url('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/KogMaw_5.jpg');
+          object-fit: cover;
+          object-position: 80% 35%;
+        }
+        &[id=Corki]{
+          object-position: 75% 28%;
+        }
+        &[id=Quinn]{
+          object-position: 70% 30%;
+        }
+        &[id=Kled]{
+          object-position: 90% 17%;
+        }
+        &[id=Qiyana]{
+          object-position: 53% 18%;
+        }
+        &[id=Kindred]{
+          object-position: 63% 33%;
+          filter:brightness(2)
+        }
+        &[id=Taric]{
+          object-position: 95% 5%;
+        }
+        &[id=Talon]{
+          object-position: 72% 30%;
+        }
+        &[id=Taliyah]{
+          object-position: 87% 19%;
+        }
+        &[id=TahmKench]{
+          content: url('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/TahmKench_1.jpg');
+          object-fit: cover;
+          object-position: 50% 0%;
+        }
+        &[id=Trundle]{
+          object-position: 55% 30%;
+        }
+        &[id=Tristana]{
+          object-position: 70% 25%;
+        }
+        &[id=Tryndamere]{
+          object-position: 75% 18%;
+        }
+        &[id=TwistedFate]{
+          object-position: 85% 20%;
+        }
+        &[id=Twitch]{
+          object-position: 65% 35%;
+        }
+        &[id=Teemo]{
+          object-position: 73% 28%;
+        }
+        &[id=Pyke]{
+          object-position: 50% 32%;
+        }
+        &[id=Pantheon]{
+          object-position: 53% 18%;
+        }
+        &[id=Fiddlesticks]{
+          object-position: 52% 27%;
+        }
+        &[id=Fiora]{
+          object-position: 70% 7%;
+        }
+        &[id=Fizz]{
+          object-position: 95% 18%;
+        }
+        &[id=Heimerdinger]{
+          object-position: 80% 40%;
+        }
+        &[id=Hecarim]{
+          object-position: 85% 10%;
+        }
+      }
+    }
+
+    .summoner.third{
+      margin-bottom: 30px;
+    }   
+  }
+  
+  .blue-team__summoners{
+    .player{
+      position: absolute;
+      right: 10px;
+      bottom: 5px;
+      width: 100px;
+      text-align: right;
+      border: none;
+      background-color: transparent;
+      color: #fff;
+      z-index: 0;
+      &:hover {
+        background-color: #bcbcbc78;
+      }
+    }
+    .champion{
+      &[id=Garen]{
+        transform : scaleX(-1);
+      }
+      &[id=Gangplank]{
+        transform : scaleX(-1);
+      }
+      &[id=Gragas]{
+        transform : scaleX(-1);
+      }
+      &[id=Graves]{
+        transform : scaleX(-1);
+      }
+      &[id=Nami]{
+        transform : scaleX(-1);
+      }
+      &[id=Nasus]{
+        transform : scaleX(-1);
+      }
+      &[id=Nautilus]{
+        transform : scaleX(-1);
+      }
+      &[id=Nocturne]{
+        transform : scaleX(-1);
+      }
+      &[id=Nunu]{
+        transform : scaleX(-1);
+      }
+      &[id=Nidalee]{
+        transform : scaleX(-1);
+      }
+      &[id=Neeko]{
+        transform : scaleX(-1);
+      }
+      &[id=Darius]{
+        transform : scaleX(-1);
+      }
+      &[id=Diana]{
+        transform : scaleX(-1);
+      }
+      &[id=Draven]{
+        transform : scaleX(-1);
+      }
+
+      &[id=Rakan]{
+        transform : scaleX(-1);
+      }
+      &[id=Rammus]{
+        transform : scaleX(-1);
+      }
+      &[id=Lux]{
+        transform : scaleX(-1);
+      }
+      &[id=Rumble]{
+        transform : scaleX(-1);
+      }
+      &[id=Renekton]{
+        transform : scaleX(-1);
+      }
+      &[id=Leona]{
+        transform : scaleX(-1);
+      }
+      &[id=RekSai]{
+        transform : scaleX(-1);
+      }
+      &[id=Lulu]{
+        transform : scaleX(-1);
+      }
+      &[id=Leblanc]{
+        transform : scaleX(-1);
+      }
+      &[id=LeeSin]{
+        transform : scaleX(-1);
+      }
+      &[id=Riven]{
+        transform : scaleX(-1);
+      }
+      &[id=Lissandra]{
+        transform : scaleX(-1);
+      }
+      &[id=MasterYi]{
+        transform : scaleX(-1);
+      }
+      &[id=Maokai]{
+        transform : scaleX(-1);
+      }
+    
+      &[id=Malphite]{
+        transform : scaleX(-1);
+      }
+      &[id=Morgana]{
+        transform : scaleX(-1);
+      }
+      &[id=DrMundo]{
+        transform : scaleX(-1);
+      }
+      &[id=MissFortune]{
+        transform : scaleX(-1);
+      }
+      &[id=Vi]{
+        transform : scaleX(-1);
+      }
+      &[id=Vayne]{
+        transform : scaleX(-1);
+      }
+      &[id=Velkoz]{
+        transform : scaleX(-1);
+      }
+      &[id=Volibear]{
+        transform : scaleX(-1);
+      }
+      &[id=Braum]{
+        transform : scaleX(-1);
+      }
+      &[id=Viktor]{
+        transform : scaleX(-1);
+      }
+      &[id=Samira]{
+        transform : scaleX(-1);
+      }
+      &[id=Sion]{
+        transform : scaleX(-1);
+      }
+      &[id=Shaco]{
+        transform : scaleX(-1);
+      }
+      &[id=Senna]{
+        transform : scaleX(-1);
+      }
+      &[id=Seraphine]{
+        transform : scaleX(-1);
+      }
+ 
+      &[id=Sett]{
+        transform : scaleX(-1);
+      }
+      &[id=Sona]{
+        transform : scaleX(-1);
+      }
+      &[id=Soraka]{
+        transform : scaleX(-1);
+      }
+      &[id=Shen]{
+        transform : scaleX(-1);
+      }
+
+      &[id=Swain]{
+        transform : scaleX(-1);
+      }
+      &[id=Skarner]{
+        transform : scaleX(-1);
+      }
+      &[id=Sivir]{
+        transform : scaleX(-1);
+      }
+      &[id=XinZhao]{
+        transform : scaleX(-1);
+      }
+      &[id=Syndra]{
+        transform : scaleX(-1);
+      }
+
+      &[id=Thresh]{
+        transform : scaleX(-1);
+      }
+      &[id=Ahri]{
+        transform : scaleX(-1);
+      }
+      &[id=Amumu]{
+        transform : scaleX(-1);
+      }
+
+      &[id=Azir]{
+        transform : scaleX(-1);
+      }
+      &[id=Akshan]{
+        transform: scaleY(-1)
+      }
+      &[id=Alistar]{
+        transform : scaleX(-1);
+      }
+      &[id=Annie]{
+        transform : scaleX(-1);
+      }
+      &[id=Anivia]{
+        transform : scaleX(-1);
+      }
+      &[id=Ashe]{
+        transform : scaleX(-1);
+      }
+      &[id=Yasuo]{
+        transform : scaleX(-1);
+      }
+      &[id=Ekko]{
+        transform : scaleX(-1);
+      }
+      &[id=Elise]{
+        transform : scaleX(-1);
+      }
+      &[id=MonkeyKing]{
+        transform : scaleX(-1);
+      }
+      &[id=Ornn]{
+        transform : scaleX(-1);
+      }
+      &[id=Orianna]{
+        transform : scaleX(-1);
+      }
+      &[id=Yone]{
+        transform : scaleX(-1);
+      }
+      &[id=Yorick]{
+        transform : scaleX(-1);
+      }
+      &[id=Udyr]{
+        transform : scaleX(-1);
+      }
+      &[id=Urgot]{
+        transform : scaleX(-1);
+      }
+      &[id=Warwick]{
+        transform : scaleX(-1);
+      }
+      &[id=Yuumi]{
+        transform : scaleX(-1);
+      }
+      &[id=Irelia]{
+        transform : scaleX(-1);
+      }
+      &[id=Ezreal]{
+        transform : scaleX(-1);
+      }
+      &[id=JarvanIV]{
+        transform : scaleX(-1);
+      }
+      &[id=Zyra]{
+        transform : scaleX(-1);
+      }
+      &[id=Zac]{
+        transform : scaleX(-1);
+      }
+      &[id=Janna]{
+        transform : scaleX(-1);
+      }
+      &[id=Zed]{
+        transform : scaleX(-1);
+      }
+      &[id=Xerath]{
+        transform : scaleX(-1);
+      }
+      &[id=Jayce]{
+        transform : scaleX(-1);
+      }
+      &[id=Ziggs]{
+        transform : scaleX(-1);
+      }
+      &[id=Jhin]{
+        transform : scaleX(-1);
+      }
+      &[id=Zilean]{
+        transform : scaleX(-1);
+      }
+      &[id=Jinx]{
+        transform : scaleX(-1);
+      }
+      &[id=Chogath]{
+        transform : scaleX(-1);
+      }
+      &[id=Karma]{
+        transform : scaleX(-1);
+      }
+      &[id=Kassadin]{
+        transform : scaleX(-1);
+      }
+      &[id=Karthus]{
+        transform : scaleX(-1);
+      }
+      &[id=Cassiopeia]{
+        transform : scaleX(-1);
+      }
+      &[id=Kaisa]{
+        transform : scaleX(-1);
+      }
+      &[id=Katarina]{
+        transform : scaleX(-1);
+      }
+      &[id=Kalista]{
+        transform : scaleX(-1);
+      }
+      &[id=Caitlyn]{
+        transform : scaleX(-1);
+      }
+      &[id=Kayle]{
+        transform : scaleX(-1);
+      }
+      &[id=KogMaw]{
+        transform : scaleX(-1);
+      }
+      &[id=Quinn]{
+        transform : scaleX(-1);
+      }
+      &[id=Qiyana]{
+        transform : scaleX(-1);
+      }
+      &[id=Talon]{
+        transform : scaleX(-1);
+      }
+      &[id=TahmKench]{
+        transform : scaleX(-1);
+      }
+      &[id=Trundle]{
+        transform : scaleX(-1);
+      }
+      &[id=Tristana]{
+        transform : scaleX(-1);
+      }
+      &[id=TwistedFate]{
+        transform : scaleX(-1);
+      }
+      &[id=Teemo]{
+        transform : scaleX(-1);
+      }
+      &[id=Fiddlesticks]{
+        transform : scaleX(-1);
+      }
+      &[id=Fiora]{
+        object-position: 70% 7%;
+      }
+      &[id=Fizz]{
+        transform : scaleX(-1);
+      }
+      &[id=Heimerdinger]{
+        transform : scaleX(-1);
+      }
+      &[id=Hecarim]{
+        transform : scaleX(-1);
+      }
+    }
+    .spell{
+      position: absolute;
+      transform :translate(0%, -50%);
+      left: 10px;
+      top: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 1;
+
+      img{
+        width: 40px;
+        border : solid 1px #000;
+      }
+    }
+    
+  }
+
+  .red-team__summoners{
+    .player{
+      position: absolute;
+      left: 10px;
+      bottom: 5px;
+      width: 100px;
+      text-align: left;
+      border: none;
+      background-color: transparent;
+      color: #fff;
+      z-index: 0;
+      &:hover {
+        background-color: #bcbcbc78;
+      }
+    }
+    .champion{
+      &[id=Galio]{
+        transform : scaleX(-1);
+      }
+      &[id=Gwen]{
+        transform : scaleX(-1);
+      }
+      &[id=Gnar]{
+        transform : scaleX(-1);
+      }
+      
+      &[id=Ryze]{
+        transform : scaleX(-1);
+      }
+      &[id=Renata]{
+        transform : scaleX(-1);
+      }
+
+      &[id=Rell]{
+        transform : scaleX(-1);
+      }
+      &[id=Rengar]{
+        transform : scaleX(-1);
+      }
+      &[id=Lucian]{
+        transform : scaleX(-1);
+      }
+      &[id=Lillia]{
+        transform : scaleX(-1);
+      }
+      &[id=Malzahar]{
+        transform : scaleX(-1);
+      }
+      &[id=Mordekaiser]{
+        transform : scaleX(-1);
+      }
+      &[id=Bard]{
+        transform : scaleX(-1);
+      }
+      &[id=Varus]{
+        transform : scaleX(-1);
+      }
+      &[id=Veigar]{
+        transform : scaleX(-1);
+      }
+      &[id=Vex]{
+        transform : scaleX(-1);
+      }
+      &[id=Brand]{
+        transform : scaleX(-1);
+      }
+      &[id=Vladimir]{
+        transform : scaleX(-1);
+      }
+      &[id=Blitzcrank]{
+        transform : scaleX(-1);
+      }
+      &[id=Viego]{
+        transform : scaleX(-1);
+      }
+      &[id=Poppy]{
+        transform : scaleX(-1);
+      }
+    
+      &[id=Sylas]{
+        transform : scaleX(-1);
+      }
+      &[id=Sejuani]{
+        transform : scaleX(-1);
+      }
+      &[id=Shyvana]{
+        transform : scaleX(-1);
+      }
+      &[id=Singed]{
+        transform : scaleX(-1);
+      }
+      &[id=AurelionSol]{
+        transform : scaleX(-1);
+      }
+      &[id=Ivern]{
+        transform : scaleX(-1);
+      }
+      &[id=Akali]{
+        transform : scaleX(-1);
+      }
+      &[id=Akshan]{
+        transform : scale(-1,-1);
+      }
+      &[id=Aatrox]{
+        transform : scaleX(-1);
+      }
+      &[id=Aphelios]{
+        transform : scaleX(-1);
+      }
+      &[id=Olaf]{
+        transform : scaleX(-1);
+      }
+      &[id=Evelynn]{
+        transform : scaleX(-1);
+      }
+      &[id=Illaoi]{
+        transform : scaleX(-1);
+      }
+      &[id=Xayah]{
+        transform : scaleX(-1);
+      }
+      &[id=Jax]{
+        transform : scaleX(-1);
+      }
+      &[id=Zeri]{
+        transform : scaleX(-1);
+      }
+      &[id=Zoe]{
+        transform : scaleX(-1);
+      }
+      &[id=Camille]{
+        transform : scaleX(-1);
+      }
+      &[id=Khazix]{
+        transform : scaleX(-1);
+      }
+      &[id=Kennen]{
+        transform : scaleX(-1);
+      }
+      &[id=Kayn]{
+        transform : scaleX(-1);
+      }
+      &[id=Corki]{
+        transform : scaleX(-1);
+      }
+      &[id=Kled]{
+        transform : scaleX(-1);
+      }
+      &[id=Kindred]{
+        transform : scaleX(-1);
+      }
+      &[id=Taric]{
+        transform : scaleX(-1);
+      }
+      &[id=Taliyah]{
+        transform : scaleX(-1);
+      }
+      &[id=Tryndamere]{
+        transform : scaleX(-1);
+      }
+      &[id=Twitch]{
+        transform : scaleX(-1);
+      }
+      &[id=Pantheon]{
+        transform : scaleX(-1);
+      }
+      &[id=Fiora]{
+        transform : scaleX(-1);
+      }
+      &[id=Fizz]{
+        object-position: 95% 18%;
+      }
+      &[id=Heimerdinger]{
+        object-position: 80% 40%;
+      }
+      &[id=Hecarim]{
+        object-position: 85% 10%;
+      }
+
+    }
+    .spell{
+      position: absolute;
+      transform :translate(0%, -50%);
+      right: 10px;
+      top: 50%;
+      display: flex;
+      flex-direction: column;
+      z-index: 1;
+
+      img{
+        width: 40px;
+        border : solid 1px #000;
+      }
+
+    }
   }
 
   .champion-select-board{
     flex: 1.5 0;
     width: 100%;
     align-items: center;
-    margin-top: 10px;
-    border-left: 5px solid rgba(0, 0, 0, 0.3);
-    border-right: 5px solid rgba(0, 0, 0, 0.3);
+    margin: 20px 10px 0px 10px;
+
 
     .champion__select-option{
       display: flex;
@@ -290,7 +1363,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 55px;
+        width: 60px;
         margin: 5px 0;
         cursor: pointer;
 
@@ -301,8 +1374,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         .champion__name{
           width: 100%;
           text-align: center;
-          font-size: 12px;
-          font-weight: 700;
+          font-size: 10px;
           letter-spacing: 1px;
           overflow: hidden;
           text-overflow : ellipsis;
@@ -326,10 +1398,10 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       }
 
     }
-}
+  }
 
-.board-bottom {
-  flex-wrap: nowrap;
-}
+  .board-bottom {
+    flex-wrap: nowrap;
+  }
 
 }
