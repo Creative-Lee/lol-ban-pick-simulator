@@ -13,30 +13,28 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   const [isTeamSelectMenuOpen , setIsTeamSelectMenuOpen] = useState({
     blue : false,
     red : false
-  }) 
+  })  
   const [date, setDate] = useState('2022-00-00')
   const [round, setRound] = useState('GAME 1')
   const [player, setPlayer] = useState({
-    blue1: 'player', blue2: 'player', blue3: 'player', blue4: 'player', blue5: 'player',
-    red1 : 'player', red2 : 'player', red3 : 'player', red4 : 'player', red5 : 'player',    
+    blue1: '', blue2: '', blue3: '', blue4: '', blue5: '',
+    red1 : '', red2 : '', red3 : '', red4 : '', red5 : '',    
   })
 
-  const [eachTeamsSummonersData, setEachTeamsSummonersData] = useState(fromJS({
+  const [eachTeamSummonersData, setEachTeamSummonersData] = useState(fromJS({
     blue: {
-      pickedChampion : ['', '', '', '', ''],
-      spell1 : ['', '', '', '', ''],
+      pickedChampion : ['Ezreal', 'LeeSin', '', '', ''],
+      spell1 : ['', 'Smite', '', '', ''],
       spell2 : ['Flash', 'Flash', 'Flash', 'Flash', 'Flash'],
       bannedChampion : ['', '', '', '', '']
     },
     red : {
       pickedChampion : ['', '', '', '', ''],
-      spell1 : ['', '', '', '', ''],
+      spell1 : ['', 'Smite', '', '', ''],
       spell2 : ['Flash', 'Flash', 'Flash', 'Flash', 'Flash'],
       bannedChampion : ['', '', '', '', '']
     }
-  }))
-  
-
+  })) 
 
   const onChangePlayer = (e, teamNumber) => setPlayer({...player , [teamNumber] : e.target.value})
 
@@ -52,6 +50,12 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
 
   const spell = `http://ddragon.leagueoflegends.com/cdn/12.9.1/img/spell/SummonerFlash.png`
   const splashImgUrl = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg`
+
+  useEffect(()=>{    
+    setPlayer(prev => ({...prev,  
+    blue1: `${selectedBlueTeam} TOP`, blue2: `${selectedBlueTeam} JGL`, blue3: `${selectedBlueTeam} MID`, blue4: `${selectedBlueTeam} BOT`, blue5: `${selectedBlueTeam} SUP`,
+    red1 : `${selectedRedTeam} TOP`, red2 : `${selectedRedTeam} JGL`, red3 : `${selectedRedTeam} MID`, red4 : `${selectedRedTeam} BOT`, red5 : `${selectedRedTeam} SUP`}))
+  },[selectedBlueTeam, selectedRedTeam])
 
   return (    
     /*     
@@ -137,27 +141,26 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       <Row className='board-middle'>
         <div className="blue-team__summoners">
           {
-            eachTeamsSummonersData.getIn(['blue','pickedChampion']).map((champion, index)=>(
+            eachTeamSummonersData.getIn(['blue','pickedChampion']).map((champion, index)=>(
               <div className="summoner" key={index}>
                 <img className="champion" id={`${champion}`} alt={`${champion}`} 
-                src={
+                src={                  
                   champion === ''
                   ? transparencyImg
                   : `${process.env.REACT_APP_API_BASE_URL}/cdn/img/champion/splash/${champion}_0.jpg`
-                }
-              />
+                }/>
                 <div className="spell">
                   <img alt="spell1" 
                   src={
-                    eachTeamsSummonersData.getIn(['blue','spell1']).get(index) === ''
+                    eachTeamSummonersData.getIn(['blue','spell1']).get(index) === ''
                     ? transparencyImg
-                    : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${eachTeamsSummonersData.getIn(['blue','spell1']).get(index)}.png`
+                    : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${eachTeamSummonersData.getIn(['blue','spell1']).get(index)}.png`
                   }/>
                   <img alt="spell2" 
                   src={
-                    eachTeamsSummonersData.getIn(['blue','spell2']).get(index) === ''
+                    eachTeamSummonersData.getIn(['blue','spell2']).get(index) === ''
                     ? transparencyImg
-                    : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${eachTeamsSummonersData.getIn(['blue','spell2']).get(index)}.png`
+                    : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${eachTeamSummonersData.getIn(['blue','spell2']).get(index)}.png`
                   }/>
                 </div>
                 <input className="player" type='text' value={player[`blue${index + 1}`]} onChange={(e)=>{onChangePlayer(e,`blue${index + 1}`)}}/>
@@ -248,7 +251,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
 
         <div className="red-team__summoners">
         {
-            eachTeamsSummonersData.getIn(['red','pickedChampion']).map((champion, index)=>(
+            eachTeamSummonersData.getIn(['red','pickedChampion']).map((champion, index)=>(
               <div className="summoner" key={index}>
                 <img className="champion" id={`${champion}`} alt={`${champion}`} 
                 src={
@@ -260,15 +263,15 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
                 <div className="spell">
                   <img alt="spell1" 
                   src={
-                    eachTeamsSummonersData.getIn(['red','spell1']).get(index) === ''
+                    eachTeamSummonersData.getIn(['red','spell1']).get(index) === ''
                     ? transparencyImg
-                    : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${eachTeamsSummonersData.getIn(['red','spell1']).get(index)}.png`
+                    : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${eachTeamSummonersData.getIn(['red','spell1']).get(index)}.png`
                   }/>
                   <img alt="spell2" 
                   src={
-                    eachTeamsSummonersData.getIn(['red','spell2']).get(index) === ''
+                    eachTeamSummonersData.getIn(['red','spell2']).get(index) === ''
                     ? transparencyImg
-                    : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${eachTeamsSummonersData.getIn(['red','spell2']).get(index)}.png`
+                    : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${eachTeamSummonersData.getIn(['red','spell2']).get(index)}.png`
                   }/>
                 </div>
                 <input className="player" type='text' value={player[`red${index + 1}`]} onChange={(e)=>{onChangePlayer(e,`red${index + 1}`)}}/>

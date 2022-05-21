@@ -33,7 +33,6 @@ export const getAscendingChampionDataList = async (recentVersion) => {
     console.log(err)
   }
 }
-const spell = `cdn/12.9.1/img/spell/SummonerFlash.png`
 
 export const getClassicSpell = async (recentVersion) => {
   try{ 
