@@ -33,3 +33,19 @@ export const getAscendingChampionDataList = async (recentVersion) => {
     console.log(err)
   }
 }
+const spell = `cdn/12.9.1/img/spell/SummonerFlash.png`
+
+export const getClassicSpell = async (recentVersion) => {
+  try{ 
+    const response = await lolApi.get(`cdn/${recentVersion}/data/en_US/summoner.json`)
+    const spellData = response.data.data
+    const spellsPropertyList = Object.values(spellData)
+    const classicSpellList = spellsPropertyList.filter(property => property.modes.includes('CLASSIC'))
+
+    console.log(classicSpellList)
+    return classicSpellList
+  }
+  catch(err){
+    console.log(err)
+  }
+}

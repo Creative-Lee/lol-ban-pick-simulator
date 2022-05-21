@@ -1,18 +1,19 @@
 import React,{ useEffect, useState , useMemo} from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
+import {toJS, fromJS, getIn, setIn, get} from 'immutable'
 import {TOP,JGL,MID,BOT,SUP} from '../img/position_icon'
+import transparencyImg from '../img/transparencyImg.png'
 
-export default function Board({recentVersion, ascendingChampionDataList}) {  
+
+export default function Board({recentVersion, ascendingChampionDataList , classicSpellList}) {  
 
   const [isSimulationInProgress, setIsSimulationInProgress] = useState(true)
   const [selectedBlueTeam, setSelectedBlueTeam] = useState('')
   const [selectedRedTeam, setSelectedRedTeam] = useState('')
-  
   const [isTeamSelectMenuOpen , setIsTeamSelectMenuOpen] = useState({
     blue : false,
     red : false
   }) 
-
   const [date, setDate] = useState('2022-00-00')
   const [round, setRound] = useState('GAME 1')
   const [player, setPlayer] = useState({
@@ -20,9 +21,24 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
     red1 : 'player', red2 : 'player', red3 : 'player', red4 : 'player', red5 : 'player',    
   })
 
-  const [selectedChampion, setSelectedChampion] = useState([])
-  const spell = `http://ddragon.leagueoflegends.com/cdn/12.9.1/img/spell/SummonerFlash.png`
-  const splashImgUrl = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg`
+  const [eachTeamsSummonersData, setEachTeamsSummonersData] = useState(fromJS({
+    blue: {
+      pickedChampion : ['', '', '', '', ''],
+      spell1 : ['', '', '', '', ''],
+      spell2 : ['Flash', 'Flash', 'Flash', 'Flash', 'Flash'],
+      bannedChampion : ['', '', '', '', '']
+    },
+    red : {
+      pickedChampion : ['', '', '', '', ''],
+      spell1 : ['', '', '', '', ''],
+      spell2 : ['Flash', 'Flash', 'Flash', 'Flash', 'Flash'],
+      bannedChampion : ['', '', '', '', '']
+    }
+  }))
+  
+
+
+  const onChangePlayer = (e, teamNumber) => setPlayer({...player , [teamNumber] : e.target.value})
 
   const toggleIsTeamSelectMenuOpen = teamColor => {
     setIsTeamSelectMenuOpen(prevState=> ({...prevState , [teamColor] : !prevState[teamColor]}))
@@ -34,7 +50,8 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
   }
   const teamArr = ['KDF', 'T1', 'DK' ,'BRO' , 'DRX', 'GEN', 'HLE', 'KT', 'LSB', 'NS']
 
-  const onChangePlayer = (e, teamNumber) => setPlayer({...player , [teamNumber] : e.target.value})
+  const spell = `http://ddragon.leagueoflegends.com/cdn/12.9.1/img/spell/SummonerFlash.png`
+  const splashImgUrl = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg`
 
   return (    
     /*     
@@ -119,7 +136,35 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
 
       <Row className='board-middle'>
         <div className="blue-team__summoners">
-          <div className="summoner first">
+          {
+            eachTeamsSummonersData.getIn(['blue','pickedChampion']).map((champion, index)=>(
+              <div className="summoner" key={index}>
+                <img className="champion" id={`${champion}`} alt={`${champion}`} 
+                src={
+                  champion === ''
+                  ? transparencyImg
+                  : `${process.env.REACT_APP_API_BASE_URL}/cdn/img/champion/splash/${champion}_0.jpg`
+                }
+              />
+                <div className="spell">
+                  <img alt="spell1" 
+                  src={
+                    eachTeamsSummonersData.getIn(['blue','spell1']).get(index) === ''
+                    ? transparencyImg
+                    : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${eachTeamsSummonersData.getIn(['blue','spell1']).get(index)}.png`
+                  }/>
+                  <img alt="spell2" 
+                  src={
+                    eachTeamsSummonersData.getIn(['blue','spell2']).get(index) === ''
+                    ? transparencyImg
+                    : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${eachTeamsSummonersData.getIn(['blue','spell2']).get(index)}.png`
+                  }/>
+                </div>
+                <input className="player" type='text' value={player[`blue${index + 1}`]} onChange={(e)=>{onChangePlayer(e,`blue${index + 1}`)}}/>
+              </div>
+            ))           
+          }
+          {/* <div className="summoner first">
             <img className="champion" id='Ezreal' alt="champion" src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ezreal_0.jpg' />
             <div className="spell">
               <img alt="spell1"  src={spell}/>
@@ -158,7 +203,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
               <div>spell2</div>              
             </div>
             <input className="player" type='text' value={player.blue5} onChange={(e)=>{onChangePlayer(e,'blue5')}}/>
-          </div>
+          </div> */}
         </div>
 
         {
@@ -181,7 +226,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
             {
               ascendingChampionDataList.map((championData, index) =>(
                 <div className="champion__card" key={index} onClick={()=>{}}>
-                  <img className="champion__img" alt={championData.id} src={`${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${championData.id}.png`}/>
+                  <img className="champion__img" championname={championData.id} alt={championData.id} src={`${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${championData.id}.png`}/>
                   <small className="champion__name">{championData.name}</small>
                 </div>
               ))
@@ -202,7 +247,35 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
         
 
         <div className="red-team__summoners">
-          <div className="summoner first">
+        {
+            eachTeamsSummonersData.getIn(['red','pickedChampion']).map((champion, index)=>(
+              <div className="summoner" key={index}>
+                <img className="champion" id={`${champion}`} alt={`${champion}`} 
+                src={
+                  champion === ''
+                  ? transparencyImg
+                  : `${process.env.REACT_APP_API_BASE_URL}/cdn/img/champion/splash/${champion}_0.jpg`
+                }
+              />
+                <div className="spell">
+                  <img alt="spell1" 
+                  src={
+                    eachTeamsSummonersData.getIn(['red','spell1']).get(index) === ''
+                    ? transparencyImg
+                    : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${eachTeamsSummonersData.getIn(['red','spell1']).get(index)}.png`
+                  }/>
+                  <img alt="spell2" 
+                  src={
+                    eachTeamsSummonersData.getIn(['red','spell2']).get(index) === ''
+                    ? transparencyImg
+                    : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${eachTeamsSummonersData.getIn(['red','spell2']).get(index)}.png`
+                  }/>
+                </div>
+                <input className="player" type='text' value={player[`red${index + 1}`]} onChange={(e)=>{onChangePlayer(e,`red${index + 1}`)}}/>
+              </div>
+            ))           
+          }
+          {/* <div className="summoner first">
             <img className="champion" alt="champion" id="Aatrox" src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg' />
             <div className="spell">
               <img alt="spell1"  src={spell}/>
@@ -241,7 +314,7 @@ export default function Board({recentVersion, ascendingChampionDataList}) {
               <div>spell2</div>              
             </div>
             <input className="player" type='text' value={player.red5} onChange={(e)=>{onChangePlayer(e,'red5')}}/>
-          </div>
+          </div> */}
         </div>
       </Row>
 
