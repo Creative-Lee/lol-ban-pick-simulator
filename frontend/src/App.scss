@@ -10,3 +10,15 @@
   font-family: "Spoqa Han Sans Neo";
 }
 
+@media(min-width:1580px){
+  #ban-pick-board{
+    max-width: 1500px;
+  }  
+}
+
+@media(min-width:1900px){
+  #ban-pick-board{
+    max-width: 1800px;
+  }  
+}
+

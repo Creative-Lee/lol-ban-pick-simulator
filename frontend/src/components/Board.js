@@ -16,6 +16,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   })  
   const [date, setDate] = useState('2022-00-00')
   const [round, setRound] = useState('GAME 1')
+  const [matchResult, setMatchResult] = useState('승리')
   const [player, setPlayer] = useState({
     blue1: '', blue2: '', blue3: '', blue4: '', blue5: '',
     red1 : '', red2 : '', red3 : '', red4 : '', red5 : '',    
@@ -23,7 +24,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
 
   const [eachTeamSummonersData, setEachTeamSummonersData] = useState(fromJS({
     blue: {
-      pickedChampion : ['Ezreal', 'LeeSin', '', '', ''],
+      pickedChampion : ['', '', '', '', ''],
       spell1 : ['', 'Smite', '', '', ''],
       spell2 : ['Flash', 'Flash', 'Flash', 'Flash', 'Flash'],
       bannedChampion : ['', '', '', '', '']
@@ -36,6 +37,8 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     }
   })) 
 
+  const teamArr = ['KDF', 'T1', 'DK' ,'BRO' , 'DRX', 'GEN', 'HLE', 'KT', 'LSB', 'NS']
+
   const onChangePlayer = (e, teamNumber) => setPlayer({...player , [teamNumber] : e.target.value})
 
   const toggleIsTeamSelectMenuOpen = teamColor => {
@@ -46,10 +49,11 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     setIsTeamSelectMenuOpen(prevState => ({...prevState , [teamColor] : false}))
     console.log('close')
   }
-  const teamArr = ['KDF', 'T1', 'DK' ,'BRO' , 'DRX', 'GEN', 'HLE', 'KT', 'LSB', 'NS']
 
-  const spell = `http://ddragon.leagueoflegends.com/cdn/12.9.1/img/spell/SummonerFlash.png`
-  const splashImgUrl = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg`
+  const isEachTeamSummonersDataEmpty = (teamColor, ) => {
+
+  } 
+
 
   useEffect(()=>{    
     setPlayer(prev => ({...prev,  
@@ -65,7 +69,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       존재하는 모든 팀을 검색조건하에 선택 후 밴픽 보드로 넘어가게!      
     } 
     */
-    <Container className='ban-pick-board'> 
+    <Container id="ban-pick-board" className='ban-pick-board'> 
       <Row className='board-top'>
         <label className="blue-team">
           <div className='blue-team__name'>
@@ -322,29 +326,38 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       </Row>
 
       <Row className='board-bottom'>
-        <Col>
-          <div>
-            blue-team 벤3마리
-          </div>
-          <div>
-            blue-team 벤2마리
-          </div>
-        </Col>  
-        
-        <Col>
-          <div>
-            승리 패배
-          </div>          
-        </Col>
+        <div className="blue-team__ban">
+        {
+          eachTeamSummonersData.getIn(['blue','bannedChampion']).map((bannedChampion, index) => (
+            <div className='banned-champion-wrap' key={index}>
+              <img className='banned-champion' 
+              src={
+              bannedChampion === ''
+              ? transparencyImg
+              : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${eachTeamSummonersData.getIn(['blue','bannedChampion']).get(index)}.png`}/>
+            </div>
+          ))
+        }
+        </div>    
 
-        <Col>
-          <div>
-            red-team 벤3마리
-          </div>
-          <div>
-            red-team 벤2마리
-          </div>
-        </Col>
+        <div className='match-result-wrap'>
+          <input type='text' className='match-result' value={matchResult}
+          onChange={e=> setMatchResult(e.target.value)}/>     
+        </div>
+
+        <div className="red-team__ban">
+        {
+          eachTeamSummonersData.getIn(['red','bannedChampion']).map((bannedChampion, index) => (
+            <div className='banned-champion-wrap' key={index}>
+              <img className='banned-champion' 
+              src={
+              bannedChampion === ''
+              ? transparencyImg
+              : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${eachTeamSummonersData.getIn(['red','bannedChampion']).get(index)}.png`}/>
+            </div>
+          ))
+        }
+        </div>  
       </Row>
     </Container>
   )

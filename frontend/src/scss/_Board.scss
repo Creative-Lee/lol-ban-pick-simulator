@@ -16,7 +16,6 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 .ban-pick-board {
   position: relative;
   color: #fff;
-  min-height: 700px;
 
   &::after {
     content: "";
@@ -69,6 +68,8 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 99;
+
 
     &:hover {
       background-color: #bcbcbc78;
@@ -77,7 +78,6 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 
   .blue-team {
     position: relative;
-    z-index: 1;
     cursor: pointer;
     flex: 2 1;
 
@@ -107,7 +107,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         margin: 0;
         padding: 0;
         width: 100%;
-        z-index: 5;
+        
         background-color: rgba(0, 0, 0, 0.8);
 
         .name__option {
@@ -141,7 +141,6 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 
   .red-team {
     position: relative;
-    z-index: 1;
     cursor: pointer;
     flex: 2 1;
 
@@ -251,11 +250,15 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
   .red-team__summoners {
     .summoner {
       position: relative;
-      width: 100%;
-      height: 120px;
-      margin: 2px 0px;
+      width: 80%;
+      height: 40%;
+      margin: 3px 0px;
       overflow: hidden;
       cursor: pointer;
+
+      &:nth-child(3){
+        margin-bottom: 20px;
+      }
 
       .champion {
         position: absolute;
@@ -330,7 +333,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
           object-position: 67% 45%;
         }
         &[id="Lux"] {
-          object-position: 65% 23%;
+          object-position: 62% 23%;
         }
         &[id="Rumble"] {
           object-position: 76% 25%;
@@ -603,10 +606,10 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
           object-position: 74% 59%;
         }
         &[id="Janna"] {
-          object-position: 98% 27%;
+          object-position: 94% 27%;
         }
         &[id="Jax"] {
-          object-position: 81% 18%;
+          object-position: 77% 18%;
         }
         &[id="Zed"] {
           object-position: 70% 13%;
@@ -760,6 +763,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
   }
 
   .blue-team__summoners {
+
     .summoner {
       background-color: #6e83f81c;
     }
@@ -828,9 +832,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       &[id="Rammus"] {
         transform: scaleX(-1);
       }
-      &[id="Lux"] {
-        transform: scaleX(-1);
-      }
+      
       &[id="Rumble"] {
         transform: scaleX(-1);
       }
@@ -1130,7 +1132,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         margin-bottom: 2px;
       }
       img {
-        width: 45px;
+        width: 40px;
         border: solid 1px #000;
 
         &:hover {
@@ -1141,8 +1143,11 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
   }
 
   .red-team__summoners {
+    align-items: flex-end;
+
     .summoner {
       background-color: #f86e6e1c;
+
     }
 
     .player {
@@ -1184,6 +1189,9 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         transform: scaleX(-1);
       }
       &[id="Lucian"] {
+        transform: scaleX(-1);     
+      }
+      &[id="Lux"]{
         transform: scaleX(-1);
       }
       &[id="Lillia"] {
@@ -1336,7 +1344,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         margin-bottom: 2px;
       }
       img {
-        width: 45px;
+        width: 40px;
         border: solid 1px #000;
 
         &:hover {
@@ -1378,7 +1386,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       flex-wrap: wrap;
       gap: 0px 8px;
       overflow: auto;
-      height: 50vh;
+      height: 55vh;
 
       .champion__card {
         display: flex;
@@ -1424,3 +1432,89 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     flex-wrap: nowrap;
   }
 }
+
+.board-bottom{
+  display: flex;
+  flex-direction: row;  
+
+  .blue-team__ban{
+    display: flex;
+    flex-direction: row; 
+    flex : 2 1;  
+    margin : 20px 0  20px 20px;
+    
+
+    & div:nth-child(3){
+      margin-right : 15px;
+    }
+
+    .banned-champion-wrap{
+      width: 60px;
+      height: 60px;
+      margin-right: 2px;
+      background-color: #6e83f81c;
+      transform: skewX(10deg);
+      cursor: pointer;
+
+      &:hover {
+        background-color: #bcbcbc78;
+      }
+      
+      .banned-champion{
+        filter:brightness(0.5)
+      }
+    }
+  }
+
+  .red-team__ban{
+    display: flex;
+    flex-direction: row-reverse;
+    flex : 2 1;
+    margin : 20px 20px 20px 0px;
+
+    & div:nth-child(3){
+      margin-left : 15px;
+    }
+
+    .banned-champion-wrap{
+      width: 60px;
+      height: 60px;
+      margin-left: 2px;
+      background-color: #f86e6e1c;
+      transform: skewX(-10deg);
+      cursor: pointer;
+
+      &:hover {
+        background-color: #cccccc7d;
+      }
+      
+      .banned-champion{
+        filter:brightness(0.5)
+      }
+    }
+  }
+  
+  .match-result-wrap{
+    flex: 1 2;
+    margin-top: 20px;
+    
+    .match-result{      
+      width: 100%;
+      height: 100%;  
+      border: none;
+      background-color: transparent;
+      color: #fff;
+      text-align: center;
+      font-size : 26px;
+      font-weight: 700;
+      letter-spacing: 1px;
+  
+      &:hover {
+        background-color: #bcbcbc78;
+      }
+    }   
+  }  
+}
+
+
+
