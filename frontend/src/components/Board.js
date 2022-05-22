@@ -1,6 +1,6 @@
-import React,{ useEffect, useState , useMemo} from 'react'
+import React,{ useEffect, useState , useRef} from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
-import {toJS, fromJS, getIn, setIn, get} from 'immutable'
+import {toJS, fromJS, getIn, setIn, get, mergeDeep , updateIn} from 'immutable'
 import {TOP,JGL,MID,BOT,SUP} from '../img/position_icon'
 import transparencyImg from '../img/transparencyImg.png'
 
@@ -8,6 +8,7 @@ import transparencyImg from '../img/transparencyImg.png'
 export default function Board({recentVersion, ascendingChampionDataList , classicSpellList}) {  
 
   const [isSimulationInProgress, setIsSimulationInProgress] = useState(true)
+  const [mode,setMode] = useState('')
   const [selectedBlueTeam, setSelectedBlueTeam] = useState('')
   const [selectedRedTeam, setSelectedRedTeam] = useState('')
   const [isTeamSelectMenuOpen , setIsTeamSelectMenuOpen] = useState({
@@ -16,26 +17,26 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   })  
   const [date, setDate] = useState('2022-00-00')
   const [round, setRound] = useState('GAME 1')
-  const [matchResult, setMatchResult] = useState('승리')
+  const [matchResult, setMatchResult] = useState('Win or Lose')
   const [player, setPlayer] = useState({
     blue1: '', blue2: '', blue3: '', blue4: '', blue5: '',
     red1 : '', red2 : '', red3 : '', red4 : '', red5 : '',    
   })
-
   const [eachTeamSummonersData, setEachTeamSummonersData] = useState(fromJS({
     blue: {
       pickedChampion : ['', '', '', '', ''],
-      spell1 : ['', 'Smite', '', '', ''],
-      spell2 : ['Flash', 'Flash', 'Flash', 'Flash', 'Flash'],
+      spell1 :  ['', '', '', '', ''],
+      spell2 :  ['', '', '', '', ''],
       bannedChampion : ['', '', '', '', '']
     },
     red : {
       pickedChampion : ['', '', '', '', ''],
-      spell1 : ['', 'Smite', '', '', ''],
-      spell2 : ['Flash', 'Flash', 'Flash', 'Flash', 'Flash'],
+      spell1 :  ['', '', '', '', ''],
+      spell2 :  ['', '', '', '', ''],
       bannedChampion : ['', '', '', '', '']
     }
   })) 
+
 
   const teamArr = ['KDF', 'T1', 'DK' ,'BRO' , 'DRX', 'GEN', 'HLE', 'KT', 'LSB', 'NS']
 
@@ -50,17 +51,39 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     console.log('close')
   }
 
-  const isEachTeamSummonersDataEmpty = (teamColor, ) => {
+  const setPlayerPrefix = () => {
+    setPlayer(prev => ({...prev,  
+      blue1: `${selectedBlueTeam} TOP`, 
+      blue2: `${selectedBlueTeam} JGL`, 
+      blue3: `${selectedBlueTeam} MID`,
+      blue4: `${selectedBlueTeam} BOT`,
+      blue5: `${selectedBlueTeam} SUP`,
+      red1 : `${selectedRedTeam} TOP`, 
+      red2 : `${selectedRedTeam} JGL`,
+      red3 : `${selectedRedTeam} MID`, 
+      red4 : `${selectedRedTeam} BOT`,
+      red5 : `${selectedRedTeam} SUP`
+    }))
+  }
 
-  } 
+  const setSpellPlaceholder = () => {
+    const spellPlaceholderData = eachTeamSummonersData
+    .updateIn(['blue','spell2'],arr => arr.map(spell => spell = 'Flash'))
+    .updateIn(['red','spell2'],arr => arr.map(spell => spell = 'Flash'))
+    .setIn(['blue','spell1', 1],'Smite')
+    .setIn(['red','spell1', 1],'Smite')
 
+    setEachTeamSummonersData(spellPlaceholderData)
+  }
 
   useEffect(()=>{    
-    setPlayer(prev => ({...prev,  
-    blue1: `${selectedBlueTeam} TOP`, blue2: `${selectedBlueTeam} JGL`, blue3: `${selectedBlueTeam} MID`, blue4: `${selectedBlueTeam} BOT`, blue5: `${selectedBlueTeam} SUP`,
-    red1 : `${selectedRedTeam} TOP`, red2 : `${selectedRedTeam} JGL`, red3 : `${selectedRedTeam} MID`, red4 : `${selectedRedTeam} BOT`, red5 : `${selectedRedTeam} SUP`}))
+    setPlayerPrefix()       
   },[selectedBlueTeam, selectedRedTeam])
+  
 
+  // useEffect(()=>{
+  //   setSpellPlaceholder()  
+  // },[])
   return (    
     /*     
     {
@@ -146,7 +169,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
         <div className="blue-team__summoners">
           {
             eachTeamSummonersData.getIn(['blue','pickedChampion']).map((champion, index)=>(
-              <div className="summoner" key={index}>
+              <div className="summoner" key={index} summonernumber={`${index}`}>
                 <img className="champion" id={`${champion}`} alt={`${champion}`} 
                 src={                  
                   champion === ''
