@@ -1,17 +1,116 @@
 $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
-// .App{
-//   &::after{
-//     content:"";
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     height: 100%;
-//     width: 100%;
-//     background-color: rgba(0, 0, 0, 0.658);
-//     opacity: 1;
-//     z-index: 1;
-//   }
-// }
+
+.setting-container{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:center;
+  color: #fff;
+  text-align: center;
+  height: 800px;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url(../img/setting_background.png);
+    background-size: cover;
+    filter:brightness(0.5);
+    opacity: 1;
+    z-index: -1;
+  }
+
+  .setting-board{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 45%;
+
+    .board__title{
+      width: 100%;
+
+      p{
+        font-size: 36px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-bottom : 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #fff;
+        vertical-align: middle;
+
+      }
+    }
+
+    .radio-box{
+      display: flex;
+      flex-direction: column;
+      width: 70%;
+
+      .radio-box__title{
+        p{
+          display: flex;
+          flex-direction:row;
+          align-items: center;  
+          text-align: left;
+          margin : 20px 0 10px 0;
+        }
+        .tooltip-icon{
+          margin-left: 5px;
+          width: 18px;
+          height: 18px;
+          filter:brightness(0.7)
+        }
+        .tooltip-text .multi-line {
+          text-align: left !important;
+          }
+      }
+
+      .radio-button-wrap{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .radio-button{             
+          label{
+            width: 150px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #262626a8;
+            font-size: 16px;
+            cursor: pointer;
+
+            &:hover {
+              background-color: #fc916077;
+            }
+          }        
+
+          input[type="radio"]{
+            display: none;
+          }
+
+          input[type='radio']:checked + label{
+            background-color: #fc91609d;
+          }
+        }
+
+        & .radio-button:nth-child(2){
+          filter:brightness(0.3);
+          pointer-events: none;
+        }
+      }
+    }
+  }
+
+  
+}
+
 
 .ban-pick-board {
   position: relative;
