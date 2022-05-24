@@ -1,7 +1,7 @@
 import React,{ useEffect, useState , useRef} from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import ReactTooltip from 'react-tooltip'
-import {toJS, fromJS, getIn, setIn, get, mergeDeep , updateIn} from 'immutable'
+import {fromJS} from 'immutable'
 import {TOP,JGL,MID,BOT,SUP} from '../img/position_icon'
 import transparencyImg from '../img/transparencyImg.png'
 import tooltipIcon from '../img/tooltip-mark.png'
@@ -19,6 +19,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     blue : false,
     red : false
   })  
+
   const [date, setDate] = useState('2022-00-00')
   const [round, setRound] = useState('GAME 1')
   const [matchResult, setMatchResult] = useState('Win or Lose')
@@ -26,6 +27,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     blue1: '', blue2: '', blue3: '', blue4: '', blue5: '',
     red1 : '', red2 : '', red3 : '', red4 : '', red5 : '',    
   })
+
   const [eachTeamSummonersData, setEachTeamSummonersData] = useState(fromJS({
     blue: {
       pickedChampion : ['', '', '', '', ''],
@@ -38,11 +40,20 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       spell1 :  ['', '', '', '', ''],
       spell2 :  ['', '', '', '', ''],
       bannedChampion : ['', '', '', '', '']
-    }
+    },    
   })) 
+  const [currentTargetTeam , setCurrentTargetTeam] = useState('')
+  const [currentTargetData, setCurrentTargetData] = useState('')// pickedChampion, bannedChampion
+  const [currentTargetSummonerIndex, setCurrentTargetSummonerIndex] = useState('') // 0~4
+
+  const onClickChampion = e =>{
+    eachTeamSummonersData.setIn([currentTargetTeam, currentTargetData])
+  }
+
+  const isMounted = useRef(false);
 
   const tooltipText = 
-  `[빠른 결과 모드] 는 Ban-Pick 순서와는 상관없이 빠르게 데이터 입력이 가능합니다.<br>
+  `[빠른 결과 모드] 는 Ban-Pick 순서와는 상관없이 빠르게 데이터 입력이 가능하고, 기본 스펠이 자동으로 입력됩니다.<br>
   [토너먼트 드래프트 모드] 는 전통 Ban-Pick 룰에 따라 진행됩니다. (현재 개발중입니다^^)`
 
   const teamArr = ['KDF', 'T1', 'DK' ,'BRO' , 'DRX', 'GEN', 'HLE', 'KT', 'LSB', 'NS']
@@ -74,26 +85,38 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     }))
   }
 
-  const setSpellPlaceholder = () => {
+  const setSpellPlaceholder = () => { 
     const spellPlaceholderData = eachTeamSummonersData
     .setIn(['blue','spell1', 1],'Smite')
     .setIn(['red','spell1', 1],'Smite')
-    .updateIn(['blue','spell2'],arr => arr.map(spell => spell = 'Flash'))
-    .updateIn(['red','spell2'],arr => arr.map(spell => spell = 'Flash'))
+    .updateIn(['blue','spell2'], spell2Arr => spell2Arr.map(spell => spell = 'Flash'))
+    .updateIn(['red','spell2'], spell2Arr => spell2Arr.map(spell => spell = 'Flash'))
 
     setEachTeamSummonersData(spellPlaceholderData)
   }
+
+  // const setEachTeamPickedChampion = (teamColor) => {
+  //   const pickedChampionData = eachTeamSummonersData
+  //   .setIn(['blue','pickedChampion'])
+    
+  //   setEachTeamSummonersData(pickedChampionData)
+  // }
+  
+
 
   useEffect(()=>{    
     setPlayerPrefix()       
   },[selectedBlueTeam, selectedRedTeam])
   
+  useEffect(()=>{
+    if(mode === 'rapid' && isMounted.current === true){
+      setSpellPlaceholder()  
+      return
+    }
+    isMounted.current = true;
+  },[phase])
 
-  // useEffect(()=>{
-  //   setSpellPlaceholder()  
-  // },[])
-
-  const showScreen = {
+  const showBoard = {
     setting :
     <Container id='setting-container' className="setting-container">
       <div className="setting-board">
@@ -121,8 +144,10 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
             </div>
           </div>
         </div>
-        <div className="">
-
+        <div className="next-phase">
+          <button onClick={()=> setPhase('banpick')}>
+            밴픽하러가기
+          </button>
         </div>
       </div>
     </Container>,
@@ -205,8 +230,8 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       <div className="blue-team__summoners">
         {
           eachTeamSummonersData.getIn(['blue','pickedChampion']).map((champion, index)=>(
-            <div className="summoner" key={index} summonernumber={`${index}`}>
-              <img className="champion" id={`${champion}`} alt={`${champion}`} 
+            <div className="summoner" key={index}>
+              <img className="champion" id={`${champion}`} alt={`${champion}`}  
               src={                  
                 champion === ''
                 ? transparencyImg
@@ -291,8 +316,8 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
         <div className="champions"> 
           {
             ascendingChampionDataList.map((championData, index) =>(
-              <div className="champion__card" key={index} onClick={()=>{}}>
-                <img className="champion__img" championname={championData.id} alt={championData.id} src={`${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${championData.id}.png`}/>
+              <div className="champion__card" key={index} data-champion={championData.id} onClick={()=>{}}>
+                <img className="champion__img" alt={championData.id} src={`${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${championData.id}.png`}/>
                 <small className="champion__name">{championData.name}</small>
               </div>
             ))
@@ -425,8 +450,8 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     <>  
     {
       phase === 'setting'
-      ? showScreen.setting
-      : showScreen.banpick
+      ? showBoard.setting
+      : showBoard.banpick
     }    
     </>  
   )
