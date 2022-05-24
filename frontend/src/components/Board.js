@@ -9,6 +9,8 @@ import tooltipIcon from '../img/tooltip-mark.png'
 
 export default function Board({recentVersion, ascendingChampionDataList , classicSpellList}) {  
 
+  const isMounted = useRef(false);
+
   const [isSimulationInProgress, setIsSimulationInProgress] = useState(true)
   const [phase,setPhase] = useState('setting') // setting, banpick
   const [mode,setMode] = useState('rapid') // simulation, rapid
@@ -27,30 +29,69 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     blue1: '', blue2: '', blue3: '', blue4: '', blue5: '',
     red1 : '', red2 : '', red3 : '', red4 : '', red5 : '',    
   })
+  
+  const [currentTargetSummonerIndex, setCurrentTargetSummonerIndex] = useState(0) // 0~9
 
-  const [eachTeamSummonersData, setEachTeamSummonersData] = useState(fromJS({
-    blue: {
-      pickedChampion : ['', '', '', '', ''],
-      spell1 :  ['', '', '', '', ''],
-      spell2 :  ['', '', '', '', ''],
-      bannedChampion : ['', '', '', '', '']
-    },
-    red : {
-      pickedChampion : ['', '', '', '', ''],
-      spell1 :  ['', '', '', '', ''],
-      spell2 :  ['', '', '', '', ''],
-      bannedChampion : ['', '', '', '', '']
-    },    
-  })) 
-  const [currentTargetTeam , setCurrentTargetTeam] = useState('')
-  const [currentTargetData, setCurrentTargetData] = useState('')// pickedChampion, bannedChampion
-  const [currentTargetSummonerIndex, setCurrentTargetSummonerIndex] = useState('') // 0~4
-
-  const onClickChampion = e =>{
-    eachTeamSummonersData.setIn([currentTargetTeam, currentTargetData])
+  class Summoner{
+    constructor(pickedChampion , spell1, spell2){
+      pickedChampion,
+      spell1,
+      spell2
+    }
   }
 
-  const isMounted = useRef(false);
+  class BlueTeamSummoner extends Summoner{
+    set(){
+
+    }
+  }
+
+
+  const [summonerData, setSummonerData] = useState({
+    summoner0 : new Summoner('blue', ['',''], ''),
+    summoner1 : new Summoner('blue', ['',''], ''),
+    summoner2 : new Summoner('blue', ['',''], ''),
+    summoner3 : new Summoner('blue', ['',''], ''),
+    summoner4 : new Summoner('blue', ['',''], ''),
+    summoner5 : new Summoner('red', ['',''], ''),
+    summoner6 : new Summoner('red', ['',''], ''),
+    summoner7 : new Summoner('red', ['',''], ''),
+    summoner8 : new Summoner('red', ['',''], ''),
+    summoner9 : new Summoner('red', ['',''], '')    
+  })
+  const [bannedChampionList, setBannedChampionList] = useState({
+    blue : ['','','','',''],
+    red : ['','','','',''],
+  })
+  
+  const setPickedChampion = (championName) => {
+    const newSummonerData = new Summoner(
+      summonerData[`summoner${currentTargetSummonerIndex}`].teamColor,
+      summonerData[`summoner${currentTargetSummonerIndex}`].spell,
+      championName)
+
+    setSummonerData({...summonerData , [`summoner${currentTargetSummonerIndex}`] : newSummonerData})
+  }
+
+  const setSpell = (spellArr)=> {
+    const newSummonerData = new Summoner(
+      summonerData[`summoner${currentTargetSummonerIndex}`].teamColor,
+      spellArr,
+      summonerData[`summoner${currentTargetSummonerIndex}`].championName
+    )
+
+    setSummonerData({...summonerData , [`summoner${currentTargetSummonerIndex}`] : newSummonerData})
+  }
+
+  const getTargetTeamPickedChampionList = (teamColor) => {
+    const summonerDataList = Object.values(summonerData)
+    const targetTeamSummonersData = summonerDataList.filter(summonerData => summonerData.teamColor === teamColor)
+    const targetTeamPickedChampionList = targetTeamSummonersData.map(summonerData => summonerData.pickedChampion)
+    
+    return targetTeamPickedChampionList
+  }
+
+  
 
   const tooltipText = 
   `[빠른 결과 모드] 는 Ban-Pick 순서와는 상관없이 빠르게 데이터 입력이 가능하고, 기본 스펠이 자동으로 입력됩니다.<br>
@@ -86,12 +127,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   }
 
   const setSpellPlaceholder = () => { 
-    const spellPlaceholderData = eachTeamSummonersData
-    .setIn(['blue','spell1', 1],'Smite')
-    .setIn(['red','spell1', 1],'Smite')
-    .updateIn(['blue','spell2'], spell2Arr => spell2Arr.map(spell => spell = 'Flash'))
-    .updateIn(['red','spell2'], spell2Arr => spell2Arr.map(spell => spell = 'Flash'))
-
+    const spellPlaceholderData =
     setEachTeamSummonersData(spellPlaceholderData)
   }
 
@@ -115,6 +151,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     }
     isMounted.current = true;
   },[phase])
+
 
   const showBoard = {
     setting :
@@ -229,7 +266,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     <Row className='board-middle'>
       <div className="blue-team__summoners">
         {
-          eachTeamSummonersData.getIn(['blue','pickedChampion']).map((champion, index)=>(
+          getTargetTeamPickedChampionList('blue').map((champion, index)=>(
             <div className="summoner" key={index}>
               <img className="champion" id={`${champion}`} alt={`${champion}`}  
               src={                  
@@ -254,47 +291,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
               <input className="player" type='text' value={player[`blue${index + 1}`]} onChange={(e)=>{onChangePlayer(e,`blue${index + 1}`)}}/>
             </div>
           ))           
-        }
-        {/* <div className="summoner first">
-          <img className="champion" id='Ezreal' alt="champion" src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ezreal_0.jpg' />
-          <div className="spell">
-            <img alt="spell1"  src={spell}/>
-            <img alt="spell2"  src={spell}/>
-          </div>
-          <input className="player" type='text' value={player.blue1} onChange={(e)=>{onChangePlayer(e,'blue1')}}/>
-        </div>
-        <div className="summoner second">
-          <img className="champion"  id='Graves' alt="champion" src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Graves_0.jpg' />
-          <div className="spell">
-            <div>spell1</div>
-            <div>spell2</div>              
-          </div>
-          <input className="player" type='text' value={player.blue2} onChange={(e)=>{onChangePlayer(e,'blue2')}}/>
-        </div>
-        <div className="summoner third">
-          <img className="champion" alt="champion" src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg' />
-          <div className="spell">
-            <div>spell1</div>
-            <div>spell2</div>              
-          </div>
-          <input className="player" type='text' value={player.blue3} onChange={(e)=>{onChangePlayer(e,'blue3')}}/>
-        </div>
-        <div className="summoner forth">
-          <img className="champion" alt="champion" src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg' />
-          <div className="spell">
-            <div>spell1</div>
-            <div>spell2</div>              
-          </div>
-          <input className="player" type='text' value={player.blue4} onChange={(e)=>{onChangePlayer(e,'blue4')}}/>
-        </div>
-        <div className="summoner fifth">
-          <img className="champion" alt="champion" src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg' />
-          <div className="spell">
-            <div>spell1</div>
-            <div>spell2</div>              
-          </div>
-          <input className="player" type='text' value={player.blue5} onChange={(e)=>{onChangePlayer(e,'blue5')}}/>
-        </div> */}
+        }        
       </div>
 
       {
@@ -316,7 +313,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
         <div className="champions"> 
           {
             ascendingChampionDataList.map((championData, index) =>(
-              <div className="champion__card" key={index} data-champion={championData.id} onClick={()=>{}}>
+              <div className="champion__card" key={index} data-champion={championData.id} onClick={()=>{setPickedChampion(championData.id)}}>
                 <img className="champion__img" alt={championData.id} src={`${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${championData.id}.png`}/>
                 <small className="champion__name">{championData.name}</small>
               </div>
@@ -338,74 +335,34 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       
 
       <div className="red-team__summoners">
-      {
-          eachTeamSummonersData.getIn(['red','pickedChampion']).map((champion, index)=>(
-            <div className="summoner" key={index}>
-              <img className="champion" id={`${champion}`} alt={`${champion}`} 
+        {
+        getTargetTeamPickedChampionList('red').map((champion, index)=>(
+          <div className="summoner" key={index}>
+            <img className="champion" id={`${champion}`} alt={`${champion}`} 
+            src={
+              champion === ''
+              ? transparencyImg
+              : `${process.env.REACT_APP_API_BASE_URL}/cdn/img/champion/splash/${champion}_0.jpg`
+            }
+          />
+            <div className="spell">
+              <img alt="spell1" 
               src={
-                champion === ''
+                eachTeamSummonersData.getIn(['red','spell1']).get(index) === ''
                 ? transparencyImg
-                : `${process.env.REACT_APP_API_BASE_URL}/cdn/img/champion/splash/${champion}_0.jpg`
-              }
-            />
-              <div className="spell">
-                <img alt="spell1" 
-                src={
-                  eachTeamSummonersData.getIn(['red','spell1']).get(index) === ''
-                  ? transparencyImg
-                  : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${eachTeamSummonersData.getIn(['red','spell1']).get(index)}.png`
-                }/>
-                <img alt="spell2" 
-                src={
-                  eachTeamSummonersData.getIn(['red','spell2']).get(index) === ''
-                  ? transparencyImg
-                  : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${eachTeamSummonersData.getIn(['red','spell2']).get(index)}.png`
-                }/>
-              </div>
-              <input className="player" type='text' value={player[`red${index + 1}`]} onChange={(e)=>{onChangePlayer(e,`red${index + 1}`)}}/>
+                : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${eachTeamSummonersData.getIn(['red','spell1']).get(index)}.png`
+              }/>
+              <img alt="spell2" 
+              src={
+                eachTeamSummonersData.getIn(['red','spell2']).get(index) === ''
+                ? transparencyImg
+                : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${eachTeamSummonersData.getIn(['red','spell2']).get(index)}.png`
+              }/>
             </div>
-          ))           
-        }
-        {/* <div className="summoner first">
-          <img className="champion" alt="champion" id="Aatrox" src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg' />
-          <div className="spell">
-            <img alt="spell1"  src={spell}/>
-            <img alt="spell2"  src={spell}/>
+            <input className="player" type='text' value={player[`red${index + 1}`]} onChange={(e)=>{onChangePlayer(e,`red${index + 1}`)}}/>
           </div>
-          <input className="player" type='text' value={player.red1} onChange={(e)=>{onChangePlayer(e,'red1')}}/>
-        </div>
-        <div className="summoner second">
-          <img className="champion" alt="champion" id='LeeSin' src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/LeeSin_0.jpg' />
-          <div className="spell">
-            <div>spell1</div>
-            <div>spell2</div>              
-          </div>
-          <input className="player" type='text' value={player.red2} onChange={(e)=>{onChangePlayer(e,'red2')}}/>
-        </div>
-        <div className="summoner third">
-          <img className="champion" alt="champion" src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg' />
-          <div className="spell">
-            <div>spell1</div>
-            <div>spell2</div>              
-          </div>
-          <input className="player" type='text' value={player.red3} onChange={(e)=>{onChangePlayer(e,'red3')}}/>
-        </div>
-        <div className="summoner forth">
-          <img className="champion" alt="champion" src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg' />
-          <div className="spell">
-            <div>spell1</div>
-            <div>spell2</div>              
-          </div>
-          <input className="player" type='text' value={player.red4} onChange={(e)=>{onChangePlayer(e,'red4')}}/>
-        </div>
-        <div className="summoner fifth">
-          <img className="champion" alt="champion" src='http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg' />
-          <div className="spell">
-            <div>spell1</div>
-            <div>spell2</div>              
-          </div>
-          <input className="player" type='text' value={player.red5} onChange={(e)=>{onChangePlayer(e,'red5')}}/>
-        </div> */}
+        ))           
+        }        
       </div>
     </Row>
 
