@@ -40,12 +40,12 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     }
   }
 
-  class BlueTeamSummoner extends Summoner{
-    set(){
+  const [blueTeamSummoner, setBlueTeamSummoner] = useState([
+    
+  ])
+  const [redTeamSummoner, setRedTeamSummoner] = useState([
 
-    }
-  }
-
+  ])
 
   const [summonerData, setSummonerData] = useState({
     summoner0 : new Summoner('blue', ['',''], ''),
