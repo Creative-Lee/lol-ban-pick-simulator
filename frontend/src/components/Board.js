@@ -12,8 +12,10 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   const isMounted = useRef(false);
 
   const [isSimulationInProgress, setIsSimulationInProgress] = useState(true)
-  const [phase,setPhase] = useState('setting') // setting, banpick
+  const [board,setBoard] = useState('setting') // setting, banpick
   const [mode,setMode] = useState('rapid') // simulation, rapid
+  const [phase, setPhase] = useState('Pick')  // Pick, Ban
+
 
   const [selectedBlueTeam, setSelectedBlueTeam] = useState('')
   const [selectedRedTeam, setSelectedRedTeam] = useState('')
@@ -28,70 +30,103 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   const [player, setPlayer] = useState({
     blue1: '', blue2: '', blue3: '', blue4: '', blue5: '',
     red1 : '', red2 : '', red3 : '', red4 : '', red5 : '',    
-  })
-  
-  const [currentTargetSummonerIndex, setCurrentTargetSummonerIndex] = useState(0) // 0~9
+  })  
 
   class Summoner{
-    constructor(pickedChampion , spell1, spell2){
-      pickedChampion,
-      spell1,
-      spell2
+    constructor(pickedChampion , spell1, spell2, bannedChampion){
+      this.pickedChampion = pickedChampion
+      this.spell1 = spell1
+      this.spell2 = spell2
+      this.bannedChampion = bannedChampion
+    }
+    setPickedChampion(pickedChampion){
+      return new Summoner(pickedChampion, this.spell1, this.spell2, this.bannedChampion)
+    }
+    setSpell1(spell1){
+      return new Summoner(this.pickedChampion, spell1, this.spell2, this.bannedChampion)
+    }
+    setSpell2(spell2){
+      return new Summoner(this.pickedChampion, this.spell1, spell2, this.bannedChampion)
+    }
+    setBannedChampion(bannedChampion){
+      return new Summoner(this.pickedChampion, this.spell1, this.spell2, bannedChampion)
     }
   }
 
   const [blueTeamSummoner, setBlueTeamSummoner] = useState([
-    
+    new Summoner('','','',''),
+    new Summoner('','','',''),
+    new Summoner('','','',''),
+    new Summoner('','','',''),
+    new Summoner('','','','')
   ])
   const [redTeamSummoner, setRedTeamSummoner] = useState([
-
+    new Summoner('','','',''),
+    new Summoner('','','',''),
+    new Summoner('','','',''),
+    new Summoner('','','',''),
+    new Summoner('','','','')
   ])
-
-  const [summonerData, setSummonerData] = useState({
-    summoner0 : new Summoner('blue', ['',''], ''),
-    summoner1 : new Summoner('blue', ['',''], ''),
-    summoner2 : new Summoner('blue', ['',''], ''),
-    summoner3 : new Summoner('blue', ['',''], ''),
-    summoner4 : new Summoner('blue', ['',''], ''),
-    summoner5 : new Summoner('red', ['',''], ''),
-    summoner6 : new Summoner('red', ['',''], ''),
-    summoner7 : new Summoner('red', ['',''], ''),
-    summoner8 : new Summoner('red', ['',''], ''),
-    summoner9 : new Summoner('red', ['',''], '')    
-  })
-  const [bannedChampionList, setBannedChampionList] = useState({
-    blue : ['','','','',''],
-    red : ['','','','',''],
-  })
-  
-  const setPickedChampion = (championName) => {
-    const newSummonerData = new Summoner(
-      summonerData[`summoner${currentTargetSummonerIndex}`].teamColor,
-      summonerData[`summoner${currentTargetSummonerIndex}`].spell,
-      championName)
-
-    setSummonerData({...summonerData , [`summoner${currentTargetSummonerIndex}`] : newSummonerData})
-  }
-
-  const setSpell = (spellArr)=> {
-    const newSummonerData = new Summoner(
-      summonerData[`summoner${currentTargetSummonerIndex}`].teamColor,
-      spellArr,
-      summonerData[`summoner${currentTargetSummonerIndex}`].championName
-    )
-
-    setSummonerData({...summonerData , [`summoner${currentTargetSummonerIndex}`] : newSummonerData})
-  }
-
-  const getTargetTeamPickedChampionList = (teamColor) => {
-    const summonerDataList = Object.values(summonerData)
-    const targetTeamSummonersData = summonerDataList.filter(summonerData => summonerData.teamColor === teamColor)
-    const targetTeamPickedChampionList = targetTeamSummonersData.map(summonerData => summonerData.pickedChampion)
     
-    return targetTeamPickedChampionList
+  const [targetTeam, setTargetTeam] = useState('blue') // blue, red
+  const [targetIndex, setTargetIndex] = useState(0) // 0 ~ 4
+
+  const setPickedChampion = (championName) => {
+    if(targetTeam === 'blue'){
+      const updateArr = [...blueTeamSummoner]
+      updateArr[targetIndex] = blueTeamSummoner[targetIndex].setPickedChampion(championName)  
+
+      setBlueTeamSummoner(updateArr)
+    }
+    else{
+      const updateArr = [...redTeamSummoner]
+      updateArr[targetIndex] = redTeamSummoner[targetIndex].setPickedChampion(championName)
+
+      setRedTeamSummoner(updateArr)
+    }
   }
 
-  
+  const setBannedChampion = (championName) => {
+    if(targetTeam === 'blue'){
+      const updateArr = [...blueTeamSummoner]
+      updateArr[targetIndex] = blueTeamSummoner[targetIndex].setBannedChampion(championName)  
+
+      setBlueTeamSummoner(updateArr)
+    }
+    else{
+      const updateArr = [...redTeamSummoner]
+      updateArr[targetIndex] = redTeamSummoner[targetIndex].setBannedChampion(championName)
+
+      setRedTeamSummoner(updateArr)
+    }
+  }
+
+  const setSpellPlaceholder = () => {
+    const blueTeamUpdateArr = blueTeamSummoner.map(summoner => summoner.setSpell2('Flash'))
+    blueTeamUpdateArr[1].spell1 = 'Smite'
+
+    const redTeamUpdateArr = redTeamSummoner.map(summoner => summoner.setSpell2('Flash'))
+    redTeamUpdateArr[1].spell1 = 'Smite' 
+        
+    setBlueTeamSummoner(blueTeamUpdateArr)
+    setRedTeamSummoner(redTeamUpdateArr)
+    console.log('스펠 플레이스 홀더 함수 실행')
+  }
+
+  const setPlayerPrefix = () => {
+    setPlayer(prev => ({...prev,  
+      blue1: `${selectedBlueTeam} TOP`, 
+      blue2: `${selectedBlueTeam} JGL`, 
+      blue3: `${selectedBlueTeam} MID`,
+      blue4: `${selectedBlueTeam} BOT`,
+      blue5: `${selectedBlueTeam} SUP`,
+      red1 : `${selectedRedTeam} TOP`, 
+      red2 : `${selectedRedTeam} JGL`,
+      red3 : `${selectedRedTeam} MID`, 
+      red4 : `${selectedRedTeam} BOT`,
+      red5 : `${selectedRedTeam} SUP`
+    }))
+  }
 
   const tooltipText = 
   `[빠른 결과 모드] 는 Ban-Pick 순서와는 상관없이 빠르게 데이터 입력이 가능하고, 기본 스펠이 자동으로 입력됩니다.<br>
@@ -111,47 +146,17 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     console.log('close')
   }
 
-  const setPlayerPrefix = () => {
-    setPlayer(prev => ({...prev,  
-      blue1: `${selectedBlueTeam} TOP`, 
-      blue2: `${selectedBlueTeam} JGL`, 
-      blue3: `${selectedBlueTeam} MID`,
-      blue4: `${selectedBlueTeam} BOT`,
-      blue5: `${selectedBlueTeam} SUP`,
-      red1 : `${selectedRedTeam} TOP`, 
-      red2 : `${selectedRedTeam} JGL`,
-      red3 : `${selectedRedTeam} MID`, 
-      red4 : `${selectedRedTeam} BOT`,
-      red5 : `${selectedRedTeam} SUP`
-    }))
-  }
-
-  const setSpellPlaceholder = () => { 
-    const spellPlaceholderData =
-    setEachTeamSummonersData(spellPlaceholderData)
-  }
-
-  // const setEachTeamPickedChampion = (teamColor) => {
-  //   const pickedChampionData = eachTeamSummonersData
-  //   .setIn(['blue','pickedChampion'])
-    
-  //   setEachTeamSummonersData(pickedChampionData)
-  // }
-  
-
-
   useEffect(()=>{    
     setPlayerPrefix()       
   },[selectedBlueTeam, selectedRedTeam])
   
   useEffect(()=>{
     if(mode === 'rapid' && isMounted.current === true){
-      setSpellPlaceholder()  
+      setSpellPlaceholder()
       return
     }
     isMounted.current = true;
-  },[phase])
-
+  },[board])
 
   const showBoard = {
     setting :
@@ -181,8 +186,8 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
             </div>
           </div>
         </div>
-        <div className="next-phase">
-          <button onClick={()=> setPhase('banpick')}>
+        <div className="next-board">
+          <button onClick={()=> setBoard('banpick')}>
             밴픽하러가기
           </button>
         </div>
@@ -266,26 +271,31 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     <Row className='board-middle'>
       <div className="blue-team__summoners">
         {
-          getTargetTeamPickedChampionList('blue').map((champion, index)=>(
+          blueTeamSummoner.map((summoner, index)=>(
             <div className="summoner" key={index}>
-              <img className="champion" id={`${champion}`} alt={`${champion}`}  
+              <img className="champion" id={`${summoner.pickedChampion}`} alt={`blueTeam-${index}-${summoner.pickedChampion}`}  
+              data-current-target={targetTeam === 'blue'  && targetIndex === index}
+              onClick={() =>{
+                setTargetIndex(index)
+                setTargetTeam('blue')
+              }}
               src={                  
-                champion === ''
+                summoner.pickedChampion === ''
                 ? transparencyImg
-                : `${process.env.REACT_APP_API_BASE_URL}/cdn/img/champion/splash/${champion}_0.jpg`
+                : `${process.env.REACT_APP_API_BASE_URL}/cdn/img/champion/splash/${summoner.pickedChampion}_0.jpg`
               }/>
               <div className="spell">
                 <img alt="spell1" 
                 src={
-                  eachTeamSummonersData.getIn(['blue','spell1']).get(index) === ''
+                  summoner.spell1 === ''
                   ? transparencyImg
-                  : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${eachTeamSummonersData.getIn(['blue','spell1']).get(index)}.png`
+                  : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${summoner.spell1}.png`
                 }/>
                 <img alt="spell2" 
                 src={
-                  eachTeamSummonersData.getIn(['blue','spell2']).get(index) === ''
+                  summoner.spell2 === ''
                   ? transparencyImg
-                  : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${eachTeamSummonersData.getIn(['blue','spell2']).get(index)}.png`
+                  : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${summoner.spell2}.png`
                 }/>
               </div>
               <input className="player" type='text' value={player[`blue${index + 1}`]} onChange={(e)=>{onChangePlayer(e,`blue${index + 1}`)}}/>
@@ -313,14 +323,28 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
         <div className="champions"> 
           {
             ascendingChampionDataList.map((championData, index) =>(
-              <div className="champion__card" key={index} data-champion={championData.id} onClick={()=>{setPickedChampion(championData.id)}}>
+              <div className="champion__card" key={index} data-champion={championData.id}
+              onClick={()=>{
+                if(phase === 'Pick'){
+                  setPickedChampion(championData.id)
+                }
+                else{
+                  setBannedChampion(championData.id)
+                }
+              }}>
                 <img className="champion__img" alt={championData.id} src={`${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${championData.id}.png`}/>
                 <small className="champion__name">{championData.name}</small>
               </div>
             ))
           } 
         </div>
-        <input className="champion__select-button" type="button" value='BAN'/>
+        <input className="champion__select-button" type="button" value='BAN' 
+        onClick={()=>{
+          if(targetIndex < 4){
+            setTargetIndex(targetIndex + 1)
+          } 
+        
+        }}/>
       </div>
       : 
       <div className="todays-goal">
@@ -335,47 +359,51 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       
 
       <div className="red-team__summoners">
-        {
-        getTargetTeamPickedChampionList('red').map((champion, index)=>(
+      {
+        redTeamSummoner.map((summoner, index)=>(
           <div className="summoner" key={index}>
-            <img className="champion" id={`${champion}`} alt={`${champion}`} 
-            src={
-              champion === ''
+            <img className="champion" id={`${summoner.pickedChampion}`} alt={`${summoner.pickedChampion}`}
+            data-current-target={targetTeam === 'red' && targetIndex === index}
+            onClick={() =>{
+              setTargetIndex(index)
+              setTargetTeam('red')
+            }}  
+            src={                  
+              summoner.pickedChampion === ''
               ? transparencyImg
-              : `${process.env.REACT_APP_API_BASE_URL}/cdn/img/champion/splash/${champion}_0.jpg`
-            }
-          />
+              : `${process.env.REACT_APP_API_BASE_URL}/cdn/img/champion/splash/${summoner.pickedChampion}_0.jpg`
+            }/>
             <div className="spell">
               <img alt="spell1" 
               src={
-                eachTeamSummonersData.getIn(['red','spell1']).get(index) === ''
+                summoner.spell1 === ''
                 ? transparencyImg
-                : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${eachTeamSummonersData.getIn(['red','spell1']).get(index)}.png`
+                : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${summoner.spell1}.png`
               }/>
               <img alt="spell2" 
               src={
-                eachTeamSummonersData.getIn(['red','spell2']).get(index) === ''
+                summoner.spell2 === ''
                 ? transparencyImg
-                : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${eachTeamSummonersData.getIn(['red','spell2']).get(index)}.png`
+                : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${summoner.spell2}.png`
               }/>
             </div>
             <input className="player" type='text' value={player[`red${index + 1}`]} onChange={(e)=>{onChangePlayer(e,`red${index + 1}`)}}/>
           </div>
         ))           
-        }        
+      }        
       </div>
     </Row>
 
     <Row className='board-bottom'>
       <div className="blue-team__ban">
       {
-        eachTeamSummonersData.getIn(['blue','bannedChampion']).map((bannedChampion, index) => (
+        blueTeamSummoner.map((summoner, index) => (
           <div className='banned-champion-wrap' key={index}>
             <img className='banned-champion' 
             src={
-            bannedChampion === ''
+            summoner.bannedChampion === ''
             ? transparencyImg
-            : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${eachTeamSummonersData.getIn(['blue','bannedChampion']).get(index)}.png`}/>
+            : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${summoner.bannedChampion}.png`}/>
           </div>
         ))
       }
@@ -388,13 +416,13 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
 
       <div className="red-team__ban">
       {
-        eachTeamSummonersData.getIn(['red','bannedChampion']).map((bannedChampion, index) => (
+        redTeamSummoner.map((summoner, index) => (
           <div className='banned-champion-wrap' key={index}>
             <img className='banned-champion' 
             src={
-            bannedChampion === ''
+            summoner.bannedChampion === ''
             ? transparencyImg
-            : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${eachTeamSummonersData.getIn(['red','bannedChampion']).get(index)}.png`}/>
+            : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${summoner.bannedChampion}.png`}/>
           </div>
         ))
       }
@@ -406,7 +434,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   return (
     <>  
     {
-      phase === 'setting'
+      board === 'setting'
       ? showBoard.setting
       : showBoard.banpick
     }    

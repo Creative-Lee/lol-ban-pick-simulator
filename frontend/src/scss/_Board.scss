@@ -109,7 +109,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       }
     }
 
-    .next-phase{
+    .next-board{
       width: 70%;
 
       button{
@@ -886,6 +886,10 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     .summoner.third {
       margin-bottom: 30px;
     }
+
+    .champion[data-current-target=true]{
+      background-color: #bcbcbc78;
+    }
   }
 
   .blue-team__summoners {
@@ -1552,11 +1556,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         background-color: #000000bb;
       }
     }
-  }
-
-  .board-bottom {
-    flex-wrap: nowrap;
-  }
+  } 
 }
 
 .board-bottom{
