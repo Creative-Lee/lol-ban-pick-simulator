@@ -1,21 +1,28 @@
 import React,{ useEffect, useState , useRef} from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import ReactTooltip from 'react-tooltip'
-import {fromJS} from 'immutable'
 import {TOP,JGL,MID,BOT,SUP} from '../img/position_icon'
 import transparencyImg from '../img/transparencyImg.png'
 import tooltipIcon from '../img/tooltip-mark.png'
 
 
 export default function Board({recentVersion, ascendingChampionDataList , classicSpellList}) {  
+  const tooltipText = 
+  `[빠른 결과 모드] 는 Ban-Pick 순서와는 상관없이 빠르게 데이터 입력이 가능하고, 기본 스펠이 자동으로 입력됩니다.<br>
+  [토너먼트 드래프트 모드] 는 전통 Ban-Pick 룰에 따라 진행됩니다. (현재 개발중입니다^^)`
 
-  const isMounted = useRef(false);
+  const teamArr = ['KDF', 'T1', 'DK' ,'BRO' , 'DRX', 'GEN', 'HLE', 'KT', 'LSB', 'NS']
+
+  const isMountedRef = useRef(false);
+  const blueTeamPickedChampionRef = useRef([]);
+  const blueTeamBannedChampionRef = useRef([]);
+  const redTeamPickedChampionRef = useRef([]);
+  const redTeamBannedChampionRef = useRef([]);
 
   const [isSimulationInProgress, setIsSimulationInProgress] = useState(true)
   const [board,setBoard] = useState('setting') // setting, banpick
   const [mode,setMode] = useState('rapid') // simulation, rapid
   const [phase, setPhase] = useState('Pick')  // Pick, Ban
-
 
   const [selectedBlueTeam, setSelectedBlueTeam] = useState('')
   const [selectedRedTeam, setSelectedRedTeam] = useState('')
@@ -71,6 +78,18 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   const [targetTeam, setTargetTeam] = useState('blue') // blue, red
   const [targetIndex, setTargetIndex] = useState(0) // 0 ~ 4
 
+  const onChangePlayer = (e, teamNumber) => setPlayer({...player , [teamNumber] : e.target.value})
+  const onChangeMode = e => setMode(e.target.value) 
+
+  const toggleIsTeamSelectMenuOpen = teamColor => {
+    setIsTeamSelectMenuOpen(prevState=> ({...prevState , [teamColor] : !prevState[teamColor]}))
+    console.log('toggle')
+  }
+  const closeTeamSelectMenu = teamColor => {
+    setIsTeamSelectMenuOpen(prevState => ({...prevState , [teamColor] : false}))
+    console.log('close')
+  }
+
   const setPickedChampion = (championName) => {
     if(targetTeam === 'blue'){
       const updateArr = [...blueTeamSummoner]
@@ -101,18 +120,72 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     }
   }
 
-  const setSpellPlaceholder = () => {
-    const blueTeamUpdateArr = blueTeamSummoner.map(summoner => summoner.setSpell2('Flash'))
-    blueTeamUpdateArr[1].spell1 = 'Smite'
+  const onClickAllTargetController = () => {
+    if(isAllPhaseEnd()){
+      setIsSimulationInProgress(false)
+      return
+    }
 
-    const redTeamUpdateArr = redTeamSummoner.map(summoner => summoner.setSpell2('Flash'))
-    redTeamUpdateArr[1].spell1 = 'Smite' 
-        
-    setBlueTeamSummoner(blueTeamUpdateArr)
-    setRedTeamSummoner(redTeamUpdateArr)
-    console.log('스펠 플레이스 홀더 함수 실행')
+    if(isCurrentTargetIndexChampionDataEmpty()){
+      return
+    }
+
+    if(targetIndex < 4){
+      setTargetIndex(targetIndex + 1)
+      return
+    }
+      
+    if(isPickPhaseEnd()){
+      setPhase('Ban')
+    }
+    
+    if(isBanPhaseEnd()){
+      setPhase('Pick')
+    }
+
+    if(targetTeam === 'blue'){
+      setTargetTeam('red')           
+    }
+    else{
+      setTargetTeam('blue')
+    }
+
+    setTargetIndex(0) 
   }
 
+  const isCurrentTargetIndexChampionDataEmpty = () => {
+    if(phase === 'Pick'){
+      if(targetTeam === 'blue'){
+        return blueTeamSummoner[targetIndex].pickedChampion === ''
+      }      
+      return redTeamSummoner[targetIndex].pickedChampion === ''
+    }
+    else{
+      if(targetTeam === 'blue'){
+        return blueTeamSummoner[targetIndex].bannedChampion === ''
+      }
+      return redTeamSummoner[targetIndex].bannedChampion === ''
+    }
+  }
+
+  const isPickPhaseEnd = () => {
+    const isBlueTeamPickPhaseEnd = !blueTeamSummoner.map(summoner => summoner.pickedChampion).includes('')
+    const isRedTeamPickPhaseEnd = !redTeamSummoner.map(summoner => summoner.pickedChampion).includes('')
+    
+    return isBlueTeamPickPhaseEnd && isRedTeamPickPhaseEnd
+  }
+  
+  const isBanPhaseEnd = () => {  
+    const isBlueTeamBanPhaseEnd = !blueTeamSummoner.map(summoner => summoner.bannedChampion).includes('')
+    const isRedTeamBanPhaseEnd = !redTeamSummoner.map(summoner => summoner.bannedChampion).includes('')
+    
+    return isBlueTeamBanPhaseEnd && isRedTeamBanPhaseEnd
+  }  
+
+  const isAllPhaseEnd = () => {
+    return isPickPhaseEnd() && isBanPhaseEnd()
+  }
+  
   const setPlayerPrefix = () => {
     setPlayer(prev => ({...prev,  
       blue1: `${selectedBlueTeam} TOP`, 
@@ -128,35 +201,29 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     }))
   }
 
-  const tooltipText = 
-  `[빠른 결과 모드] 는 Ban-Pick 순서와는 상관없이 빠르게 데이터 입력이 가능하고, 기본 스펠이 자동으로 입력됩니다.<br>
-  [토너먼트 드래프트 모드] 는 전통 Ban-Pick 룰에 따라 진행됩니다. (현재 개발중입니다^^)`
+  const setSpellPlaceholder = () => {
+    const blueTeamUpdateArr = blueTeamSummoner.map(summoner => summoner.setSpell2('Flash'))
+    blueTeamUpdateArr[1].spell1 = 'Smite'
 
-  const teamArr = ['KDF', 'T1', 'DK' ,'BRO' , 'DRX', 'GEN', 'HLE', 'KT', 'LSB', 'NS']
-
-  const onChangePlayer = (e, teamNumber) => setPlayer({...player , [teamNumber] : e.target.value})
-  const onChangeMode = e => setMode(e.target.value) 
-
-  const toggleIsTeamSelectMenuOpen = teamColor => {
-    setIsTeamSelectMenuOpen(prevState=> ({...prevState , [teamColor] : !prevState[teamColor]}))
-    console.log('toggle')
-  }
-  const closeTeamSelectMenu = teamColor => {
-    setIsTeamSelectMenuOpen(prevState => ({...prevState , [teamColor] : false}))
-    console.log('close')
+    const redTeamUpdateArr = redTeamSummoner.map(summoner => summoner.setSpell2('Flash'))
+    redTeamUpdateArr[1].spell1 = 'Smite' 
+        
+    setBlueTeamSummoner(blueTeamUpdateArr)
+    setRedTeamSummoner(redTeamUpdateArr)
+    console.log('스펠 플레이스 홀더 함수 실행')
   }
 
-  useEffect(()=>{    
+  useEffect(()=>{ //setPlayerPrefix
     setPlayerPrefix()       
   },[selectedBlueTeam, selectedRedTeam])
   
-  useEffect(()=>{
-    if(mode === 'rapid' && isMounted.current === true){
+  useEffect(()=>{ //setSpellPlaceholder
+    if(mode === 'rapid' && isMountedRef.current === true){
       setSpellPlaceholder()
       return
     }
-    isMounted.current = true;
-  },[board])
+    isMountedRef.current = true;
+  },[board])   
 
   const showBoard = {
     setting :
@@ -212,7 +279,8 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
           {isTeamSelectMenuOpen.blue && teamArr.map((team, index) => (
             <li className={`name__option`} key={index} 
             onMouseDown={()=> {
-              setSelectedBlueTeam(team) ; console.log('selected')
+              setSelectedBlueTeam(team)
+              console.log('selected')
             }}
             > 
               <img className='option__logo' alt='logo' src={`${process.env.PUBLIC_URL}/assets/team_logo/${team}.png`} />
@@ -274,10 +342,12 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
           blueTeamSummoner.map((summoner, index)=>(
             <div className="summoner" key={index}>
               <img className="champion" id={`${summoner.pickedChampion}`} alt={`blueTeam-${index}-${summoner.pickedChampion}`}  
-              data-current-target={targetTeam === 'blue'  && targetIndex === index}
+              data-current-target={targetTeam === 'blue'  && targetIndex === index && phase === 'Pick'}
+              ref={element => blueTeamPickedChampionRef.current[index] = element}
               onClick={() =>{
                 setTargetIndex(index)
                 setTargetTeam('blue')
+                setPhase('Pick')
               }}
               src={                  
                 summoner.pickedChampion === ''
@@ -338,12 +408,9 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
             ))
           } 
         </div>
-        <input className="champion__select-button" type="button" value='BAN' 
+        <input className="champion__select-button" type="button" value={phase}
         onClick={()=>{
-          if(targetIndex < 4){
-            setTargetIndex(targetIndex + 1)
-          } 
-        
+          onClickAllTargetController()
         }}/>
       </div>
       : 
@@ -363,10 +430,12 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
         redTeamSummoner.map((summoner, index)=>(
           <div className="summoner" key={index}>
             <img className="champion" id={`${summoner.pickedChampion}`} alt={`${summoner.pickedChampion}`}
-            data-current-target={targetTeam === 'red' && targetIndex === index}
+            data-current-target={targetTeam === 'red' && targetIndex === index && phase === 'Pick'}
+            ref={element => redTeamPickedChampionRef.current[index] = element}
             onClick={() =>{
               setTargetIndex(index)
               setTargetTeam('red')
+              setPhase('Pick')
             }}  
             src={                  
               summoner.pickedChampion === ''
@@ -399,7 +468,14 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       {
         blueTeamSummoner.map((summoner, index) => (
           <div className='banned-champion-wrap' key={index}>
-            <img className='banned-champion' 
+            <img className='banned-champion' alt={`blueTeam-banned-${index}-${summoner.bannedChampion}`}
+            data-current-target={targetTeam === 'blue' && targetIndex === index && phase === 'Ban'}
+            ref={element => blueTeamBannedChampionRef.current[index] = element}
+            onClick={()=>{
+              setTargetTeam('blue')
+              setTargetIndex(index)
+              setPhase('Ban')
+            }}
             src={
             summoner.bannedChampion === ''
             ? transparencyImg
@@ -418,7 +494,14 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       {
         redTeamSummoner.map((summoner, index) => (
           <div className='banned-champion-wrap' key={index}>
-            <img className='banned-champion' 
+            <img className='banned-champion' alt={`redTeam-banned-${index}-${summoner.bannedChampion}`}
+            data-current-target={targetTeam === 'red' && targetIndex === index && phase === 'Ban'}
+            ref={element => redTeamBannedChampionRef.current[index] = element}
+            onClick={()=>{
+              setTargetTeam('red')
+              setTargetIndex(index)
+              setPhase('Ban')
+            }}
             src={
             summoner.bannedChampion === ''
             ? transparencyImg
@@ -433,11 +516,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   
   return (
     <>  
-    {
-      board === 'setting'
-      ? showBoard.setting
-      : showBoard.banpick
-    }    
+    {showBoard[board]}    
     </>  
   )
 }

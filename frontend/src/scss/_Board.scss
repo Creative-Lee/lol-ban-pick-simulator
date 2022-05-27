@@ -376,8 +376,8 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 
     .summoner {
       position: relative;
-      width: 85%;
-      height: 40%;
+      width: 90%;
+      height: 100%;
       margin: 3px 0px;
       overflow: hidden;
       cursor: pointer;
@@ -394,6 +394,14 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         height: 100%;
         z-index: 1;
         object-fit: none;
+        filter: contrast(110%) brightness(1);
+        
+
+        &[data-current-target=true]{
+          background-color: #bcbcbc78;
+          filter: brightness(1.3);
+        }
+
         &:hover {
           background-color: #bcbcbc78;
         }
@@ -885,10 +893,6 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 
     .summoner.third {
       margin-bottom: 30px;
-    }
-
-    .champion[data-current-target=true]{
-      background-color: #bcbcbc78;
     }
   }
 
@@ -1581,14 +1585,19 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       margin-right: 2px;
       background-color: #6e83f81c;
       transform: skewX(10deg);
-      cursor: pointer;
+      cursor: pointer;  
 
       &:hover {
         background-color: #bcbcbc78;
       }
       
       .banned-champion{
-        filter:brightness(0.5)
+        filter:brightness(0.5);
+
+        &[data-current-target=true]{
+          filter:brightness(1);
+          background-color: #bcbcbc78;
+        }
       }
     }
   }
@@ -1616,7 +1625,12 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       }
       
       .banned-champion{
-        filter:brightness(0.5)
+        filter:brightness(0.5);
+
+        &[data-current-target=true]{
+          filter:brightness(1);
+          background-color: #bcbcbc78;
+        }
       }
     }
   }
