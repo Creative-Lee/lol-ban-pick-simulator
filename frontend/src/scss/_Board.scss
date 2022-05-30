@@ -1,15 +1,15 @@
 $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 
-.setting-container{
+.setting-container {
   position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
   color: #fff;
   text-align: center;
   min-height: 80vh;
-  
+
   &::before {
     content: "";
     display: block;
@@ -20,63 +20,62 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     width: 100%;
     background-image: url(../img/setting_background.png);
     background-size: cover;
-    filter:brightness(0.5);
+    filter: brightness(0.5);
     opacity: 1;
     z-index: -1;
   }
 
-  .setting-board{
+  .setting-board {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 45%;
 
-    .board__title{
+    .board__title {
       width: 100%;
 
-      p{
+      p {
         font-size: 36px;
         font-weight: 700;
         letter-spacing: 1px;
-        margin-bottom : 20px;
+        margin-bottom: 20px;
         padding-bottom: 20px;
         border-bottom: 1px solid #fff;
         vertical-align: middle;
-
       }
     }
 
-    .radio-box{
+    .radio-box {
       display: flex;
       flex-direction: column;
       width: 70%;
 
-      .radio-box__title{
-        p{
+      .radio-box__title {
+        p {
           display: flex;
-          flex-direction:row;
-          align-items: center;  
+          flex-direction: row;
+          align-items: center;
           text-align: left;
-          margin : 20px 0 10px 0;
+          margin: 20px 0 10px 0;
         }
-        .tooltip-icon{
+        .tooltip-icon {
           margin-left: 5px;
           width: 18px;
           height: 18px;
-          filter:brightness(0.7)
+          filter: brightness(0.7);
         }
         .tooltip-text .multi-line {
           text-align: left !important;
-          }
+        }
       }
 
-      .radio-button-wrap{
+      .radio-button-wrap {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
 
-        .radio-button{             
-          label{
+        .radio-button {
+          label {
             width: 150px;
             height: 50px;
             display: flex;
@@ -91,34 +90,34 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
             &:hover {
               background-color: #fc916077;
             }
-          }        
+          }
 
-          input[type="radio"]{
+          input[type="radio"] {
             display: none;
           }
 
-          input[type='radio']:checked + label{
+          input[type="radio"]:checked + label {
             background-color: #fc91609d;
           }
         }
 
-        & .radio-button:nth-child(2){
-          filter:brightness(0.3);
+        & .radio-button:nth-child(2) {
+          filter: brightness(0.3);
           pointer-events: none;
         }
       }
     }
 
-    .next-board{
+    .next-board {
       width: 70%;
 
-      button{
+      button {
         width: 100%;
         height: 50px;
         border: none;
         color: #fff;
         background-color: #ffffff34;
-        margin-top: 30px;      
+        margin-top: 30px;
         border-radius: 5px;
 
         &:hover {
@@ -130,12 +129,11 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
   }
 }
 
-
 .ban-pick-board {
   position: relative;
   color: #fff;
   height: 100%;
-  
+
   &::after {
     content: "";
     display: block;
@@ -168,7 +166,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
   position: relative;
   flex-wrap: nowrap;
   height: 10vh;
-  
+
   &::before {
     content: "";
     display: block;
@@ -189,7 +187,6 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     justify-content: center;
     z-index: 99;
     height: 100%;
-
 
     &:hover {
       background-color: #bcbcbc78;
@@ -227,7 +224,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         margin: 0;
         padding: 0;
         width: 100%;
-        
+
         background-color: rgba(0, 0, 0, 0.8);
 
         .name__option {
@@ -316,7 +313,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     }
 
     .red-team__logo {
-      height:100%
+      height: 100%;
     }
   }
 
@@ -381,7 +378,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       overflow: hidden;
       cursor: pointer;
 
-      &:nth-child(3){
+      &:nth-child(3) {
         margin-bottom: 20px;
       }
 
@@ -394,8 +391,8 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         z-index: 1;
         object-fit: none;
         filter: contrast(120%) brightness(1);
-        
-        &[data-current-target=true]{
+
+        &[data-current-target="true"] {
           background-color: #bcbcbc78;
           filter: brightness(1.2);
         }
@@ -888,8 +885,13 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         }
       }
 
-      .player{
-        background-color: rgba(0, 0, 0, 0.2);
+      .player {
+        background-color: rgba(0, 0, 0, 0.6);
+        width: 130px;
+        border: none;
+        color: #fff;
+        z-index: 2;
+        text-align: center;
       }
     }
 
@@ -899,7 +901,6 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
   }
 
   .blue-team__summoners {
-
     .summoner {
       background-color: #6e83f81c;
     }
@@ -908,12 +909,6 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       position: absolute;
       right: 10px;
       bottom: 5px;
-      width: 100px;
-      text-align: right;
-      border: none;
-      background-color: transparent;
-      color: #fff;
-      z-index: 2;
       &:hover {
         background-color: #bcbcbc78;
       }
@@ -968,7 +963,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       &[id="Rammus"] {
         transform: scaleX(-1);
       }
-      
+
       &[id="Rumble"] {
         transform: scaleX(-1);
       }
@@ -1283,7 +1278,6 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 
     .summoner {
       background-color: #f86e6e1c;
-
     }
 
     .player {
@@ -1325,9 +1319,9 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         transform: scaleX(-1);
       }
       &[id="Lucian"] {
-        transform: scaleX(-1);     
+        transform: scaleX(-1);
       }
-      &[id="Lux"]{
+      &[id="Lux"] {
         transform: scaleX(-1);
       }
       &[id="Lillia"] {
@@ -1514,40 +1508,38 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
           cursor: pointer;
         }
       }
-      
-      .search{
+
+      .search {
         display: flex;
         flex-direction: row;
         align-items: center;
-        background-color:#cccccc8f;
+        background-color: #cccccc8f;
 
-        .search-input-label{
+        .search-input-label {
           width: 20px;
-          height: 20px;  
+          height: 20px;
 
           cursor: pointer;
-          
-          .search-icon{
+
+          .search-icon {
             width: 100%;
-          }          
+          }
         }
 
-        .search-input{
+        .search-input {
           background-color: transparent;
           border: none;
 
-          &::placeholder{
+          &::placeholder {
             font-size: 15px;
             font-weight: 700;
             color: white;
           }
-          &:active{
-            border : 0;
+          &:active {
+            border: 0;
           }
         }
-
       }
-
     }
 
     .champions {
@@ -1556,7 +1548,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       flex-wrap: wrap;
       gap: 0px 8px;
       overflow: auto;
-      height: 55vh;     
+      height: 55vh;
 
       .champion__card {
         display: flex;
@@ -1571,11 +1563,11 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
           opacity: 0.5;
         }
 
-        &[data-picked=true]{
+        &[data-picked="true"] {
           opacity: 0.5;
           pointer-events: none;
         }
-        &[data-banned=true]{
+        &[data-banned="true"] {
           opacity: 0.5;
           pointer-events: none;
         }
@@ -1606,59 +1598,58 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         background-color: #000000bb;
       }
     }
-  } 
+  }
 }
 
-.board-bottom{
+.board-bottom {
   display: flex;
-  flex-direction: row;  
+  flex-direction: row;
   height: 20%;
 
-  .blue-team__ban{
+  .blue-team__ban {
     display: flex;
-    flex-direction: row; 
-    flex : 2 1;  
-    margin : 20px 0 20px 20px;
-    
+    flex-direction: row;
+    flex: 2 1;
+    margin: 20px 0 20px 20px;
 
-    & div:nth-child(3){
-      margin-right : 15px;
+    & div:nth-child(3) {
+      margin-right: 15px;
     }
 
-    .banned-champion-wrap{
+    .banned-champion-wrap {
       width: 60px;
       height: 60px;
       margin-right: 2px;
       background-color: #6e83f81c;
       transform: skewX(10deg);
-      cursor: pointer;  
+      cursor: pointer;
 
       &:hover {
         background-color: #bcbcbc78;
       }
-      
-      .banned-champion{
-        filter:brightness(0.5);
 
-        &[data-current-target=true]{
-          filter:brightness(1);
+      .banned-champion {
+        filter: brightness(0.5);
+
+        &[data-current-target="true"] {
+          filter: brightness(1);
           background-color: #bcbcbc78;
         }
       }
     }
   }
 
-  .red-team__ban{
+  .red-team__ban {
     display: flex;
     flex-direction: row-reverse;
-    flex : 2 1;
-    margin : 20px 20px 20px 0px;
+    flex: 2 1;
+    margin: 20px 20px 20px 0px;
 
-    & div:nth-child(3){
-      margin-left : 15px;
+    & div:nth-child(3) {
+      margin-left: 15px;
     }
 
-    .banned-champion-wrap{
+    .banned-champion-wrap {
       width: 60px;
       height: 60px;
       margin-left: 2px;
@@ -1669,54 +1660,52 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       &:hover {
         background-color: #cccccc7d;
       }
-      
-      .banned-champion{
-        filter:brightness(0.5);
 
-        &[data-current-target=true]{
-          filter:brightness(1);
+      .banned-champion {
+        filter: brightness(0.5);
+
+        &[data-current-target="true"] {
+          filter: brightness(1);
           background-color: #bcbcbc78;
         }
       }
     }
   }
-  
-  .match-result-wrap{
+
+  .match-result-wrap {
     flex: 1 1;
     margin-top: 20px;
-    
-    .match-result{      
+
+    .match-result {
       width: 100%;
-      height: 100%;  
+      height: 100%;
       border: none;
       background-color: transparent;
       color: #fff;
       text-align: center;
-      font-size : 26px;
+      font-size: 26px;
       font-weight: 700;
       letter-spacing: 1px;
-  
+
       &:hover {
         background-color: #bcbcbc78;
       }
-    }   
-  }  
+    }
+  }
 }
-
 
 /*------------ HD+ -------------- */
-@media(min-width:1600px){
+@media (min-width: 1600px) {
   #ban-pick-board,
-  #setting-container{
+  #setting-container {
     min-width: 1500px;
-  }  
+  }
 }
 
-
 /*------------ FHD -------------- */
-@media(min-width:1920px){
+@media (min-width: 1920px) {
   #ban-pick-board,
-  #setting-container{
+  #setting-container {
     min-width: 1800px;
-  }  
+  }
 }
