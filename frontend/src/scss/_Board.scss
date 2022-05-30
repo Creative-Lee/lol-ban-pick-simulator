@@ -352,7 +352,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 }
 
 .board-middle {
-  height: 70vh;
+  height: 80vh;
 
   .blue-team__summoners,
   .red-team__summoners,
@@ -368,15 +368,14 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 
   .todays-goal {
     align-items: center;
-    flex: 1 0;
+    flex: 1.5 0;
   }
 
   .blue-team__summoners,
   .red-team__summoners {
-
     .summoner {
       position: relative;
-      width: 90%;
+      width: 100%;
       height: 100%;
       margin: 3px 0px;
       overflow: hidden;
@@ -394,12 +393,11 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         height: 100%;
         z-index: 1;
         object-fit: none;
-        filter: contrast(110%) brightness(1);
+        filter: contrast(120%) brightness(1);
         
-
         &[data-current-target=true]{
           background-color: #bcbcbc78;
-          filter: brightness(1.3);
+          filter: brightness(1.2);
         }
 
         &:hover {
@@ -888,6 +886,10 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         &[id="Hecarim"] {
           object-position: 85% 10%;
         }
+      }
+
+      .player{
+        background-color: rgba(0, 0, 0, 0.2);
       }
     }
 
@@ -1512,6 +1514,40 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
           cursor: pointer;
         }
       }
+      
+      .search{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color:#cccccc8f;
+
+        .search-input-label{
+          width: 20px;
+          height: 20px;  
+
+          cursor: pointer;
+          
+          .search-icon{
+            width: 100%;
+          }          
+        }
+
+        .search-input{
+          background-color: transparent;
+          border: none;
+
+          &::placeholder{
+            font-size: 15px;
+            font-weight: 700;
+            color: white;
+          }
+          &:active{
+            border : 0;
+          }
+        }
+
+      }
+
     }
 
     .champions {
@@ -1520,7 +1556,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       flex-wrap: wrap;
       gap: 0px 8px;
       overflow: auto;
-      height: 55vh;
+      height: 55vh;     
 
       .champion__card {
         display: flex;
@@ -1529,9 +1565,19 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         width: 60px;
         margin: 5px 0;
         cursor: pointer;
+        filter: contrast(1.1);
 
         &:hover {
-          opacity: 0.4;
+          opacity: 0.5;
+        }
+
+        &[data-picked=true]{
+          opacity: 0.5;
+          pointer-events: none;
+        }
+        &[data-banned=true]{
+          opacity: 0.5;
+          pointer-events: none;
         }
 
         .champion__name {
