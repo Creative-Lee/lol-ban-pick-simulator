@@ -1,10 +1,12 @@
 import React,{ useEffect, useState , useRef} from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import ReactTooltip from 'react-tooltip'
+import Hangul from 'hangul-js';
 import {TOP,JGL,MID,BOT,SUP} from '../img/position_icon'
 import transparencyImg from '../img/transparencyImg.png'
 import tooltipIcon from '../img/tooltip-icon.png'
 import searchIcon from '../img/search-icon.png'
+
 
 
 export default function Board({recentVersion, ascendingChampionDataList , classicSpellList}) {  
@@ -16,11 +18,11 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
 
   const isMountedRef = useRef(false);
 
-  const [isSimulationInProgress, setIsSimulationInProgress] = useState(true)
   const [board,setBoard] = useState('setting') // setting, banpick
   const [mode,setMode] = useState('rapid') // simulation, rapid
   const [phase, setPhase] = useState('Pick')  // Pick, Ban
 
+  const [matchChampionDataList, setMatchChampionDataList] = useState([])
   const [selectedBlueTeam, setSelectedBlueTeam] = useState('')
   const [selectedRedTeam, setSelectedRedTeam] = useState('')
   const [isTeamSelectMenuOpen , setIsTeamSelectMenuOpen] = useState({
@@ -28,6 +30,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     red : false
   })  
 
+  const [searchInput, setSearchInput] = useState('')
   const [date, setDate] = useState('2022-00-00')
   const [round, setRound] = useState('GAME 1')
   const [matchResult, setMatchResult] = useState('Win or Lose')
@@ -75,8 +78,20 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   const [targetTeam, setTargetTeam] = useState('blue') // blue, red
   const [targetIndex, setTargetIndex] = useState(0) // 0 ~ 4
 
+  const onChangeSearchInput = e => setSearchInput(e.target.value)
   const onChangePlayer = (e, teamNumber) => setPlayer({...player , [teamNumber] : e.target.value})
   const onChangeMode = e => setMode(e.target.value) 
+
+  const updateMatchChampionDataList = () => {    
+    const championNameList = ascendingChampionDataList.map(data => data.name)
+    let searcher = new Hangul.Searcher(searchInput);
+    const matchChampionNameArr = championNameList.filter(championName => searcher.search(championName) >= 0)    
+    
+    const matchChampionDataList = ascendingChampionDataList.filter(data => matchChampionNameArr.includes(data.name))
+    
+    setMatchChampionDataList(matchChampionDataList)
+    console.log('매치챔프 업데이트 실행')
+  } 
 
   const toggleIsTeamSelectMenuOpen = teamColor => {
     setIsTeamSelectMenuOpen(prevState=> ({...prevState , [teamColor] : !prevState[teamColor]}))
@@ -183,7 +198,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     return isPickPhaseEnd() && isBanPhaseEnd()
   }
   
-  const setPlayerPrefix = () => {
+  const activatePlayerPrefix = () => {
     setPlayer(prev => ({...prev,  
       blue1: `${selectedBlueTeam} TOP`, 
       blue2: `${selectedBlueTeam} JGL`, 
@@ -198,7 +213,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     }))
   }
 
-  const setSpellPlaceholder = () => {
+  const activateSpellPlaceholder = () => {
     const blueTeamUpdateArr = blueTeamSummoner.map(summoner => summoner.setSpell2('Flash'))
     blueTeamUpdateArr[1].spell1 = 'Smite'
 
@@ -224,22 +239,24 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
 
     return allTeamBannedList.includes(championName)
   }
+
+
   
-  useEffect(()=>{ //setPlayerPrefix
-    setPlayerPrefix()       
+  useEffect(()=>{ //activatePlayerPrefix
+    activatePlayerPrefix()       
   },[selectedBlueTeam, selectedRedTeam])
   
-  useEffect(()=>{ //setSpellPlaceholder
+  useEffect(()=>{ //activateSpellPlaceholder
     if(mode === 'rapid' && isMountedRef.current === true){
-      setSpellPlaceholder()
+      activateSpellPlaceholder()
       return
     }
     isMountedRef.current = true;
   },[board])   
 
-  useEffect(()=>{
-    console.log(classicSpellList)
-  },[])
+  useEffect(()=>{ // updateMatchChampionDataList
+    updateMatchChampionDataList()
+  },[searchInput, board])
 
   const showBoard = {
     setting :
@@ -405,12 +422,13 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
             <label className="search-input-label" htmlFor="search">
               <img className='search-icon' src={searchIcon} alt="search-icon"/>
             </label>
-            <input id='search' className="search-input" type='text' placeholder='챔피언 이름 검색'/>
+            <input id='search' className="search-input" type='text' placeholder='챔피언 이름 검색'
+            onChange={e=>onChangeSearchInput(e)}/>
           </div>
         </div>
         <div className="champions"> 
           {
-            ascendingChampionDataList.map((championData, index) =>(
+            matchChampionDataList.map((championData, index) =>(
               <div className="champion__card" key={index} data-champion={championData.id}
               data-picked={isPicked(championData.id)} data-banned={isBanned(championData.id)}
               onClick={(e)=>{
@@ -421,11 +439,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
                   setBannedChampion(championData.id)
                 };            
               }}
-              // onFocus={(e)=>{
-              //   console.log(e.target.dataset)
-              // }}
               >
-
                 <img className="champion__img" alt={championData.id} src={`${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${championData.id}.png`}/>
                 <small className="champion__name">{championData.name}</small>
               </div>
