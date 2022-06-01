@@ -1,7 +1,7 @@
 import React,{ useEffect, useState , useRef} from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import ReactTooltip from 'react-tooltip'
-import Hangul from 'hangul-js';
+import Hangul, { search } from 'hangul-js';
 import {TOP,JGL,MID,BOT,SUP} from '../img/position_icon'
 import transparencyImg from '../img/transparencyImg.png'
 import tooltipIcon from '../img/tooltip-icon.png'
@@ -85,12 +85,18 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   const updateMatchChampionDataList = () => {    
     const championNameList = ascendingChampionDataList.map(data => data.name)
     let searcher = new Hangul.Searcher(searchInput);
-    const matchChampionNameArr = championNameList.filter(championName => searcher.search(championName) >= 0)    
     
-    const matchChampionDataList = ascendingChampionDataList.filter(data => matchChampionNameArr.includes(data.name))
+    const matchChampionNameList = championNameList.filter(championName => searcher.search(championName) >= 0)        
+    const matchChampionDataList = ascendingChampionDataList.filter(data => matchChampionNameList.includes(data.name))
     
     setMatchChampionDataList(matchChampionDataList)
     console.log('매치챔프 업데이트 실행')
+
+    // const eachChampChosungList = championNameList
+    // .map(championName => Hangul.d(championName,true).map(disEachLetterArr => disEachLetterArr[0]))
+    // const matchChampionChosungArr = eachChampChosungList.filter(champChosungArr => searcher.search(champChosungArr) >= 0)
+    
+    // console.log(matchChampionChosungArr)
   } 
 
   const toggleIsTeamSelectMenuOpen = teamColor => {
