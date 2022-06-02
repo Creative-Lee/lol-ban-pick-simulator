@@ -90,9 +90,11 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     const chosungMatchedChampNameList = championNameList.filter(championName => {   
       const champChosungStrArr = Hangul.d(championName,true)
       .map(disEachLetterList => disEachLetterList[0]) // ['ㄱ', 'ㄹ'] or ['ㄱ', 'ㄹ', 'ㅇ']
-      .join('')// ['ㄱㄹ'] or ['ㄱㄹㅇ']    
+      .join('')// ['ㄱㄹ'] or ['ㄱㄹㅇ']
+      .replace(/ /gi,"") //띄어쓰기 제거
+      
       const searchInputChosungStrArr = Hangul.d(searchInput).join('') // ['ㄱㄹ']      
-
+      console.log(champChosungStrArr)
       return champChosungStrArr.includes(searchInputChosungStrArr)
     })
     const mergedChampNameList = letterMatchedChampNameList.concat(chosungMatchedChampNameList)
@@ -101,6 +103,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     const matchedChampDataList = ascendingChampionDataList.filter(data => duplicatesRemovedChampNameList.includes(data.name))
     
     setChampDataList(matchedChampDataList)
+    
     console.log('매치챔프 업데이트 실행')
   } 
 
