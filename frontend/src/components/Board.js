@@ -22,7 +22,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   const [mode,setMode] = useState('rapid') // simulation, rapid
   const [phase, setPhase] = useState('Pick')  // Pick, Ban
 
-  const [matchChampionDataList, setMatchChampionDataList] = useState([])
+  const [champDataList, setChampDataList] = useState([])
   const [selectedBlueTeam, setSelectedBlueTeam] = useState('')
   const [selectedRedTeam, setSelectedRedTeam] = useState('')
   const [isTeamSelectMenuOpen , setIsTeamSelectMenuOpen] = useState({
@@ -82,21 +82,26 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   const onChangePlayer = (e, teamNumber) => setPlayer({...player , [teamNumber] : e.target.value})
   const onChangeMode = e => setMode(e.target.value) 
 
-  const updateMatchChampionDataList = () => {    
+  const updateMatchChampDataList = () => {    
     const championNameList = ascendingChampionDataList.map(data => data.name)
     let searcher = new Hangul.Searcher(searchInput);
     
-    const matchChampionNameList = championNameList.filter(championName => searcher.search(championName) >= 0)        
-    const matchChampionDataList = ascendingChampionDataList.filter(data => matchChampionNameList.includes(data.name))
-    
-    setMatchChampionDataList(matchChampionDataList)
-    console.log('매치챔프 업데이트 실행')
+    const letterMatchedChampNameList = championNameList.filter(championName => searcher.search(championName) >= 0)        
+    const chosungMatchedChampNameList = championNameList.filter(championName => {   
+      const champChosungStrArr = Hangul.d(championName,true)
+      .map(disEachLetterList => disEachLetterList[0]) // ['ㄱ', 'ㄹ'] or ['ㄱ', 'ㄹ', 'ㅇ']
+      .join('')// ['ㄱㄹ'] or ['ㄱㄹㅇ']    
+      const searchInputChosungStrArr = Hangul.d(searchInput).join('') // ['ㄱㄹ']      
 
-    // const eachChampChosungList = championNameList
-    // .map(championName => Hangul.d(championName,true).map(disEachLetterArr => disEachLetterArr[0]))
-    // const matchChampionChosungArr = eachChampChosungList.filter(champChosungArr => searcher.search(champChosungArr) >= 0)
+      return champChosungStrArr.includes(searchInputChosungStrArr)
+    })
+    const mergedChampNameList = letterMatchedChampNameList.concat(chosungMatchedChampNameList)
+    const duplicatesRemovedChampNameList = mergedChampNameList.filter((name, index) => mergedChampNameList.indexOf(name) === index) 
+
+    const matchedChampDataList = ascendingChampionDataList.filter(data => duplicatesRemovedChampNameList.includes(data.name))
     
-    // console.log(matchChampionChosungArr)
+    setChampDataList(matchedChampDataList)
+    console.log('매치챔프 업데이트 실행')
   } 
 
   const toggleIsTeamSelectMenuOpen = teamColor => {
@@ -110,31 +115,31 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
 
   const setPickedChampion = (championName) => {
     if(targetTeam === 'blue'){
-      const updateArr = [...blueTeamSummoner]
-      updateArr[targetIndex] = blueTeamSummoner[targetIndex].setPickedChampion(championName)  
+      const updatedArr = [...blueTeamSummoner]
+      updatedArr[targetIndex] = blueTeamSummoner[targetIndex].setPickedChampion(championName)  
 
-      setBlueTeamSummoner(updateArr)
+      setBlueTeamSummoner(updatedArr)
     }
     else{
-      const updateArr = [...redTeamSummoner]
-      updateArr[targetIndex] = redTeamSummoner[targetIndex].setPickedChampion(championName)
+      const updatedArr = [...redTeamSummoner]
+      updatedArr[targetIndex] = redTeamSummoner[targetIndex].setPickedChampion(championName)
 
-      setRedTeamSummoner(updateArr)
+      setRedTeamSummoner(updatedArr)
     }
   }
 
   const setBannedChampion = (championName) => {
     if(targetTeam === 'blue'){
-      const updateArr = [...blueTeamSummoner]
-      updateArr[targetIndex] = blueTeamSummoner[targetIndex].setBannedChampion(championName)  
+      const updatedArr = [...blueTeamSummoner]
+      updatedArr[targetIndex] = blueTeamSummoner[targetIndex].setBannedChampion(championName)  
 
-      setBlueTeamSummoner(updateArr)
+      setBlueTeamSummoner(updatedArr)
     }
     else{
-      const updateArr = [...redTeamSummoner]
-      updateArr[targetIndex] = redTeamSummoner[targetIndex].setBannedChampion(championName)
+      const updatedArr = [...redTeamSummoner]
+      updatedArr[targetIndex] = redTeamSummoner[targetIndex].setBannedChampion(championName)
 
-      setRedTeamSummoner(updateArr)
+      setRedTeamSummoner(updatedArr)
     }
   }
 
@@ -260,8 +265,8 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     isMountedRef.current = true;
   },[board])   
 
-  useEffect(()=>{ // updateMatchChampionDataList
-    updateMatchChampionDataList()
+  useEffect(()=>{ // updateMatchChampDataList
+    updateMatchChampDataList()
   },[searchInput, board])
 
   const showBoard = {
@@ -434,7 +439,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
         </div>
         <div className="champions"> 
           {
-            matchChampionDataList.map((championData, index) =>(
+            champDataList.map((championData, index) =>(
               <div className="champion__card" key={index} data-champion={championData.id}
               data-picked={isPicked(championData.id)} data-banned={isBanned(championData.id)}
               onClick={(e)=>{
