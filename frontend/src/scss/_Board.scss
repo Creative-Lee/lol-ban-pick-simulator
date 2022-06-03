@@ -18,7 +18,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     left: 0;
     height: 100%;
     width: 100%;
-    background-image: url(../img/setting_background.png);
+    background-image: url(../img/css_url_img/setting_background.png);
     background-size: cover;
     filter: brightness(0.5);
     opacity: 1;
@@ -142,7 +142,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     left: 0;
     height: 100%;
     width: 100%;
-    background-image: url(../img/board_background.jpg);
+    background-image: url(../img/css_url_img/board_background.jpg);
     background-size: cover;
     opacity: 0.85;
     z-index: -1;
@@ -366,6 +366,24 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
   .todays-goal {
     align-items: center;
     flex: 1.5 0;
+    
+    .goal__title-wrap{
+      width: 100%;
+      padding: 1vw;
+
+      .goal__title{
+        width: 100%;
+        text-align: center;
+        border: none;
+        background-color: transparent;
+        color: #fff;
+        font-size: 4vh;
+  
+        &:hover {
+          background-color: #bcbcbc78;
+        }
+      }
+    }
   }
 
   .blue-team__summoners,
@@ -1494,20 +1512,10 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
 
       width: 100%;
       padding: 10px 0;
-
-      .main-lane {
-        display: flex;
-        flex-direction: row;
-
-        .lane-icon {
-          width: 26px;
-          cursor: pointer;
-        }
-      }
 
       .search {
         display: flex;
@@ -1631,7 +1639,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         left: 50%;
         transform: translate(-50% , 50%);
         z-index: 5;
-        background: url(../img/banned-icon.png) no-repeat center;
+        background: url(../img/css_url_img/banned-icon.png) no-repeat center;
         background-size: cover;
       }
 
