@@ -2,9 +2,16 @@ import React,{ useEffect, useState , useRef} from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import ReactTooltip from 'react-tooltip'
 import Hangul from 'hangul-js';
+
 import {Editor, Viewer} from '@toast-ui/react-editor'
 import '@toast-ui/editor/dist/toastui-editor.css'
+import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import '@toast-ui/editor/dist/i18n/ko-kr'
+
+import 'tui-color-picker/dist/tui-color-picker.css';
+import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
+import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
+
 import {searchIcon, tooltipIcon, transparencyImg} from '../img/import_img'
 
 
@@ -28,14 +35,15 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   const [isTeamSelectMenuOpen , setIsTeamSelectMenuOpen] = useState({
     blue : false,
     red : false
-  })  
+  }) 
+  const [isEditorShow, setIsEditorShow] = useState(true) 
 
   const [searchInput, setSearchInput] = useState('')
   const [date, setDate] = useState('2022-00-00')
   const [round, setRound] = useState('GAME 1')
   const [matchResult, setMatchResult] = useState('Win or Lose')
   const [goalTitle, setGoalTitle] = useState('오늘의 타이틀')
-  const [viewerInput, setViewerInput] = useState('기본값!')
+  const [viewerInput, setViewerInput] = useState('')
 
   const [player, setPlayer] = useState({
     blue1: '', blue2: '', blue3: '', blue4: '', blue5: '',
@@ -87,7 +95,8 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   const onChangeGoalTitle = e => setGoalTitle(e.target.value) 
   const onChangeEditor = () => {
     const editorInputHtml = editorRef.current.getInstance().getHTML();
-    setEditorInput(editorInputHtml)
+    console.log(editorInputHtml)
+    setViewerInput(editorInputHtml)
   }
 
   const updateMatchChampDataList = () => {    
@@ -276,6 +285,8 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   useEffect(()=>{ // updateMatchChampDataList
     updateMatchChampDataList()
   },[searchInput, board])
+
+  
 
   const showBoard = {
     setting :
@@ -471,22 +482,34 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
           <input className="goal__title" type="text" value={goalTitle} 
           onChange={e => onChangeGoalTitle(e)}
           />
-        </div>   
-        <Editor
-          initialValue='hi'
-          previewStyle ='vertical'
-          hideModeSwitch = {true}
-          height='600px'
-          initialEditType = 'wysiwyg'
-          useCommandShortcut = {false}
-          language = 'ko-KR'
-          ref={editorRef}
-          onChange={()=>{onChangeEditor()}}
-        />
-        <Viewer
-          initialValue={`${viewerInput}` ||  '기본값입니다.'}
-        />
-        {viewerInput}
+        </div>
+        {
+        isEditorShow === true ?
+          <Editor
+            initialValue={viewerInput}
+            previewStyle ='tap'
+            hideModeSwitch = {true}
+            viewer={false}
+            height='500px'
+            minHeight='300px'
+            initialEditType = 'wysiwyg'
+            useCommandShortcut = {false}
+            language = 'ko-KR'
+            ref={editorRef}
+            onChange={onChangeEditor}
+            usageStatistics={false}
+            plugins={[colorSyntax]}
+            toolbarItems={[
+              // 툴바 옵션 설정
+              ['heading', 'bold', 'italic', 'strike'],
+              ['hr', 'quote'],
+              ['ul', 'ol', 'task', 'indent', 'outdent'],
+            ]}
+          />
+          : 
+          <Viewer initialValue={viewerInput}/>       
+        }                
+        <button onClick={()=>setIsEditorShow(!isEditorShow)}>{isEditorShow === true ? '작성 완료' : '수정하기'}</button>
       </div>
       }
       

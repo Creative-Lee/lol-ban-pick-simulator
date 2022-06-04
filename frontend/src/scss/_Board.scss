@@ -131,7 +131,6 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 
 .ban-pick-board {
   position: relative;
-  color: #fff;
   height: 100%;
 
   &::after {
@@ -366,19 +365,19 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
   .todays-goal {
     align-items: center;
     flex: 1.5 0;
-    
-    .goal__title-wrap{
+
+    .goal__title-wrap {
       width: 100%;
       padding: 1vw;
 
-      .goal__title{
+      .goal__title {
         width: 100%;
         text-align: center;
         border: none;
         background-color: transparent;
         color: #fff;
         font-size: 4vh;
-  
+
         &:hover {
           background-color: #bcbcbc78;
         }
@@ -1539,12 +1538,12 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 
         .search-input {
           background-color: transparent;
-          border: none;          
+          border: none;
 
           &::placeholder {
             font-size: 15px;
             font-weight: 700;
-            color: white;            
+            color: white;
           }
           &:active {
             border: 0;
@@ -1588,6 +1587,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
           width: 100%;
           text-align: center;
           font-size: 10px;
+          font-weight: 700;
           letter-spacing: 1px;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -1618,38 +1618,37 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
   flex-direction: row;
   height: 20%;
 
-
   .blue-team__ban,
-  .red-team__ban{
+  .red-team__ban {
     display: flex;
     flex: 2 1;
 
-    .banned-champion-wrap{
+    .banned-champion-wrap {
       position: inherit;
       width: 60px;
       height: 60px;
       cursor: pointer;
 
-      &::after{
+      &::after {
         content: "";
         width: 20px;
         height: 20px;
         position: absolute;
         bottom: 0%;
         left: 50%;
-        transform: translate(-50% , 50%);
+        transform: translate(-50%, 50%);
         z-index: 5;
         background: url(../img/css_url_img/banned-icon.png) no-repeat center;
         background-size: cover;
       }
 
-      .banned-champion {   
+      .banned-champion {
         filter: brightness(0.5);
 
         &[data-current-target="true"] {
           filter: brightness(1);
           background-color: #bcbcbc78;
-        }       
+        }
       }
     }
   }
@@ -1658,15 +1657,14 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     flex-direction: row;
     margin: 20px 0 20px 20px;
 
-
     & div:nth-child(3) {
       margin-right: 15px;
     }
 
     .banned-champion-wrap {
       margin-right: 2px;
-      background-color: #6e83f81c;           
-      transform: skewX(10deg); 
+      background-color: #6e83f81c;
+      transform: skewX(10deg);
 
       &:hover {
         background-color: #bcbcbc78;
@@ -1677,7 +1675,6 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
   .red-team__ban {
     flex-direction: row-reverse;
     margin: 20px 20px 20px 0;
-
 
     & div:nth-child(3) {
       margin-left: 15px;
