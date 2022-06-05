@@ -1,15 +1,22 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-node_modules
-/.pnp
-.pnp.js
+/frontend/node_modules/**
+!/frontend/node_modules/@toast-ui
+!/frontend/node_modules/@toast-ui/editor
+!/frontend/node_modules/@toast-ui/editor/dist
+!/frontend/node_modules/@toast-ui/editor/dist/toastui-editor.css
+!/frontend/node_modules/@toast-ui/editor/dist/toastui-editor-viewer.css
+!/frontend/node_modules/@toast-ui/editor/dist/toastui-editor-only.css
+
+
+
 
 # testing
-/coverage
+/frontend/coverage
 
 # production
-/build
+/frontend/build
 
 # misc
 .DS_Store
