@@ -14,6 +14,7 @@
     "cross-env": "^7.0.3",
     "downshift": "^6.1.7",
     "hangul-js": "^0.2.6",
+    "html2canvas": "^1.4.1",
     "immutable": "^4.0.0",
     "node-sass": "^7.0.1",
     "react": "^18.1.0",

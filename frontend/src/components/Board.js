@@ -7,12 +7,13 @@ import {Editor, Viewer} from '@toast-ui/react-editor'
 import '@toast-ui/editor/dist/toastui-editor.css'
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import '@toast-ui/editor/dist/i18n/ko-kr'
-
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 
 import {searchIcon, tooltipIcon, transparencyImg} from '../img/import_img'
+
+import {getDownloadResultPngFile} from '../apis/get'
 
 
 export default function Board({recentVersion, ascendingChampionDataList , classicSpellList}) {  
@@ -27,7 +28,11 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
 
   const [board,setBoard] = useState('setting') // setting, banpick
   const [mode,setMode] = useState('rapid') // simulation, rapid
-  const [phase, setPhase] = useState('End')  // Pick, Ban, End
+  const [phase, setPhase] = useState('Pick')  // Pick, Ban, End
+  const [globalPhase, setGlobalPhase] = useState('GoalEdit') // PickBan, GoalEdit,
+  const [currentSelectingTeam, setCurrentSelectingTeam] = useState('blue') // blue, red
+  const [currentSelectingIndex, setCurrentSelectingIndex] = useState(0) // 0 ~ 4 
+  const [isGoalEditDone, setIsGoalEditDone] = useState(false)
 
   const [champDataList, setChampDataList] = useState([])
   const [selectedBlueTeam, setSelectedBlueTeam] = useState('')
@@ -36,7 +41,6 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     blue : false,
     red : false
   }) 
-  const [isEditorShow, setIsEditorShow] = useState(true) 
 
   const [searchInput, setSearchInput] = useState('')
   const [date, setDate] = useState('2022-00-00')
@@ -86,8 +90,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     new Summoner('','','','')
   ])
     
-  const [currentSelectingTeam, setCurrentSelectingTeam] = useState('blue') // blue, red
-  const [currentSelectingIndex, setCurrentSelectingIndex] = useState(0) // 0 ~ 4
+
 
   const onChangeSearchInput = e => setSearchInput(e.target.value)
   const onChangePlayer = (e, teamNumber) => setPlayer({...player , [teamNumber] : e.target.value})
@@ -163,8 +166,9 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   }
 
   const onClickAllTargetController = () => {
-    if(isEveryPhaseEnd()){
+    if(isPickBanPhaseEnd()){
       setPhase('End')
+      setGlobalPhase('GoalEdit')
       return
     }
 
@@ -224,7 +228,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     return isBlueTeamBanPhaseEnd && isRedTeamBanPhaseEnd
   }  
 
-  const isEveryPhaseEnd = () => {
+  const isPickBanPhaseEnd = () => {
     return isPickPhaseEnd() && isBanPhaseEnd()
   }
   
@@ -269,6 +273,8 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
 
     return allTeamBannedList.includes(championName)
   }
+
+  
   
   useEffect(()=>{ //activatePlayerPrefix
     activatePlayerPrefix()       
@@ -410,6 +416,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
                 setCurrentSelectingIndex(index)
                 setCurrentSelectingTeam('blue')
                 setPhase('Pick')
+                setGlobalPhase('PickBan')
               }}
               src={                  
                 summoner.pickedChampion === ''
@@ -434,11 +441,10 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
             </div>
           ))           
         }        
-      </div>
+      </div>  
 
       {
-      phase === 'Pick' || phase === 'Ban'
-      ? 
+      globalPhase === 'PickBan' && 
       <div className="champion-select-board">
         <div className="champion__select-option">          
           <div className="search">
@@ -476,43 +482,49 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
           onClickAllTargetController()
         }}/>
       </div>
-      : 
+      }      
+      {
+      globalPhase === 'GoalEdit' &&
       <div className="todays-goal">
         <div className="goal__title-wrap">
           <input className="goal__title" type="text" value={goalTitle} 
           onChange={e => onChangeGoalTitle(e)}
           />
         </div>
+        <div className='goal__editor-wrap'>
         {
-        isEditorShow === true ?
+          isGoalEditDone === false ?
           <Editor
             initialValue={viewerInput}
-            previewStyle ='tap'
-            hideModeSwitch = {true}
-            viewer={false}
-            height='500px'
-            minHeight='300px'
-            initialEditType = 'wysiwyg'
-            useCommandShortcut = {false}
-            language = 'ko-KR'
-            ref={editorRef}
-            onChange={onChangeEditor}
-            usageStatistics={false}
-            plugins={[colorSyntax]}
-            toolbarItems={[
-              // 툴바 옵션 설정
-              ['heading', 'bold', 'italic', 'strike'],
-              ['hr', 'quote'],
-              ['ul', 'ol', 'task', 'indent', 'outdent'],
+              previewStyle ='tap'
+              hideModeSwitch = {true}
+              viewer={false}
+              height='100%'
+              minHeight='300px'
+              initialEditType = 'wysiwyg'
+              useCommandShortcut = {false}
+              language = 'ko-KR'
+              ref={editorRef}
+              onChange={onChangeEditor}
+              usageStatistics={false}
+              plugins={[colorSyntax]}
+              toolbarItems={[
+                // 툴바 옵션 설정
+                ['heading', 'bold', 'italic', 'strike'],
+                ['hr', 'quote'],
+                ['ul', 'ol', 'task', 'indent', 'outdent'],
             ]}
           />
           : 
           <Viewer initialValue={viewerInput}/>       
-        }                
-        <button onClick={()=>setIsEditorShow(!isEditorShow)}>{isEditorShow === true ? '작성 완료' : '수정하기'}</button>
-      </div>
-      }
-      
+        }              
+        </div>
+        <div id='goal__button-wrap' className='goal__button-wrap'>
+          <button onClick={()=> setIsGoalEditDone(!isGoalEditDone)}>{isGoalEditDone === false ? '작성 완료' : '메모 수정'}</button>
+          <button onClick={()=> getDownloadResultPngFile('ban-pick-board', 'goal__button-wrap')}>Finish</button>
+        </div>
+        </div>
+      }        
 
       <div className="red-team__summoners">
       {
@@ -524,6 +536,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
               setCurrentSelectingIndex(index)
               setCurrentSelectingTeam('red')
               setPhase('Pick')
+              setGlobalPhase('PickBan')
             }}  
             src={                  
               summoner.pickedChampion === ''
@@ -562,6 +575,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
               setCurrentSelectingTeam('blue')
               setCurrentSelectingIndex(index)
               setPhase('Ban')
+              setGlobalPhase('PickBan')
             }}
             src={
             summoner.bannedChampion === ''
@@ -587,6 +601,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
               setCurrentSelectingTeam('red')
               setCurrentSelectingIndex(index)
               setPhase('Ban')
+              setGlobalPhase('PickBan')
             }}
             src={
             summoner.bannedChampion === ''
