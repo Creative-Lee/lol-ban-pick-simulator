@@ -76,7 +76,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 
         .radio-button {
           label {
-            width: 150px;
+            width: 12vw;
             height: 50px;
             display: flex;
             justify-content: center;
@@ -131,21 +131,9 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 
 .ban-pick-board {
   position: relative;
-  height: 100%;
-
-  &::after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-image: url(../img/css_url_img/board_background.jpg);
-    background-size: cover;
-    opacity: 0.85;
-    z-index: -1;
-  }
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
 
   &::before {
     content: "";
@@ -155,16 +143,17 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     left: 0;
     height: 100%;
     width: 100%;
-    background: linear-gradient(90deg, #000, #fff 50%, #fff 50%, #000);
+    background-image: url(../img/css_url_img/board_background.jpg);
+    background-size: cover;
     opacity: 1;
-    z-index: -1;
-  }
+    z-index: 0;
+  }  
 }
 
 .board-top {
   position: relative;
   flex-wrap: nowrap;
-  height: 10vh;
+  height: calc(10vh);
 
   &::before {
     content: "";
@@ -175,16 +164,16 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     height: 100%;
     width: 100%;
     background: linear-gradient(90deg, #0026ff, transparent, #ff3831);
-    opacity: 1;
-    z-index: -1;
+    opacity: 0.2;
   }
 
   .blue-team,
   .red-team {
     display: flex;
+    position: relative;
     align-items: center;
     justify-content: center;
-    z-index: 99;
+    z-index: 10;
     height: 100%;
 
     &:hover {
@@ -323,11 +312,14 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
   }
 
   .match-info {
+    position: relative;
     display: flex;
     flex: 1 2 0;
     align-items: center;
     flex-direction: column;
     justify-content: space-evenly;
+    z-index: 1;
+
 
     .date,
     .round {
@@ -336,19 +328,22 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       border: none;
       background-color: transparent;
       color: #fff;
+      font-size: 1.2vw;
 
       &:hover {
         background-color: #bcbcbc78;
       }
     }
     .round {
-      font-size: 20px;
+      font-size: 1.4vw;
     }
   }
 }
 
 .board-middle {
-  height: 80vh;
+  height: calc(70vh);
+  position: relative;
+  z-index: 1;
 
   .blue-team__summoners,
   .red-team__summoners,
@@ -358,26 +353,29 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     flex-direction: column;
     flex: 1 1;
     padding: 0;
-    padding-top: 20px;
+    padding-top: 10px;
     height: 100%;
   }
 
   .todays-goal {
+    position: relative;
     align-items: center;
     flex: 1.5 0;
 
     .goal__title-wrap {
-      width: 100%;
+      position: relative;
       padding: 1.5vw;
-      flex: 1 1 15%;
+      height: 30%;
+      flex: 1 1;
 
       .goal__title {
-        width: 100%;
+        position: relative; 
         text-align: center;
         border: none;
         background-color: transparent;
         color: #fff;
         font-size: 3vw;
+        line-height: 3vw;
 
         &:hover {
           background-color: #bcbcbc78;
@@ -386,10 +384,15 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     }
 
     .goal__editor-wrap {
-      width: 100%;
+      width: 90%;
+      margin: 1.5vw;
       flex: 1 1 70%;
-      overflow: scroll;
-      padding: 1.5vw;
+      overflow-y: scroll;
+      overflow-x: hidden;
+
+      &:hover {
+        background-color: #bcbcbc78;
+      }
     }
 
     .goal__button-wrap {
@@ -400,8 +403,8 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       align-items: center;
 
       button {
-        width: 300px;
-        height: 50px;
+        width: 15vw;
+        height: 40px;
         margin-top: 20px;
         border: none;
         border-radius: 7px;
@@ -1628,6 +1631,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     }
 
     .champion__select-button {
+      position: relative;
       width: 300px;
       height: 50px;
       margin-top: 20px;
@@ -1636,6 +1640,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       color: #fff;
       letter-spacing: 1px;
       background-color: #00000093;
+      z-index: 1;
 
       &:hover {
         background-color: #000000bb;
@@ -1647,23 +1652,25 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 .board-bottom {
   display: flex;
   flex-direction: row;
-  height: 20%;
+  height: calc(10vh);
 
   .blue-team__ban,
   .red-team__ban {
     display: flex;
+    align-items: center;
+
     flex: 2 1;
 
     .banned-champion-wrap {
-      position: inherit;
-      width: 60px;
-      height: 60px;
+      position: relative;
+      width: 3.5vw;
+      height: 3.5vw;
       cursor: pointer;
 
       &::after {
         content: "";
-        width: 20px;
-        height: 20px;
+        width: 1.2vw;
+        height: 1.2vw;
         position: absolute;
         bottom: 0%;
         left: 50%;
@@ -1686,7 +1693,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 
   .blue-team__ban {
     flex-direction: row;
-    margin: 20px 0 20px 20px;
+    margin-left: 1vw;
 
     & div:nth-child(3) {
       margin-right: 15px;
@@ -1705,7 +1712,8 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 
   .red-team__ban {
     flex-direction: row-reverse;
-    margin: 20px 20px 20px 0;
+    margin-right: 1vw;
+
 
     & div:nth-child(3) {
       margin-left: 15px;
@@ -1725,6 +1733,9 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
   .match-result-wrap {
     flex: 1 1;
     margin-top: 20px;
+    position: relative;
+    width:100%;
+
 
     .match-result {
       width: 100%;

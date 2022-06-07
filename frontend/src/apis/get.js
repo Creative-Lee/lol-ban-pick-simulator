@@ -52,25 +52,27 @@ export const getClassicSpell = async (recentVersion) => {
 }
 
 
-export const getDownloadResultPngFile = async (elementId, ...removeElementId) => {
+export const getDownloadResultPngFile = async (elementId) => {
   try{
     const saveAs = (uri, fileName) => {
       const oneTimeUseLink = document.createElement('a') // 1회용 a태그 생성
-      const removedElementArr = removeElementId.map(id => document.getElementById(id)) // 인자로 받은 removeElementIdArr를 돌면서 엘리멘트 저장
-      const removedElementsParentNodeArr = removedElementArr.map(element => element.parentNode)
 
       document.body.appendChild(oneTimeUseLink) // body태그 하위에 추가
       oneTimeUseLink.href = uri // 인자로 받은 uri href로 지정
       oneTimeUseLink.download = fileName // 인자로 받은 fileName download로 지정
-      removedElementArr.forEach(element => element.remove()) // 엘리먼트 삭제      
       oneTimeUseLink.click() // 다운로드 실행      
       document.body.removeChild(oneTimeUseLink) // 1회용 태그 사용 후 삭제
-      removedElementArr.forEach((element, index) => removedElementsParentNodeArr[index].appendChild(element)) // 삭제한 엘리먼트 부활 
     }
 
     window.scrollTo(0,0); 
-    const capturedCanvas = await html2canvas(document.getElementById(elementId))    
+
+    const capturedCanvas = await html2canvas(document.getElementById(elementId),{
+      useCORS: true,
+      allowTaint: true
+    })    
+
     saveAs(capturedCanvas.toDataURL(), 'download.png')
+
   }
 
   catch(err){

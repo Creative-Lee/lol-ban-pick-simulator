@@ -332,7 +332,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
 
     banpick : 
     <Container id="ban-pick-board" className='ban-pick-board'> 
-    <Row className='board-top'>
+    <Row id='board-top' className='board-top'>
       <label className="blue-team">
         <div className='blue-team__name'>
           <input  type='button' className='name__button'
@@ -344,7 +344,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
           }}           
           value={ selectedBlueTeam ||  'Blue' } 
           />             
-          <ul className="name__select">
+          <ul className="name__select" data-html2canvas-ignore>
           {isTeamSelectMenuOpen.blue && teamArr.map((team, index) => (
             <li className={`name__option`} key={index} 
             onMouseDown={()=> {
@@ -391,7 +391,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
           }}           
           value={ selectedRedTeam ||  'Red' } 
           />                       
-          <ul className="name__select" >
+          <ul className="name__select" data-html2canvas-ignore>
           {isTeamSelectMenuOpen.red && teamArr.map((team, index) => (
             <li className={`name__option`} key={index}
             onMouseDown={()=> setSelectedRedTeam(team)}
@@ -485,14 +485,17 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       }      
       {
       globalPhase === 'GoalEdit' &&
-      <div className="todays-goal">
+      <div id='todays-goal' className="todays-goal">
         <div className="goal__title-wrap">
           <input className="goal__title" type="text" value={goalTitle} 
           onChange={e => onChangeGoalTitle(e)}
           />
         </div>
-        <div className='goal__editor-wrap'>
-        {
+        <div className='goal__editor-wrap'
+        onClick={()=>{
+          setIsGoalEditDone(false)
+        }}>
+          {
           isGoalEditDone === false ?
           <Editor
             initialValue={viewerInput}
@@ -505,7 +508,9 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
               useCommandShortcut = {false}
               language = 'ko-KR'
               ref={editorRef}
-              onChange={onChangeEditor}
+              onChange={()=>{
+                onChangeEditor()
+              }}
               usageStatistics={false}
               plugins={[colorSyntax]}
               toolbarItems={[
@@ -514,16 +519,20 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
                 ['hr', 'quote'],
                 ['ul', 'ol', 'task', 'indent', 'outdent'],
             ]}
-          />
+          />          
           : 
           <Viewer initialValue={viewerInput}/>       
-        }              
+          }              
         </div>
-        <div id='goal__button-wrap' className='goal__button-wrap'>
-          <button onClick={()=> setIsGoalEditDone(!isGoalEditDone)}>{isGoalEditDone === false ? '작성 완료' : '메모 수정'}</button>
-          <button onClick={()=> getDownloadResultPngFile('ban-pick-board', 'goal__button-wrap')}>Finish</button>
+        <div id='goal__button-wrap' className='goal__button-wrap' data-html2canvas-ignore>
+          {
+            isGoalEditDone === false ?
+            <button onClick={()=> setIsGoalEditDone(!isGoalEditDone)}>{isGoalEditDone === false ? '작성 완료' : '메모 수정'}</button>
+            :
+            <button onClick={()=> getDownloadResultPngFile('ban-pick-board')}>캡쳐하기</button>
+          }
         </div>
-        </div>
+      </div>
       }        
 
       <div className="red-team__summoners">
