@@ -17,9 +17,17 @@ import {getDownloadResultPngFile} from '../apis/get'
 
 
 export default function Board({recentVersion, ascendingChampionDataList , classicSpellList}) {  
-  const tooltipText = 
+  const modeToolTip = 
   `[빠른 결과 모드] 는 Ban-Pick 순서와는 상관없이 빠르게 데이터 입력이 가능하고, 기본 스펠이 자동으로 입력됩니다.<br>
   [토너먼트 드래프트 모드] 는 전통 Ban-Pick 룰에 따라 진행됩니다. (현재 개발중입니다^^)`
+  const resultDownToolTip1 =
+  `밴픽 결과를 이미지 파일로 변환하여 자동 다운로드 합니다.<br>
+  주의하세요💩 : 소환사 챔피언 이미지와 일부 텍스트 사이즈가 조정되어 보이는 화면과 차이가 있습니다.<br>
+  (추후 원본 저장 기능으로 업데이트 예정입니다^^)`
+  const resultDownToolTip2 =
+  `깔끔한 결과 캡쳐를 위해 버튼 탭이 사라집니다.<br>
+  (원본 저장 기능 업데이트 후 사라질 예정입니다^^)`
+
 
   const teamArr = ['KDF', 'T1', 'DK' ,'BRO' , 'DRX', 'GEN', 'HLE', 'KT', 'LSB', 'NS']
 
@@ -28,11 +36,11 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
 
   const [board,setBoard] = useState('setting') // setting, banpick
   const [mode,setMode] = useState('rapid') // simulation, rapid
-  const [phase, setPhase] = useState('Pick')  // Pick, Ban, End
-  const [globalPhase, setGlobalPhase] = useState('GoalEdit') // PickBan, GoalEdit,
+  const [globalPhase, setGlobalPhase] = useState('GoalEdit') // PickBan, GoalEdit, End
+  const [pickBanPhase, setPickBanPhase] = useState('Pick')  // Pick, Ban, End
+  const [goalEditPhase, setGoalEditPhase] = useState('Editing') // Editing, EditDone, End
   const [currentSelectingTeam, setCurrentSelectingTeam] = useState('blue') // blue, red
   const [currentSelectingIndex, setCurrentSelectingIndex] = useState(0) // 0 ~ 4 
-  const [isGoalEditDone, setIsGoalEditDone] = useState(false)
 
   const [champDataList, setChampDataList] = useState([])
   const [selectedBlueTeam, setSelectedBlueTeam] = useState('')
@@ -167,7 +175,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
 
   const onClickAllTargetController = () => {
     if(isPickBanPhaseEnd()){
-      setPhase('End')
+      setPickBanPhase('End')
       setGlobalPhase('GoalEdit')
       return
     }
@@ -182,11 +190,11 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     }
       
     if(isPickPhaseEnd()){
-      setPhase('Ban')
+      setPickBanPhase('Ban')
     }
     
     if(isBanPhaseEnd()){
-      setPhase('Pick')
+      setPickBanPhase('Pick')
     }
 
     if(currentSelectingTeam === 'blue'){
@@ -200,7 +208,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   }
 
   const isCurrentSelectingIndexChampionDataEmpty = () => {
-    if(phase === 'Pick'){
+    if(pickBanPhase === 'Pick'){
       if(currentSelectingTeam === 'blue'){
         return blueTeamSummoner[currentSelectingIndex].pickedChampion === ''
       }      
@@ -292,7 +300,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     updateMatchChampDataList()
   },[searchInput, board])
 
-  
+
 
   const showBoard = {
     setting :
@@ -305,7 +313,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
           <div className="radio-box__title">
             <p>
               모드 선택 
-              <img className='tooltip-icon' alt='tooltip-mark' src={tooltipIcon} data-for='mode-tooltip' data-tip={tooltipText} data-class='tooltip-text'/>
+              <img className='mode-tooltip-icon' alt='tooltip-mark' src={tooltipIcon} data-for='mode-tooltip' data-tip={modeToolTip} data-class='mode-tooltip-text'/>
             </p>
             <ReactTooltip id='mode-tooltip' multiline={true} delayShow={300}/>            
           </div>
@@ -335,7 +343,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     <Row id='board-top' className='board-top'>
       <label className="blue-team">
         <div className='blue-team__name'>
-          <input  type='button' className='name__button'
+          <input  type='button' id='blue-name-input' className='name__button'
           onClick={()=>{
             toggleIsTeamSelectMenuOpen('blue')              
           }}           
@@ -382,7 +390,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
         </div>
         
         <div className='red-team__name'>  
-        <input type='button' className='name__button'
+        <input type='button' id='red-name-input' className='name__button'
           onClick={()=>{
             toggleIsTeamSelectMenuOpen('red')              
           }}           
@@ -411,11 +419,11 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
           blueTeamSummoner.map((summoner, index)=>(
             <div className="summoner" key={index}>
               <img className="champion" id={`${summoner.pickedChampion}`} alt={`blueTeam-${index}-${summoner.pickedChampion}`}  
-              data-current-target={currentSelectingTeam === 'blue'  && currentSelectingIndex === index && phase === 'Pick'}
+              data-current-target={currentSelectingTeam === 'blue'  && currentSelectingIndex === index && pickBanPhase === 'Pick'}
               onClick={() =>{
                 setCurrentSelectingIndex(index)
                 setCurrentSelectingTeam('blue')
-                setPhase('Pick')
+                setPickBanPhase('Pick')
                 setGlobalPhase('PickBan')
               }}
               src={                  
@@ -463,7 +471,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
               data-picked={isPicked(championData.id)} 
               data-banned={isBanned(championData.id)}
               onClick={(e)=>{
-                if(phase === 'Pick'){
+                if(pickBanPhase === 'Pick'){
                   setPickedChampion(championData.id)                 
                 }
                 else{
@@ -477,7 +485,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
             ))
           } 
         </div>
-        <input className="champion__select-button" type="button" value={phase}
+        <input className="champion__select-button" type="button" value={pickBanPhase}
         onClick={()=>{
           onClickAllTargetController()
         }}/>
@@ -487,51 +495,69 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       globalPhase === 'GoalEdit' &&
       <div id='todays-goal' className="todays-goal">
         <div className="goal__title-wrap">
-          <input className="goal__title" type="text" value={goalTitle} 
+          <input id='goal__title' className="goal__title" type="text" value={goalTitle} 
           onChange={e => onChangeGoalTitle(e)}
           />
         </div>
-        <div className='goal__editor-wrap'
-        onClick={()=>{
-          setIsGoalEditDone(false)
-        }}>
-          {
-          isGoalEditDone === false ?
+        {
+        goalEditPhase === 'Editing' &&
+        <>
+        <div className='goal__editor-wrap' onClick={() => setGoalEditPhase('Editing')}>
           <Editor
             initialValue={viewerInput}
-              previewStyle ='tap'
-              hideModeSwitch = {true}
-              viewer={false}
-              height='100%'
-              minHeight='300px'
-              initialEditType = 'wysiwyg'
-              useCommandShortcut = {false}
-              language = 'ko-KR'
-              ref={editorRef}
-              onChange={()=>{
-                onChangeEditor()
-              }}
-              usageStatistics={false}
-              plugins={[colorSyntax]}
-              toolbarItems={[
-                // 툴바 옵션 설정
-                ['heading', 'bold', 'italic', 'strike'],
-                ['hr', 'quote'],
-                ['ul', 'ol', 'task', 'indent', 'outdent'],
+            previewStyle ='tap'
+            hideModeSwitch = {true}
+            viewer={false}
+            height='100%'
+            minHeight='300px'
+            initialEditType = 'wysiwyg'
+            useCommandShortcut = {false}
+            language = 'ko-KR'
+            ref={editorRef}
+            onChange={()=>{
+              onChangeEditor()
+            }}
+            usageStatistics={false}
+            plugins={[colorSyntax]}
+            toolbarItems={[
+              // 툴바 옵션 설정
+              ['heading', 'bold', 'italic', 'strike'],
+              ['hr', 'quote'],
+              ['ul', 'ol', 'task', 'indent', 'outdent'],
             ]}
           />          
-          : 
-          <Viewer initialValue={viewerInput}/>       
-          }              
         </div>
         <div id='goal__button-wrap' className='goal__button-wrap' data-html2canvas-ignore>
-          {
-            isGoalEditDone === false ?
-            <button onClick={()=> setIsGoalEditDone(!isGoalEditDone)}>{isGoalEditDone === false ? '작성 완료' : '메모 수정'}</button>
-            :
-            <button onClick={()=> getDownloadResultPngFile('ban-pick-board')}>캡쳐하기</button>
-          }
+          <button onClick={() => setGoalEditPhase('EditDone')}>작성 완료</button>     
         </div>
+        </>
+        }
+
+        {
+        goalEditPhase === 'EditDone' &&
+        <>
+        <div className='goal__editor-wrap' onClick={()=>setGoalEditPhase('Editing')}> 
+          <Viewer initialValue={viewerInput}/>
+        </div>       
+        <div id='goal__button-wrap' className='goal__button-wrap' data-html2canvas-ignore>
+          <button data-for='button-tooltip1' data-tip={resultDownToolTip1} data-class='result-down-tooltip'
+          onClick={()=> getDownloadResultPngFile('ban-pick-board')}
+          >결과 다운로드</button>
+          <ReactTooltip id='button-tooltip1' multiline={true} delayShow={150}/> 
+            
+          <button data-for='button-tooltip2' data-tip={resultDownToolTip2} data-class='result-down-tooltip'
+          onClick={()=>{setGoalEditPhase('End')}}>직접 캡쳐</button>
+          <ReactTooltip id='button-tooltip2' multiline={true} delayShow={150}/>           
+        </div>
+        </>       
+        }
+
+        {
+        goalEditPhase === 'End' &&
+        <div className='goal__editor-wrap' onClick={() => setGoalEditPhase('Editing')}> 
+          <Viewer initialValue={viewerInput}/>
+        </div>
+        }
       </div>
       }        
 
@@ -540,11 +566,11 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
         redTeamSummoner.map((summoner, index)=>(
           <div className="summoner" key={index}>
             <img className="champion" id={`${summoner.pickedChampion}`} alt={`${summoner.pickedChampion}`}
-            data-current-target={currentSelectingTeam === 'red' && currentSelectingIndex === index && phase === 'Pick'}
+            data-current-target={currentSelectingTeam === 'red' && currentSelectingIndex === index && pickBanPhase === 'Pick'}
             onClick={() =>{
               setCurrentSelectingIndex(index)
               setCurrentSelectingTeam('red')
-              setPhase('Pick')
+              setPickBanPhase('Pick')
               setGlobalPhase('PickBan')
             }}  
             src={                  
@@ -579,11 +605,11 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
         blueTeamSummoner.map((summoner, index) => (
           <div className='banned-champion-wrap' key={index}>
             <img className='banned-champion' alt={`blueTeam-banned-${index}-${summoner.bannedChampion}`}
-            data-current-target={currentSelectingTeam === 'blue' && currentSelectingIndex === index && phase === 'Ban'}
+            data-current-target={currentSelectingTeam === 'blue' && currentSelectingIndex === index && pickBanPhase === 'Ban'}
             onClick={()=>{
               setCurrentSelectingTeam('blue')
               setCurrentSelectingIndex(index)
-              setPhase('Ban')
+              setPickBanPhase('Ban')
               setGlobalPhase('PickBan')
             }}
             src={
@@ -595,8 +621,8 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       }
       </div>    
 
-      <div className='match-result-wrap'>
-        <input type='text' className='match-result' value={matchResult}
+      <div id='match-result-wrap' className='match-result-wrap'>
+        <input type='text'  id='match-result' className='match-result' value={matchResult}
         onChange={e=> setMatchResult(e.target.value)}/>     
       </div>
 
@@ -605,11 +631,11 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
         redTeamSummoner.map((summoner, index) => (
           <div className='banned-champion-wrap' key={index}>
             <img className='banned-champion' alt={`redTeam-banned-${index}-${summoner.bannedChampion}`}
-            data-current-target={currentSelectingTeam === 'red' && currentSelectingIndex === index && phase === 'Ban'}
+            data-current-target={currentSelectingTeam === 'red' && currentSelectingIndex === index && pickBanPhase === 'Ban'}
             onClick={()=>{
               setCurrentSelectingTeam('red')
               setCurrentSelectingIndex(index)
-              setPhase('Ban')
+              setPickBanPhase('Ban')
               setGlobalPhase('PickBan')
             }}
             src={

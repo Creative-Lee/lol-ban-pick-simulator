@@ -64,15 +64,16 @@ export const getDownloadResultPngFile = async (elementId) => {
       document.body.removeChild(oneTimeUseLink) // 1회용 태그 사용 후 삭제
     }
 
-    window.scrollTo(0,0); 
+    window.scrollTo(0,0);
+    const captureErroredInputId = ['blue-name-input','red-name-input','goal__title','match-result'] 
 
     const capturedCanvas = await html2canvas(document.getElementById(elementId),{
       useCORS: true,
-      allowTaint: true
+      allowTaint: true,
+      onclone : document => captureErroredInputId.forEach(inputId => document.getElementById(inputId).style.fontSize = '20px') 
     })    
 
     saveAs(capturedCanvas.toDataURL(), 'download.png')
-
   }
 
   catch(err){
