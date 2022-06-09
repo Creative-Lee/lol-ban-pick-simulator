@@ -36,8 +36,8 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
 
   const [board,setBoard] = useState('setting') // setting, banpick
   const [mode,setMode] = useState('rapid') // simulation, rapid
-  const [globalPhase, setGlobalPhase] = useState('GoalEdit') // PickBan, GoalEdit, End
-  const [pickBanPhase, setPickBanPhase] = useState('Pick')  // Pick, Ban, End
+  const [globalPhase, setGlobalPhase] = useState('PickBan') // PickBan, GoalEdit, End
+  const [pickBanPhase, setPickBanPhase] = useState('Spell')  // Pick, Ban, Spell, End
   const [goalEditPhase, setGoalEditPhase] = useState('Editing') // Editing, EditDone, End
   const [currentSelectingTeam, setCurrentSelectingTeam] = useState('blue') // blue, red
   const [currentSelectingIndex, setCurrentSelectingIndex] = useState(0) // 0 ~ 4 
@@ -172,6 +172,22 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       setRedTeamSummoner(updatedArr)
     }
   }
+
+  // const setSpell = (spellName) => {
+  //   if(currentSelectingTeam === 'blue'){
+  //     const updatedArr = [...blueTeamSummoner]
+  //     updatedArr[currentSelectingIndex] = blueTeamSummoner[currentSelectingIndex].setSpell1(spellName)  
+
+  //     setBlueTeamSummoner(updatedArr)
+  //   }
+  //   else{
+  //     const updatedArr = [...redTeamSummoner]
+  //     updatedArr[currentSelectingIndex] = redTeamSummoner[currentSelectingIndex].setBannedChampion(championName)
+
+  //     setRedTeamSummoner(updatedArr)
+  //   }
+  // }
+
 
   const onClickAllTargetController = () => {
     if(isPickBanPhaseEnd()){
@@ -432,13 +448,13 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
                 : `${process.env.REACT_APP_API_BASE_URL}/cdn/img/champion/splash/${summoner.pickedChampion}_0.jpg`
               }/>
               <div className="spell">
-                <img alt="spell1" 
+                <img alt={`spell1-${summoner.spell1}`} 
                 src={
                   summoner.spell1 === ''
                   ? transparencyImg
                   : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${summoner.spell1}.png`
                 }/>
-                <img alt="spell2" 
+                <img alt={`spell2-${summoner.spell2}`} 
                 src={
                   summoner.spell2 === ''
                   ? transparencyImg
@@ -453,44 +469,90 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
 
       {
       globalPhase === 'PickBan' && 
-      <div className="champion-select-board">
-        <div className="champion__select-option">          
-          <div className="search">
-            <label className="search-input-label" htmlFor="search">
-              <img className='search-icon' src={searchIcon} alt="search-icon"/>
-            </label>
-            <input id='search' className="search-input" type='text' placeholder='챔피언 이름 검색'
-            onChange={e=>onChangeSearchInput(e)}/>
+      <>
+        {
+        (pickBanPhase === 'Pick' || pickBanPhase === 'Ban') &&     
+        <div className="champion-select-board">
+          <div className="champion__select-option">          
+            <div className="search">
+              <label className="search-input-label" htmlFor="search">
+                <img className='search-icon' src={searchIcon} alt="search-icon"/>
+              </label>
+              <input id='search' className="search-input" type='text' placeholder='챔피언 이름 검색'
+              onChange={e=>onChangeSearchInput(e)}/>
+            </div>
           </div>
-        </div>
-        <div className="champions"> 
+          <div className="champions"> 
+            {
+              champDataList.map((championData, index) =>(
+                <div className="champion__card" key={index} 
+                data-champion={championData.id}
+                data-picked={isPicked(championData.id)} 
+                data-banned={isBanned(championData.id)}
+                onClick={(e)=>{
+                  if(pickBanPhase === 'Pick'){
+                    setPickedChampion(championData.id)                 
+                  }
+                  else{
+                    setBannedChampion(championData.id)
+                  };            
+                }}
+                >
+                  <img className="champion__img" alt={championData.id} src={`${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${championData.id}.png`}/>
+                  <small className="champion__name">{championData.name}</small>
+                </div>
+              ))
+            } 
+          </div>
+          <input className="champion__select-button" type="button" value={pickBanPhase}
+          onClick={()=>{
+            onClickAllTargetController()
+          }}/>
+        </div>    
+        }
+
+        {
+        pickBanPhase === 'Spell' && 
+        <div className="spell-select-board"> 
+          <div className="spell__select-helper">
+            <div className="select-helper__text">
+              <p>
+                {`${currentSelectingTeam}팀 ${currentSelectingIndex}번 소환사 주문 선택중!`}
+              </p>
+            </div>            
+            <div className="select-helper__zoom-view">
+              <img alt={`zoom-view-spell1`} 
+                src={
+                  blueTeamSummoner[currentSelectingIndex].spell1 === ''
+                  ? transparencyImg
+                  : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${blueTeamSummoner[currentSelectingIndex].spell1}.png`
+              }/>
+              <img alt={`zoom-view-spell2`} 
+                src={
+                  blueTeamSummoner[currentSelectingIndex].spell2 === ''
+                  ? transparencyImg
+                  : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/Summoner${blueTeamSummoner[currentSelectingIndex].spell2}.png`
+              }/>
+            </div>
+          </div> 
+          <div className="spells">            
           {
-            champDataList.map((championData, index) =>(
-              <div className="champion__card" key={index} 
-              data-champion={championData.id}
-              data-picked={isPicked(championData.id)} 
-              data-banned={isBanned(championData.id)}
-              onClick={(e)=>{
-                if(pickBanPhase === 'Pick'){
-                  setPickedChampion(championData.id)                 
-                }
-                else{
-                  setBannedChampion(championData.id)
-                };            
-              }}
-              >
-                <img className="champion__img" alt={championData.id} src={`${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${championData.id}.png`}/>
-                <small className="champion__name">{championData.name}</small>
+            classicSpellList.map((spell, index) => (
+              <div className="spell__card" key={index}>                  
+                <img className="spell__img" alt={`spell-img-${spell.id}`} src={`${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/${spell.id}.png`}/>
               </div>
             ))
-          } 
+          }
+          </div>
+          <div className="spell__select-button-wrap">
+            <input className="spell__select-button" type="button" value={pickBanPhase}
+            onClick={()=>{}}/>
+          </div>
         </div>
-        <input className="champion__select-button" type="button" value={pickBanPhase}
-        onClick={()=>{
-          onClickAllTargetController()
-        }}/>
-      </div>
-      }      
+        }
+      </>
+      } 
+
       {
       globalPhase === 'GoalEdit' &&
       <div id='todays-goal' className="todays-goal">
@@ -546,7 +608,10 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
           <ReactTooltip id='button-tooltip1' multiline={true} delayShow={150}/> 
             
           <button data-for='button-tooltip2' data-tip={resultDownToolTip2} data-class='result-down-tooltip'
-          onClick={()=>{setGoalEditPhase('End')}}>직접 캡쳐</button>
+          onClick={()=>{
+            setGoalEditPhase('End')
+            document.documentElement.scroll(0,document.documentElement.clientHeight * 0.013)
+          }}>직접 캡쳐</button>
           <ReactTooltip id='button-tooltip2' multiline={true} delayShow={150}/>           
         </div>
         </>       
@@ -559,7 +624,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
         </div>
         }
       </div>
-      }        
+      }      
 
       <div className="red-team__summoners">
       {

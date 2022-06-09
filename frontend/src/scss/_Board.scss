@@ -342,12 +342,12 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
   .blue-team__summoners,
   .red-team__summoners,
   .todays-goal,
-  .champion-select-board {
+  .champion-select-board,
+  .spell-select-board{
     display: flex;
     flex-direction: column;
     flex: 1 1;
-    padding: 0;
-    padding-top: 10px;
+    padding: 10px 0 0 0;
     height: 100%;
   }
 
@@ -355,7 +355,8 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     position: relative;
     align-items: center;
     flex: 1.5 0;
-
+    margin: 0 2vw;
+    
     .goal__title-wrap {
       position: relative;
       flex: 1 1 15%;
@@ -363,7 +364,6 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       .goal__title {
         position: relative; 
         text-align: center;
-        margin-top: 1vw;
         border: none;
         background-color: transparent;
         color: #fff;
@@ -377,8 +377,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     }
 
     .goal__editor-wrap {
-      width: 90%;
-      margin: 1.5vw;
+      width: 100%;
       flex: 1 1 70%;
       overflow-y: scroll;
       overflow-x: hidden;
@@ -448,6 +447,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 
         &:hover {
           background-color: #bcbcbc78;
+          filter: brightness(1.2);
         }
 
         &[id="Garen"] {
@@ -621,6 +621,9 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         &[id="Viktor"] {
           object-position: 69% 20%;
         }
+        &[id='Belveth']{
+          object-position: 50% 5%;
+        }
         &[id="Poppy"] {
           object-position: 74% 20%;
         }
@@ -658,10 +661,10 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
           object-position: 89% 7%;
         }
         &[id="Shyvana"] {
-          object-position: 77% 16%;
+          object-position: 78% 16%;
         }
         &[id="Swain"] {
-          object-position: 76% 6%;
+          object-position: 76% 9%;
         }
         &[id="Skarner"] {
           object-position: 82% 38%;
@@ -935,12 +938,34 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       }
 
       .player {
+        position: absolute;
+        bottom: 0.3vw;
+
         background-color: rgba(0, 0, 0, 0.6);
-        width: 130px;
+        width: 8vw;
         border: none;
         color: #fff;
         z-index: 2;
         text-align: center;
+        font-size: 1vw;
+      }
+
+      .spell{
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transform: translate(0%, -50%);
+        z-index: 1;
+        top: 50%;
+                
+        & img:nth-child(1) {
+          margin-bottom: 2px;
+        }
+        img {
+          width: 2.2vw;
+          border: solid 1px rgba(0, 0, 0, 0.5);
+        }
       }
     }
 
@@ -955,9 +980,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     }
 
     .player {
-      position: absolute;
-      right: 10px;
-      bottom: 5px;
+      right: 0.3vw;
       &:hover {
         background-color: #bcbcbc78;
       }
@@ -1298,28 +1321,16 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
         transform: scaleX(-1);
       }
     }
+
     .spell {
-      position: absolute;
-      transform: translate(0%, -50%);
-      left: 10px;
-      top: 50%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      z-index: 1;
+      left: 0.5vw;  
+      background-color: transparent;
 
-      & img:nth-child(1) {
-        margin-bottom: 2px;
-      }
-      img {
-        width: 40px;
-        border: solid 1px #000;
-
-        &:hover {
-          background-color: #bcbcbc78;
-        }
-      }
-    }
+      img:hover {
+        background-color: #bcbcbc78;
+        filter: brightness(1.2);
+      }      
+    }    
   }
 
   .red-team__summoners {
@@ -1330,15 +1341,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     }
 
     .player {
-      position: absolute;
-      left: 10px;
-      bottom: 5px;
-      width: 100px;
-      text-align: left;
-      border: none;
-      background-color: transparent;
-      color: #fff;
-      z-index: 2;
+      left: 0.3vw;
       &:hover {
         background-color: #ccccccb7;
       }
@@ -1511,25 +1514,11 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       }
     }
     .spell {
-      position: absolute;
-      transform: translate(0%, -50%);
-      right: 10px;
-      top: 50%;
-      display: flex;
-      flex-direction: column;
-      z-index: 1;
-
-      & img:nth-child(1) {
-        margin-bottom: 2px;
-      }
-      img {
-        width: 40px;
-        border: solid 1px #000;
-
-        &:hover {
-          background-color: #cccccc8f;
-        }
-      }
+      right: 10px; 
+      
+      img:hover {
+        background-color: #cccccc8f;
+      }      
     }
   }
 
@@ -1537,7 +1526,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     flex: 1.5 0;
     width: 100%;
     align-items: center;
-    margin: 0px 10px;
+    margin: 0 2vw;
 
     .champion__select-option {
       display: flex;
@@ -1591,7 +1580,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       align-content: flex-start;
       gap: 0px 8px;
       overflow: auto;
-      height: 55vh;
+      height: 70%;
 
       .champion__card {
         display: flex;
@@ -1630,8 +1619,8 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 
     .champion__select-button {
       position: relative;
-      width: 300px;
-      height: 50px;
+      width: 15vw;
+      height: 3vw;
       margin-top: 20px;
       border: none;
       border-radius: 7px;
@@ -1643,6 +1632,75 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       &:hover {
         background-color: #000000bb;
       }
+    }
+  }
+
+  .spell-select-board {
+    flex: 1.5 1;
+    margin: 0 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .spell__select-helper{
+      flex: 1 1 40%;
+      display: flex;
+      flex-direction: column;
+
+      .select-helper__text{
+        flex: 1 1;
+      }
+      .select-helper__zoom-view{
+        flex: 1 1;
+        display: flex;
+
+        img{
+          width: 7vw;
+        }
+      }
+    }
+    
+    .spells{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      flex : 1 1 30%;
+      width: 50%;
+      gap: 1vw 1vw;
+      justify-content: space-between;
+
+      .spell__card{
+        cursor: pointer;
+              
+        .spell__img{
+          width: 3.5vw;
+          border: 1px solid rgba(0, 0, 0, 0.523);
+          
+          &:hover{
+            filter:brightness(1.2) contrast(1.2);
+          }
+        }
+      }
+    } 
+
+    .spell__select-button-wrap{
+      flex: 1 1 20%;
+
+      .spell__select-button{
+        flex: 1 1;
+        width: 15vw;
+        height: 3vw;
+        margin-top: 20px;
+        border: none;
+        border-radius: 7px;
+        color: #fff;
+        letter-spacing: 1px;
+        background-color: #00000093;
+  
+        &:hover {
+          background-color: #000000bb;
+        }  
+      }  
     }
   }
 }
@@ -1665,6 +1723,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       width: 3.3vw;
       height: 3.3vw;
       cursor: pointer;
+
 
       &::after {
         content: "";
@@ -1707,6 +1766,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 
       &:hover {
         background-color: #bcbcbc78;
+        filter:brightness(1.2);
       }
     }
   }
@@ -1728,6 +1788,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 
       &:hover {
         background-color: #cccccc7d;
+        filter:brightness(1.2);
       }
     }
   }
@@ -1736,6 +1797,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
     display: flex;
     flex: 1 1 20%;
     margin-top: 20px;
+    justify-content: center;
     position: relative;
 
     .match-result {
@@ -1745,7 +1807,7 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
       text-align: center;
       font-size: 2vw;
       font-weight: 700;
-
+      line-height: 1.5;
       &:hover {
         background-color: #bcbcbc78;
       }

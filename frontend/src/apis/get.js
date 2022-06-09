@@ -38,7 +38,7 @@ export const getAscendingChampionDataList = async (recentVersion) => {
 
 export const getClassicSpell = async (recentVersion) => {
   try{ 
-    const response = await lolApi.get(`cdn/${recentVersion}/data/en_US/summoner.json`)
+    const response = await lolApi.get(`cdn/${recentVersion}/data/ko_KR/summoner.json`)
     const spellData = response.data.data
     const spellsPropertyList = Object.values(spellData)
     const classicSpellList = spellsPropertyList.filter(property => property.modes.includes('CLASSIC'))

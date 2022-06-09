@@ -10,7 +10,7 @@ export default function App() {
 
   const [recentVersion, setRecentVersion] = useState('') 
   const [ascendingChampionDataList, setAscendingChampionDataList] = useState([]);
-  const [classicSpellList, setClassicSpellList] = useState('')
+  const [classicSpellList, setClassicSpellList] = useState([])
   const isMounted = useRef(false)
 
   useEffect(() => {
