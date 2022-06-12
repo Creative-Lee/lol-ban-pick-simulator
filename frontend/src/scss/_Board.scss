@@ -1702,8 +1702,13 @@ $teamArr: (KDF, T1, DK, BRO, DRX, GEN, HLE, KT, LSB, NS);
 
           &:hover{
             background-color: #bcbcbc78;
-            filter:brightness(1.2) contrast(1.2);
-          }          
+            filter:brightness(1.1);
+            box-shadow: 1px 1px 3px 3px  #0000003a;
+          }   
+          &[data-current-target="true"]{
+            background-color: #bcbcbc78;
+            box-shadow: 1px 1px 3px 5px  #0000003a , -1px -1px 5px 5px  #0000003a 
+          }       
         }
       }
     }
