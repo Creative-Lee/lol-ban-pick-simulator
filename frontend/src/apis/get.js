@@ -7,6 +7,7 @@ export const getRecentVersion = async () => {
     const response = await lolApi.get('api/versions.json')
     const versionList = response.data
 
+    console.log('recent version data update compleat')
     return versionList[0] 
   }
   catch(err){ 
@@ -28,7 +29,7 @@ export const getAscendingChampionDataList = async (recentVersion) => {
       //   ? 1 
       //   : 0
     })
-    console.log(ascendingChampionDataList)
+    console.log('ascendingChampionDataList update compleat')
     return ascendingChampionDataList
   }
   catch(err){
@@ -43,7 +44,7 @@ export const getClassicSpell = async (recentVersion) => {
     const spellsPropertyList = Object.values(spellData)
     const classicSpellList = spellsPropertyList.filter(property => property.modes.includes('CLASSIC'))
 
-    console.log(classicSpellList)
+    console.log('classicSpellList update compleat')
     return classicSpellList
   }
   catch(err){
@@ -74,6 +75,7 @@ export const getDownloadResultPngFile = async (elementId) => {
     })    
 
     saveAs(capturedCanvas.toDataURL(), 'download.png')
+    console.log('screen capture compleat')
   }
 
   catch(err){
