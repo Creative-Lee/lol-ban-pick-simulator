@@ -38,6 +38,7 @@
     "workbox-strategies": "^5.1.4",
     "workbox-streams": "^5.1.4"
   },
+  "homepage": "https://banpick-simulator.netlify.app",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
