@@ -334,7 +334,7 @@
 }
 
 .board-middle {
-  height: calc(70vh);
+  height: 65vh;
   position: relative;
   z-index: 1;
 
@@ -419,9 +419,9 @@
   .red-team__summoners {
     .summoner {
       position: relative;
-      width: 100%;
+      width: 90%;
       height: 100%;
-      margin-bottom: 0.3vw;
+      margin-bottom: 0.3vw; 
       overflow: hidden;
       cursor: pointer;
 
@@ -1766,7 +1766,7 @@
   display: flex;
   flex-direction: row;
   position: relative;
-  height: calc(10vh);
+  height: 15vh;
 
   .blue-team__ban,
   .red-team__ban {
@@ -1777,8 +1777,8 @@
 
     .banned-champion-wrap {
       position: relative;
-      width: 3.3vw;
-      height: 3.3vw;
+      width: 4.2vw;
+      height: 4.2vw;
       cursor: pointer;
 
 
@@ -1800,6 +1800,7 @@
 
         &[data-current-target="true"] {
           filter: brightness(1);
+          background-color: #bcbcbc78;
         }
 
         &:hover{

@@ -342,7 +342,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   const isPickPhaseEnd = () => {
     const isBlueTeamPickPhaseEnd = !blueTeamSummoner.map(summoner => summoner.pickedChampion).includes('')
     const isRedTeamPickPhaseEnd = !redTeamSummoner.map(summoner => summoner.pickedChampion).includes('')
-    
+      
     return isBlueTeamPickPhaseEnd && isRedTeamPickPhaseEnd
   }
   
