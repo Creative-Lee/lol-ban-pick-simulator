@@ -5,7 +5,7 @@ export default function Main() {
   return (
     <Container id="main-container">
       <div className="main-banner-wrap">
-        <a href="http://freecs.gg/main/main.html" target='_blank'>
+        <a href="http://freecs.gg/main/main.html" target='_blank' rel="noreferrer">
           <img className="main-banner" alt="main-banner" src={`${process.env.PUBLIC_URL}/assets/useful/KWANGDONG_banner.jpg`}/>
         </a>
       </div>

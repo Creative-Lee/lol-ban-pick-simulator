@@ -1,4 +1,4 @@
-import React,{ useEffect, useState , useRef, useLayoutEffect} from 'react'
+import React,{ useEffect, useState , useRef, useCallback} from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import ReactTooltip from 'react-tooltip'
 import Hangul from 'hangul-js';
@@ -120,7 +120,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     setViewerInput(editorInputHtml)
   }
 
-  const updateMatchChampDataList = () => {    
+  const updateMatchChampDataList = useCallback(() => {    
     const championNameList = ascendingChampionDataList.map(data => data.name)
     let searcher = new Hangul.Searcher(searchInput);
     
@@ -143,7 +143,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     const matchedChampDataList = ascendingChampionDataList.filter(data => duplicatesRemovedChampNameList.includes(data.name))
     
     setChampDataList(matchedChampDataList)    
-  } 
+  },[ascendingChampionDataList, searchInput] )
 
   const toggleIsTeamSelectMenuOpen = teamColor => {
     setIsTeamSelectMenuOpen(prevState=> ({...prevState , [teamColor] : !prevState[teamColor]}))
@@ -332,17 +332,10 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     return redTeamSummoner[currentSelectingIndex].isEmpty(data)
   }
 
-  const initCurrentSelectingTeam = () => {
-    setCurrentSelectingTeam('blue')
-  }
-  const initCurrentSelectingIndex = () => {
-    setCurrentSelectingIndex(0)
-  }
-
   const isPickPhaseEnd = () => {
     const isBlueTeamPickPhaseEnd = !blueTeamSummoner.map(summoner => summoner.pickedChampion).includes('')
     const isRedTeamPickPhaseEnd = !redTeamSummoner.map(summoner => summoner.pickedChampion).includes('')
-      
+
     return isBlueTeamPickPhaseEnd && isRedTeamPickPhaseEnd
   }
   
@@ -371,7 +364,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     return isPickPhaseEnd() && isBanPhaseEnd() && isSpellPhaseEnd()
   }
   
-  const activatePlayerPrefix = () => {
+  const activatePlayerPrefix = useCallback(() => {
     setPlayer(prev => ({...prev,  
       blue1: `${selectedBlueTeam} TOP`, 
       blue2: `${selectedBlueTeam} JGL`, 
@@ -384,18 +377,26 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       red4 : `${selectedRedTeam} BOT`,
       red5 : `${selectedRedTeam} SUP`
     }))
-  }
+  },[selectedBlueTeam, selectedRedTeam])
 
-  const activateSpellPlaceholder = () => {
+  const activateSpellPlaceholder = useCallback(() => {
     const blueTeamUpdateArr = blueTeamSummoner.map(summoner => summoner.setSpell2('SummonerFlash'))
+    blueTeamUpdateArr[0].spell1 = 'SummonerTeleport'
     blueTeamUpdateArr[1].spell1 = 'SummonerSmite'
+    blueTeamUpdateArr[2].spell1 = 'SummonerTeleport'
+    blueTeamUpdateArr[3].spell1 = 'SummonerHeal'
+    blueTeamUpdateArr[4].spell1 = 'SummonerExhaust'
 
     const redTeamUpdateArr = redTeamSummoner.map(summoner => summoner.setSpell2('SummonerFlash'))
-    redTeamUpdateArr[1].spell1 = 'SummonerSmite' 
-        
+    redTeamUpdateArr[0].spell1 = 'SummonerTeleport'
+    redTeamUpdateArr[1].spell1 = 'SummonerSmite'
+    redTeamUpdateArr[2].spell1 = 'SummonerTeleport'
+    redTeamUpdateArr[3].spell1 = 'SummonerHeal'
+    redTeamUpdateArr[4].spell1 = 'SummonerExhaust' 
+
     setBlueTeamSummoner(blueTeamUpdateArr)
     setRedTeamSummoner(redTeamUpdateArr)
-  }
+  },[blueTeamSummoner, redTeamSummoner])
 
   const isPickedChampion = (championName) => {
     const blueTeamPicked = blueTeamSummoner.map(summoner=>summoner.pickedChampion)
@@ -443,24 +444,28 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   useEffect(()=>{ //activatePlayerPrefix
     activatePlayerPrefix()       
     console.log('activate PlayerPrefix')
-  },[selectedBlueTeam, selectedRedTeam])
+  },[activatePlayerPrefix])
   
   useEffect(()=>{ //activateSpellPlaceholder
     if(mode === 'rapid' && isMountedRef.current === true){
       activateSpellPlaceholder()
+      console.log('activate Spell Placeholder')
       return
     }
     isMountedRef.current = true;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[board])   
 
   useEffect(()=>{ // updateMatchChampDataList
     updateMatchChampDataList()
     console.log('matchedChampDataList update compleat')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[searchInput, board])
 
   useEffect(()=>{
     setGoalEditPhase('Editing')
   },[globalPhase])
+  
 
   const showBoard = {
     setting :
