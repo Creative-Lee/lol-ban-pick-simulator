@@ -72,3 +72,9 @@
   font-size: 1.3vw !important;
   color: rgb(255, 255, 255) !important;
 }
+
+.toastui-editor-contents ol li {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+}
