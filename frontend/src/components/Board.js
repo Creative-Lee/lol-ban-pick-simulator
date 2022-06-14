@@ -779,7 +779,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
               // 툴바 옵션 설정
               ['heading', 'bold', 'italic', 'strike'],
               ['hr', 'quote'],
-              ['ul', 'ol', 'task', 'indent', 'outdent'],
+              ['ul', 'ol'],
             ]}
           />          
         </div>
