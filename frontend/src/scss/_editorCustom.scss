@@ -9,15 +9,18 @@
 .toastui-editor-contents h6 {
   font-weight: 500 !important;
   color: #fff !important;
+  margin: 0;  
 }
 
 .toastui-editor-contents h1 {
   font-size: 2.6vw !important;
   line-height: 3.1vw !important;
+  border-bottom: 0 !important;
 }
 .toastui-editor-contents h2 {
   font-size: 2.3vw !important;
   line-height: 2.8vw !important;
+  border-bottom: 0 !important;
 }
 .toastui-editor-contents h3 {
   font-size: 2.0vw !important;
@@ -37,6 +40,14 @@
   font-size: 1.5vw !important;
   line-height: 2.0vw !important;
 }
+
+.toastui-editor-contents p {
+  font-size: 1.3vw !important;
+  line-height: 1.8vw !important;
+  color: #fff !important;
+  margin: 0 !important;  
+}
+
 
 .toastui-editor-contents ul,
 .toastui-editor-contents menu,
