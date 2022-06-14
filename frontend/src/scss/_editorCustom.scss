@@ -1,0 +1,63 @@
+.toastui-editor-ww-container { 
+  background-color: transparent !important;
+}
+.toastui-editor-contents h1,
+.toastui-editor-contents h2,
+.toastui-editor-contents h3,
+.toastui-editor-contents h4,
+.toastui-editor-contents h5,
+.toastui-editor-contents h6 {
+  font-weight: 500 !important;
+  color: #fff !important;
+}
+
+.toastui-editor-contents h1 {
+  font-size: 2.6vw !important;
+  line-height: 3.1vw !important;
+}
+.toastui-editor-contents h2 {
+  font-size: 2.3vw !important;
+  line-height: 2.8vw !important;
+}
+.toastui-editor-contents h3 {
+  font-size: 2.0vw !important;
+  line-height: 2.5vw !important;
+}
+.toastui-editor-contents h4 {
+  font-size: 1.8vw !important;
+  line-height: 2.3vw !important;
+}
+
+.toastui-editor-contents h5 {
+  font-size: 1.6vw !important;
+  line-height: 2.1vw !important;
+}
+
+.toastui-editor-contents h6 {
+  font-size: 1.5vw !important;
+  line-height: 2.0vw !important;
+}
+
+.toastui-editor-contents ul,
+.toastui-editor-contents menu,
+.toastui-editor-contents ol,
+.toastui-editor-contents dir {
+  color: #fff !important;
+}
+
+.toastui-editor-contents ul > li::before {
+  content: '' !important;
+  margin-top: 0.7vw !important;
+  margin-left: -1.3vw !important;
+  width: 0.4vw !important;
+  height: 0.4vw !important;
+  border-radius: 50% !important;
+  background-color: rgb(255, 255, 255) !important;
+}
+
+.toastui-editor-contents ol > li::before {
+  margin-left: -28px !important;
+  width: 24px !important;
+  font-size: 1.3vw !important;
+  color: rgb(255, 255, 255) !important;
+}
