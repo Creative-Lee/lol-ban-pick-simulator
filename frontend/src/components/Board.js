@@ -11,7 +11,7 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 
-import {searchIcon, tooltipIcon, transparencyImg} from '../img/import_img'
+import {searchIcon, tooltipIcon, transparencyImg, noBanIcon} from '../img/import_img'
 
 import {getDownloadResultPngFile} from '../apis/get'
 
@@ -34,13 +34,13 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
 
 
   const teamArr = ['KDF', 'T1', 'DK' ,'BRO' , 'DRX', 'GEN', 'HLE', 'KT', 'LSB', 'NS']
-
+  
   const isMountedRef = useRef(false);
   const editorRef = useRef();
 
   const [board,setBoard] = useState('setting') // setting, banpick
   const [mode,setMode] = useState('rapid') // simulation, rapid
-  const [globalPhase, setGlobalPhase] = useState('PickBan') // PickBan, GoalEdit, End
+  const [globalPhase, setGlobalPhase] = useState('GoalEdit') // PickBan, GoalEdit, End
   const [pickBanPhase, setPickBanPhase] = useState('Pick')  // Pick, Ban, Spell, End
   const [goalEditPhase, setGoalEditPhase] = useState('Editing') // Editing, EditDone, End
   const [currentSelectingTeam, setCurrentSelectingTeam] = useState('blue') // blue, red
@@ -109,7 +109,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     new Summoner('','','','')
   ])
     
-
+  
 
   const onChangeSearchInput = e => setSearchInput(e.target.value)
   const onChangePlayer = (e, teamNumber) => setPlayer({...player , [teamNumber] : e.target.value})
@@ -426,6 +426,13 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   return isMatchedSummonerSpell1 || isMatchedSummonerSpell2   
   }
   
+  const bannedChampionImgSrc = (summoner) => {   
+    switch (summoner.bannedChampion){
+      case '' : return transparencyImg
+      case 'noBan' : return noBanIcon
+      default : return `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${summoner.bannedChampion}.png` 
+    }      
+  }
   const zoomViewImgSrc = (spellNumber) => {
     if(currentSelectingTeam === 'blue'){ 
       return(     
@@ -469,7 +476,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
 
   const showBoard = {
     setting :
-    <Container id='setting-container' className="setting-container">
+    <Container id='setting-container' className="setting-container">     
       <div className="setting-board">
         <div className='board__title'>
           <p>LOL Ban-Pick simulator</p>
@@ -589,7 +596,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       <div className="blue-team__summoners">
         {
           blueTeamSummoner.map((summoner, index)=>(
-            <div className="summoner" key={index}>
+            <div className="summoner" key={index} data-current-target={currentSelectingTeam === 'blue' && currentSelectingIndex === index && pickBanPhase === 'Pick'}>
               <img className="champion" id={`${summoner.pickedChampion}`} alt={`blueTeam-${index}-${summoner.pickedChampion}`}  
               data-current-target={currentSelectingTeam === 'blue'  && currentSelectingIndex === index && pickBanPhase === 'Pick'}
               onClick={() =>{
@@ -645,7 +652,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       globalPhase === 'PickBan' && 
       <>
         {
-        (pickBanPhase === 'Pick' || pickBanPhase === 'Ban') &&     
+        pickBanPhase === 'Pick' &&     
         <div className="champion-select-board">
           <div className="champion__select-option">          
             <div className="search">
@@ -679,22 +686,58 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
               ))
             } 
           </div>
-          {
-          pickBanPhase === 'Pick' &&
           <input className="champion__select-button" type="button" value={pickBanPhase}
           onClick={()=>{
             onClickChampionPickButton()
           }}/>
-          }
+        </div>    
+        }
 
-          {
-          pickBanPhase === 'Ban' &&
+        {
+        pickBanPhase === 'Ban' &&
+        <div className="champion-select-board">
+          <div className="champion__select-option">          
+            <div className="search">
+              <label className="search-input-label" htmlFor="search">
+                <img className='search-icon' src={searchIcon} alt="search-icon" data-for='search-tooltip' data-tip={searchToolTip}/>
+                <ReactTooltip id='search-tooltip' multiline={true} delayShow={100}/>           
+              </label>
+              <input id='search' className="search-input" type='text' placeholder='챔피언 이름 검색' spellCheck="false"
+              onChange={e=>onChangeSearchInput(e)}/>
+            </div>  
+          </div>
+          <div className="champions">
+            <div className="champion__card"
+              onClick={()=>{    
+                setBannedChampion('noBan')
+              }}
+              >
+              <img className="champion__img" alt="no-ban-icon" src={noBanIcon} />
+              <small className="champion__name">없음</small>
+            </div>
+            {champDataList.map((championData, index) => (
+            <div className="champion__card" key={index} 
+                data-champion={championData.id}
+                data-picked={isPickedChampion(championData.id)} 
+                data-banned={isBannedChampion(championData.id)}
+                onClick={()=>{
+                  if(pickBanPhase === 'Pick'){
+                    setPickedChampion(championData.id)                 
+                  }
+                  else{
+                    setBannedChampion(championData.id)
+                  };            
+                }}
+                >
+                  <img className="champion__img" alt={championData.id} src={`${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${championData.id}.png`}/>
+                  <small className="champion__name">{championData.name}</small>
+            </div>
+            ))} 
+          </div>          
           <input className="champion__select-button" type="button" value={pickBanPhase}
           onClick={()=>{
             onClickChampionBanButton()
-          }}/>
-          }
-        
+          }}/>  
         </div>    
         }
 
@@ -783,7 +826,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
             ]}
           />          
         </div>
-        <div id='goal__button-wrap' className='goal__button-wrap' data-html2canvas-ignore>
+        <div id='goal__button-wrap' className='goal__button-wrap' data-html2canvas-ignore>        
           <button onClick={() => setGoalEditPhase('EditDone')}>작성 완료</button>     
         </div>
         </>
@@ -825,7 +868,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       <div className="red-team__summoners">
       {
         redTeamSummoner.map((summoner, index)=>(
-          <div className="summoner" key={index}>
+          <div className="summoner" key={index} data-current-target={currentSelectingTeam === 'red' && currentSelectingIndex === index && pickBanPhase === 'Pick'}>
             <img className="champion" id={`${summoner.pickedChampion}`} alt={`${summoner.pickedChampion}`}
             data-current-target={currentSelectingTeam === 'red' && currentSelectingIndex === index && pickBanPhase === 'Pick'}
             onClick={() =>{
@@ -880,7 +923,8 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       <div className="blue-team__ban">
       {
         blueTeamSummoner.map((summoner, index) => (
-          <div className='banned-champion-wrap' key={index}>
+          <div className='banned-champion-wrap' key={index} 
+          data-current-target={currentSelectingTeam === 'blue' && currentSelectingIndex === index && pickBanPhase === 'Ban'}>
             <img className='banned-champion' alt={`blueTeam-banned-${index}-${summoner.bannedChampion}`}
             data-current-target={currentSelectingTeam === 'blue' && currentSelectingIndex === index && pickBanPhase === 'Ban'}
             onClick={()=>{
@@ -889,10 +933,8 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
               setPickBanPhase('Ban')
               setGlobalPhase('PickBan')
             }}
-            src={
-            summoner.bannedChampion === ''
-            ? transparencyImg
-            : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${summoner.bannedChampion}.png`}/>
+            src={bannedChampionImgSrc(summoner)}
+            />
           </div>
         ))
       }
@@ -906,7 +948,8 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       <div className="red-team__ban">
       {
         redTeamSummoner.map((summoner, index) => (
-          <div className='banned-champion-wrap' key={index}>
+          <div className='banned-champion-wrap' key={index}
+          data-current-target={currentSelectingTeam === 'red' && currentSelectingIndex === index && pickBanPhase === 'Ban'}>
             <img className='banned-champion' alt={`redTeam-banned-${index}-${summoner.bannedChampion}`}
             data-current-target={currentSelectingTeam === 'red' && currentSelectingIndex === index && pickBanPhase === 'Ban'}
             onClick={()=>{
@@ -915,10 +958,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
               setPickBanPhase('Ban')
               setGlobalPhase('PickBan')
             }}
-            src={
-            summoner.bannedChampion === ''
-            ? transparencyImg
-            : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${summoner.bannedChampion}.png`}/>
+            src={bannedChampionImgSrc(summoner)}/>
           </div>
         ))
       }

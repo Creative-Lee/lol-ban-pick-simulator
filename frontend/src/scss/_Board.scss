@@ -153,7 +153,7 @@
 .board-top {
   position: relative;
   flex-wrap: nowrap;
-  height: calc(10vh);
+  height: 12vh;
 
   &::before {
     content: "";
@@ -325,10 +325,10 @@
       }
     }
     .date{
-      font-size: 1.2vw;
+      font-size: 1.7vw;
     }
     .round {
-      font-size: 1.3vw;
+      font-size: 1.7vw;
     }
   }
 }
@@ -378,10 +378,8 @@
     .goal__editor-wrap {
       width: 100%;
       flex: 1 1 70%;
-      overflow-y: scroll;
-      overflow-x: hidden;
+      overflow: hidden;
       cursor: text;
-
       &:hover {
         background-color: #bcbcbc78;
       }
@@ -981,7 +979,13 @@
   .blue-team__summoners {
     .summoner {
       background-color: #6e83f81c;
+      
+      &[data-current-target="true"]{
+        border-right : solid 5px rgb(85, 85, 255);  
+      }
     }
+
+  
 
     .player {
       right: 0.3vw;
@@ -1345,6 +1349,9 @@
 
     .summoner {
       background-color: #f86e6e1c;
+      &[data-current-target="true"]{
+        border-left : solid 5px rgb(255, 85, 85); 
+      }    
     }
 
     .player {
@@ -1597,8 +1604,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 60px;
-        margin: 5px 0;
+        width: 4vw;
+        margin: 0.3vw 0;
         cursor: pointer;
         filter: contrast(1.1);
 
@@ -1615,6 +1622,9 @@
           pointer-events: none;
         }
 
+        // img[alt='no-ban-icon']{
+        //   border : 1px solid rgb(66, 66, 66);
+        // }
         .champion__name {
           width: 100%;
           text-align: center;
@@ -1626,6 +1636,8 @@
           white-space: nowrap;
         }
       }
+
+      
     }
 
     .champion__select-button {
@@ -1766,7 +1778,7 @@
   display: flex;
   flex-direction: row;
   position: relative;
-  height: 15vh;
+  height: 13vh;
 
   .blue-team__ban,
   .red-team__ban {
@@ -1796,7 +1808,7 @@
       }
 
       .banned-champion {
-        filter: brightness(0.5);
+        filter: brightness(0.7);
 
         &[data-current-target="true"] {
           filter: brightness(1);
@@ -1815,7 +1827,6 @@
     margin-left: 1vw;
     flex: 2 1 40%;
 
-
     & div:nth-child(3) {
       margin-right: 15px;
     }
@@ -1824,6 +1835,10 @@
       margin-right: 2px;
       background-color: #6e83f81c;
       transform: skewX(10deg);
+
+      &[data-current-target="true"]{
+        border-top : solid 3px rgb(85, 85, 255);  
+      } 
 
       &:hover {
         background-color: #bcbcbc78;
@@ -1845,6 +1860,10 @@
       margin-left: 2px;
       background-color: #f86e6e1c;
       transform: skewX(-10deg);
+
+      &[data-current-target="true"]{
+        border-top : solid 3px rgb(255, 85, 85);  
+      } 
 
       &:hover {
         background-color: #cccccc7d;
