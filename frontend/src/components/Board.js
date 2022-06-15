@@ -107,9 +107,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     new Summoner('','','',''),
     new Summoner('','','',''),
     new Summoner('','','','')
-  ])
-    
-  
+  ]) 
 
   const onChangeSearchInput = e => setSearchInput(e.target.value)
   const onChangePlayer = (e, teamNumber) => setPlayer({...player , [teamNumber] : e.target.value})
@@ -356,9 +354,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     .includes('')
     
     return isBlueTeamSpellPhaseEnd && isRedTeamSpellPhaseEnd
-  }
-
-  
+  }  
 
   const isGlobalPickBanPhaseEnd = () => {
     return isPickPhaseEnd() && isBanPhaseEnd() && isSpellPhaseEnd()
@@ -405,6 +401,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
 
     return allTeamPickedList.includes(championName)
   }
+
   const isBannedChampion = (championName) => {
     const blueTeamBanned = blueTeamSummoner.map(summoner=>summoner.bannedChampion)
     const redTeamBanned = redTeamSummoner.map(summoner=>summoner.bannedChampion)    
@@ -412,18 +409,14 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
 
     return allTeamBannedList.includes(championName)
   }
+
   const isPickedSpell = (spellName) => {
-    if(currentSelectingTeam === 'blue'){
-      const isMatchedSummonerSpell1 = blueTeamSummoner[currentSelectingIndex].spell1 === spellName
-      const isMatchedSummonerSpell2 = blueTeamSummoner[currentSelectingIndex].spell2 === spellName
+    let team = currentSelectingTeam === 'blue' ? blueTeamSummoner : redTeamSummoner
 
-      return isMatchedSummonerSpell1 || isMatchedSummonerSpell2
-    }
+    const isMatchedSummonerSpell1 = team[currentSelectingIndex].spell1 === spellName
+    const isMatchedSummonerSpell2 = team[currentSelectingIndex].spell2 === spellName
 
-  const isMatchedSummonerSpell1 = redTeamSummoner[currentSelectingIndex].spell1 === spellName
-  const isMatchedSummonerSpell2 = redTeamSummoner[currentSelectingIndex].spell2 === spellName
-
-  return isMatchedSummonerSpell1 || isMatchedSummonerSpell2   
+    return isMatchedSummonerSpell1 || isMatchedSummonerSpell2   
   }
   
   const bannedChampionImgSrc = (summoner) => {   
@@ -434,18 +427,13 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     }      
   }
   const zoomViewImgSrc = (spellNumber) => {
-    if(currentSelectingTeam === 'blue'){ 
-      return(     
-      blueTeamSummoner[currentSelectingIndex][`spell${spellNumber}`] === ''
+    let team = currentSelectingTeam === 'blue' ? blueTeamSummoner : redTeamSummoner
+
+    return(
+      team[currentSelectingIndex][`spell${spellNumber}`] === ''
       ? transparencyImg
-      : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/${blueTeamSummoner[currentSelectingIndex][`spell${spellNumber}`]}.png`
-      )}
-    else { 
-      return(     
-      redTeamSummoner[currentSelectingIndex][`spell${spellNumber}`] === ''
-      ? transparencyImg
-      : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/${redTeamSummoner[currentSelectingIndex][`spell${spellNumber}`]}.png`
-      )}                  
+      : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/${team[currentSelectingIndex][`spell${spellNumber}`]}.png`
+    )
   }
   
   useEffect(()=>{ //activatePlayerPrefix
