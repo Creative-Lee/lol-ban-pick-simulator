@@ -40,7 +40,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
 
   const [board,setBoard] = useState('setting') // setting, banpick
   const [mode,setMode] = useState('rapid') // simulation, rapid
-  const [globalPhase, setGlobalPhase] = useState('GoalEdit') // PickBan, GoalEdit, End
+  const [globalPhase, setGlobalPhase] = useState('PickBan') // PickBan, GoalEdit, End
   const [pickBanPhase, setPickBanPhase] = useState('Pick')  // Pick, Ban, Spell, End
   const [goalEditPhase, setGoalEditPhase] = useState('Editing') // Editing, EditDone, End
   const [currentSelectingTeam, setCurrentSelectingTeam] = useState('blue') // blue, red
