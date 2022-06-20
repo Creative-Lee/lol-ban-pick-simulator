@@ -66,7 +66,7 @@ export const getDownloadResultPngFile = async (elementId) => {
     }
 
     window.scrollTo(0,0);
-    const captureErroredInputId = ['blue-name-input','red-name-input','goal__title','match-result'] 
+    const captureErroredInputId = ['blue-name-input','red-name-input','match-result','date','round'] 
 
     const capturedCanvas = await html2canvas(document.getElementById(elementId),{
       useCORS: true,

@@ -59,7 +59,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   const [date, setDate] = useState('2022-00-00')
   const [round, setRound] = useState('GAME 1')
   const [matchResult, setMatchResult] = useState('Win or Lose')
-  const [goalTitle, setGoalTitle] = useState('오늘의 타이틀')
+  const [goalPatchVersion, setGoalPatchVersion] = useState('Patch version : ')
   const [viewerInput, setViewerInput] = useState('')
 
   const [player, setPlayer] = useState({
@@ -112,7 +112,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   const onChangeSearchInput = e => setSearchInput(e.target.value)
   const onChangePlayer = (e, teamNumber) => setPlayer({...player , [teamNumber] : e.target.value})
   const onChangeMode = e => setMode(e.target.value) 
-  const onChangeGoalTitle = e => setGoalTitle(e.target.value) 
+  const onChangeGoalPatchVersion = e => setGoalPatchVersion(e.target.value) 
   const onChangeEditor = () => {
     const editorInputHtml = editorRef.current.getInstance().getHTML();
     setViewerInput(editorInputHtml)
@@ -540,12 +540,12 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
 
       <Col className="match-info">
         <div className="date-wrap">
-          <input className='date' type='text' value={date} spellCheck='false'
+          <input id='date' className='date' type='text' value={date} spellCheck='false'
           onChange={e=>setDate(e.target.value)}
           />
         </div>
         <div className="round-wrap">
-          <input className='round' type='text' value={round} spellCheck='false'
+          <input id='round' className='round' type='text' value={round} spellCheck='false'
           onChange={e=>setRound(e.target.value)}
           />         
         </div>
@@ -787,9 +787,9 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       {
       globalPhase === 'GoalEdit' &&
       <div id='todays-goal' className="todays-goal">
-        <div className="goal__title-wrap">
-          <input id='goal__title' className="goal__title" type="text" value={goalTitle} 
-          onChange={e => onChangeGoalTitle(e)}
+        <div className="goal__patch-version-wrap">
+          <input id='goal__patch-version' className="goal__patch-version" type="text" value={goalPatchVersion} 
+          onChange={e => onChangeGoalPatchVersion(e)}
           />
         </div>
         {

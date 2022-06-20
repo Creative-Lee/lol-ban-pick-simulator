@@ -356,18 +356,24 @@
     flex: 1.5 0;
     margin: 0 2vw;
     
-    .goal__title-wrap {
-      position: relative;
+    .goal__patch-version-wrap {
+      position: relative;     
+      align-self: flex-end;
       flex: 1 1 15%;
 
-      .goal__title {
-        position: relative; 
-        text-align: center;
+
+      .goal__patch-version {
+        position: absolute;
+        right: 0;
+        top: 20%;
         border: none;
+        text-align: center;
         background-color: transparent;
         color: #fff;
-        font-size: 2.8vw;
+        font-size: 1.2vw;
+        font-weight: 700;
         line-height: 2;
+        
 
         &:hover {
           background-color: #bcbcbc78;
