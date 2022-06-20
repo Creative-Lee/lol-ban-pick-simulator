@@ -8,21 +8,31 @@
 
   .header-container{   
     display: flex;
+    position: relative;
     align-items: center;
     height: 100%;
     padding : 0 40px ;
-  }
 
-  a{
-    text-decoration: none;
-    color: #f7feff;
-    margin-left: 2em;
-    letter-spacing: 1px;
-    font-size: 15px;
-    font-weight: 700; 
+    a{
+      text-decoration: none;
+      color: #f7feff;
+      margin-left: 2em;
+      letter-spacing: 1px;
+      font-size: 15px;
+      font-weight: 700; 
+  
+      &:hover{
+        color: rgb(255, 65, 65);
+      }
+    }
 
-    &:hover{
-      color: rgb(255, 65, 65);
+    span{
+      position: absolute;
+      right: 3%;
+      bottom: 30%;
+      color: #fff;
+      font-size: 1vw;
+      font-weight: 700;
     }
   }
 

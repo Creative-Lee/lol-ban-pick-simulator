@@ -2,10 +2,10 @@ import React from 'react'
 import {Outlet} from 'react-router-dom'
 import {Header, Footer} from './layout/index'
 
-export default function Layout() {
+export default function Layout({recentVersion}) {
   return (
     <>
-      <Header/>
+      <Header recentVersion={recentVersion}/>
       <Outlet/>     
       <Footer/>
     </>

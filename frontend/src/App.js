@@ -34,16 +34,15 @@ export default function App() {
   return (  
     <div id='App' className="App">
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={
-            <Main />
-          }/>
+        <Route path="/" element={<Layout recentVersion={recentVersion}/>}>
+          <Route index element={<Main />}/>
           <Route path="board" element={
             <Board 
             recentVersion={recentVersion} 
             ascendingChampionDataList={ascendingChampionDataList}
             classicSpellList={classicSpellList}/>
           }/>
+          <Route path="analysis" element={<div></div>}/>
         </Route>
       </Routes>
     </div>   

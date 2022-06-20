@@ -1898,18 +1898,12 @@
   flex-wrap : nowrap !important ;
 }
 
-/*------------ HD+ -------------- */
-@media (min-width: 1600px) {
-  #ban-pick-board,
-  #setting-container {
-    min-width: 1500px;
-  }
-}
+// /*------------ HD+ -------------- */
+// @media (min-width: 1600px) {
 
-/*------------ FHD -------------- */
-@media (min-width: 1920px) {
-  #ban-pick-board,
-  #setting-container {
-    min-width: 1800px;
-  }
-}
+// }
+
+// /*------------ FHD -------------- */
+// @media (min-width: 1920px) {
+
+// }
