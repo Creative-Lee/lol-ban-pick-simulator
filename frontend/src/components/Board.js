@@ -461,6 +461,10 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     setGoalEditPhase('Editing')
   },[globalPhase])
   
+  useEffect(()=>{
+    setSearchInput('')
+    console.log('서치인풋 초기화')
+  },[currentSelectingIndex])
 
   const showBoard = {
     setting :
@@ -649,6 +653,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
                 <ReactTooltip id='search-tooltip' multiline={true} delayShow={100}/>           
               </label>
               <input id='search' className="search-input" type='text' placeholder='챔피언 이름 검색' spellCheck="false"
+              value={searchInput}
               onChange={e=>onChangeSearchInput(e)}/>
             </div>  
           </div>
@@ -691,6 +696,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
                 <ReactTooltip id='search-tooltip' multiline={true} delayShow={100}/>           
               </label>
               <input id='search' className="search-input" type='text' placeholder='챔피언 이름 검색' spellCheck="false"
+              value={searchInput}
               onChange={e=>onChangeSearchInput(e)}/>
             </div>  
           </div>
