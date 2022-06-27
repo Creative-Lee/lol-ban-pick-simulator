@@ -68,45 +68,47 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   })  
 
   class Summoner{
-    constructor(pickedChampion , spell1, spell2, bannedChampion){
+    constructor({
+      pickedChampion = {data : '', isConfirmed : false},
+      bannedChampion = {data : '', isConfirmed : false},
+      spell1 = {data : '', isConfirmed : false},
+      spell2 = {data : '', isConfirmed : false}
+    })
+    {
       this.pickedChampion = pickedChampion
+      this.bannedChampion = bannedChampion
       this.spell1 = spell1
       this.spell2 = spell2
-      this.bannedChampion = bannedChampion
     }
-    setPickedChampion(pickedChampion){
-      return new Summoner(pickedChampion, this.spell1, this.spell2, this.bannedChampion)
-    }
-    setSpell1(spell1){
-      return new Summoner(this.pickedChampion, spell1, this.spell2, this.bannedChampion)
-    }
-    setSpell2(spell2){
-      return new Summoner(this.pickedChampion, this.spell1, spell2, this.bannedChampion)
+
+    updateSummoner({type, data = this[type].data, isConfirmed = this[type].isConfirmed}){
+      return new Summoner({
+        pickedChampion : this.pickedChampion,
+        bannedChampion : this.bannedChampion ,
+        spell1 : this.spell1,
+        spell2 : this.spell2,
+        [type] : {
+          data : data,
+          isConfirmed : isConfirmed
+        }
+      })      
     }    
-    setBannedChampion(bannedChampion){
-      return new Summoner(this.pickedChampion, this.spell1, this.spell2, bannedChampion)
-    }
-    switchingSpell(){
-      return new Summoner(this.pickedChampion, this.spell2, this.spell1 , this.bannedChampion)
-    }
-    isEmpty(data){
-      return this[data] === ''
-    }
   }
 
+
   const [blueTeamSummoner, setBlueTeamSummoner] = useState([
-    new Summoner('','','',''),
-    new Summoner('','','',''),
-    new Summoner('','','',''),
-    new Summoner('','','',''),
-    new Summoner('','','','')
+    new Summoner({}),
+    new Summoner({}),
+    new Summoner({}),
+    new Summoner({}),
+    new Summoner({})
   ])
   const [redTeamSummoner, setRedTeamSummoner] = useState([
-    new Summoner('','','',''),
-    new Summoner('','','',''),
-    new Summoner('','','',''),
-    new Summoner('','','',''),
-    new Summoner('','','','')
+    new Summoner({}),
+    new Summoner({}),
+    new Summoner({}),
+    new Summoner({}),
+    new Summoner({})
   ]) 
 
   const onChangeSearchInput = e => setSearchInput(e.target.value)
@@ -149,104 +151,78 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   const closeTeamSelectMenu = teamColor => {
     setIsTeamSelectMenuOpen(prevState => ({...prevState , [teamColor] : false}))
   }
-
-  const setPickedChampion = (championName) => {
-    if(currentSelectingTeam === 'blue'){
-      const updatedArr = [...blueTeamSummoner]
-      updatedArr[currentSelectingIndex] = blueTeamSummoner[currentSelectingIndex].setPickedChampion(championName)  
-
-      setBlueTeamSummoner(updatedArr)
-    }
-    else{
-      const updatedArr = [...redTeamSummoner]
-      updatedArr[currentSelectingIndex] = redTeamSummoner[currentSelectingIndex].setPickedChampion(championName)
-
-      setRedTeamSummoner(updatedArr)
-    }
-  }
-
-  const setBannedChampion = (championName) => {
-    if(currentSelectingTeam === 'blue'){
-      const updatedArr = [...blueTeamSummoner]
-      updatedArr[currentSelectingIndex] = blueTeamSummoner[currentSelectingIndex].setBannedChampion(championName)  
-
-      setBlueTeamSummoner(updatedArr)
-    }
-    else{
-      const updatedArr = [...redTeamSummoner]
-      updatedArr[currentSelectingIndex] = redTeamSummoner[currentSelectingIndex].setBannedChampion(championName)
-
-      setRedTeamSummoner(updatedArr)
-    }
-  }
-
-  const setSpell = (spellName) => {
-    let currentSpell1 
-    let currentSpell2
+  
+  const setSummonerData = (type, data) => {
     let updatedArr
-    
-    if(currentSelectingTeam === 'blue'){      
-      currentSpell1 = blueTeamSummoner[currentSelectingIndex].spell1
-      currentSpell2 = blueTeamSummoner[currentSelectingIndex].spell2      
+
+    if(currentSelectingTeam === 'blue'){
       updatedArr = [...blueTeamSummoner]
+      updatedArr[currentSelectingIndex] = blueTeamSummoner[currentSelectingIndex].updateSummoner({type : type, data : data})
 
-      if((currentSelectingSpellNumber === 1 && spellName === currentSpell2) ||
-        (currentSelectingSpellNumber === 2 && spellName === currentSpell1)){
-        updatedArr[currentSelectingIndex] = updatedArr[currentSelectingIndex].switchingSpell()
-        setBlueTeamSummoner(updatedArr)
-        return
-      }      
-
-      updatedArr[currentSelectingIndex] = updatedArr[currentSelectingIndex][`setSpell${currentSelectingSpellNumber}`](spellName)  
       setBlueTeamSummoner(updatedArr)
-    }    
-    else{
-      currentSpell1 = redTeamSummoner[currentSelectingIndex].spell1
-      currentSpell2 = redTeamSummoner[currentSelectingIndex].spell2      
+    } else{
       updatedArr = [...redTeamSummoner]
+      updatedArr[currentSelectingIndex] = redTeamSummoner[currentSelectingIndex].updateSummoner({type : type, data : data})
 
-      if((currentSelectingSpellNumber === 1 && spellName === currentSpell2) ||
-      (currentSelectingSpellNumber === 2 && spellName === currentSpell1)){
-        updatedArr[currentSelectingIndex] = updatedArr[currentSelectingIndex].switchingSpell()
-        setRedTeamSummoner(updatedArr)
-        return
-      }      
+      setRedTeamSummoner(updatedArr)
+    }
+  }  
 
-      updatedArr[currentSelectingIndex] = updatedArr[currentSelectingIndex][`setSpell${currentSelectingSpellNumber}`](spellName)  
+  const setConfirmData = (type) => {
+    let updatedArr
+
+    if(currentSelectingTeam === 'blue'){
+      updatedArr = [...blueTeamSummoner]
+      updatedArr[currentSelectingIndex] = blueTeamSummoner[currentSelectingIndex].updateSummoner({type : type, isConfirmed: true})
+
+      setBlueTeamSummoner(updatedArr)
+    } else{
+      updatedArr = [...redTeamSummoner]
+      updatedArr[currentSelectingIndex] = redTeamSummoner[currentSelectingIndex].updateSummoner({type : type, isConfirmed: true})
+
       setRedTeamSummoner(updatedArr)
     }
   }
+
+  // const setSpell = (spellName) => {
+  //   let currentSpell1 
+  //   let currentSpell2
+  //   let updatedArr
+    
+  //   if(currentSelectingTeam === 'blue'){      
+  //     currentSpell1 = blueTeamSummoner[currentSelectingIndex].spell1
+  //     currentSpell2 = blueTeamSummoner[currentSelectingIndex].spell2      
+  //     updatedArr = [...blueTeamSummoner]
+
+  //     if((currentSelectingSpellNumber === 1 && spellName === currentSpell2) ||
+  //       (currentSelectingSpellNumber === 2 && spellName === currentSpell1)){
+  //       updatedArr[currentSelectingIndex] = updatedArr[currentSelectingIndex].switchingSpell()
+  //       setBlueTeamSummoner(updatedArr)
+  //       return
+  //     }      
+
+  //     updatedArr[currentSelectingIndex] = updatedArr[currentSelectingIndex][`setSpell${currentSelectingSpellNumber}`](spellName)  
+  //     setBlueTeamSummoner(updatedArr)
+  //   }    
+  //   else{
+  //     currentSpell1 = redTeamSummoner[currentSelectingIndex].spell1
+  //     currentSpell2 = redTeamSummoner[currentSelectingIndex].spell2      
+  //     updatedArr = [...redTeamSummoner]
+
+  //     if((currentSelectingSpellNumber === 1 && spellName === currentSpell2) ||
+  //     (currentSelectingSpellNumber === 2 && spellName === currentSpell1)){
+  //       updatedArr[currentSelectingIndex] = updatedArr[currentSelectingIndex].switchingSpell()
+  //       setRedTeamSummoner(updatedArr)
+  //       return
+  //     }      
+
+  //     updatedArr[currentSelectingIndex] = updatedArr[currentSelectingIndex][`setSpell${currentSelectingSpellNumber}`](spellName)  
+  //     setRedTeamSummoner(updatedArr)
+  //   }
+  // }
 
   const onClickChampionPickButton = () => {
-    if(isGlobalPickBanPhaseEnd()){      
-      setGlobalPhase('GoalEdit')
-      setPickBanPhase('End')
-      return
-    }
-
-    if(isPickPhaseEnd()){
-      setPickBanPhase('Ban')
-      setCurrentSelectingIndex(0)
-      setCurrentSelectingTeam('blue')
-      return
-    }   
-
-    if(isCurrentSelectingDataEmpty('pickedChampion')){
-      return
-    }
-
-    if(currentSelectingIndex < 4){
-      setCurrentSelectingIndex(currentSelectingIndex + 1)
-      return
-    }    
-    
-    if(currentSelectingTeam === 'blue'){
-      setCurrentSelectingTeam('red')
-    } else{
-      setCurrentSelectingTeam('blue')
-    }
-    
-    setCurrentSelectingIndex(0)
+    setConfirmData('pickedChampion')
   }
   
   const onClickChampionBanButton = () => {
@@ -420,10 +396,10 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   }
   
   const bannedChampionImgSrc = (summoner) => {   
-    switch (summoner.bannedChampion){
+    switch (summoner.bannedChampion.data){
       case '' : return transparencyImg
       case 'noBan' : return noBanIcon
-      default : return `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${summoner.bannedChampion}.png` 
+      default : return `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${summoner.bannedChampion.data}.png` 
     }      
   }
   const zoomViewImgSrc = (spellNumber) => {
@@ -440,16 +416,34 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     activatePlayerPrefix()       
     console.log('activate PlayerPrefix')
   },[activatePlayerPrefix])
-  
-  useEffect(()=>{ //activateSpellPlaceholder
-    if(mode === 'rapid' && isMountedRef.current === true){
-      activateSpellPlaceholder()
-      console.log('activate Spell Placeholder')
-      return
-    }
-    isMountedRef.current = true;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[board])   
+
+  const currentSelectingIndexController = () => {
+    if(currentSelectingTeam === 'blue'){
+      if(blueTeamSummoner[currentSelectingIndex].pickedChampion.isConfirmed === true){
+        setCurrentSelectingIndex(currentSelectingIndex + 1)
+        return
+      }      
+    } 
+
+    if(redTeamSummoner[currentSelectingIndex].pickedChampion.isConfirmed === true){
+      setCurrentSelectingIndex(currentSelectingIndex + 1)
+    }    
+  }
+  useEffect(()=>{
+    currentSelectingIndexController()
+  },[blueTeamSummoner[currentSelectingIndex].pickedChampion.isConfirmed,
+    redTeamSummoner[currentSelectingIndex].pickedChampion.isConfirmed])
+
+ 
+  // useEffect(()=>{ //activateSpellPlaceholder
+  //   if(mode === 'rapid' && isMountedRef.current === true){
+  //     activateSpellPlaceholder()
+  //     console.log('activate Spell Placeholder')
+  //     return
+  //   }
+  //   isMountedRef.current = true;
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // },[board])   
 
   useEffect(()=>{ // updateMatchChampDataList
     updateMatchChampDataList()
@@ -589,7 +583,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
         {
           blueTeamSummoner.map((summoner, index)=>(
             <div className="summoner" key={index} data-current-target={currentSelectingTeam === 'blue' && currentSelectingIndex === index && pickBanPhase === 'Pick'}>
-              <img className="champion" id={`${summoner.pickedChampion}`} alt={`blueTeam-${index}-${summoner.pickedChampion}`}  
+              <img className="champion" id={`${summoner.pickedChampion.data}`} alt={`blueTeam-${index}-${summoner.pickedChampion.data}`}  
               data-current-target={currentSelectingTeam === 'blue'  && currentSelectingIndex === index && pickBanPhase === 'Pick'}
               onClick={() =>{
                 setCurrentSelectingIndex(index)
@@ -598,12 +592,12 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
                 setGlobalPhase('PickBan')
               }}
               src={                  
-                summoner.pickedChampion === ''
+                summoner.pickedChampion.data === ''
                 ? transparencyImg
-                : `${process.env.REACT_APP_API_BASE_URL}/cdn/img/champion/splash/${summoner.pickedChampion}_0.jpg`
+                : `${process.env.REACT_APP_API_BASE_URL}/cdn/img/champion/splash/${summoner.pickedChampion.data}_0.jpg`
               }/>
               <div className="spell">
-                <img alt={`spell1-${summoner.spell1}`} 
+                <img alt={`spell1-${summoner.spell1.data}`} 
                 onClick={() => {
                   setCurrentSelectingSpellNumber(1)
                   setCurrentSelectingIndex(index)
@@ -613,11 +607,11 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
                 }}
                 data-current-target={currentSelectingTeam === 'blue' && currentSelectingIndex === index && pickBanPhase === 'Spell' && currentSelectingSpellNumber === 1}
                 src={
-                  summoner.spell1 === ''
+                  summoner.spell1.data === ''
                   ? transparencyImg
-                  : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/${summoner.spell1}.png`
+                  : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/${summoner.spell1.data}.png`
                 }/>
-                <img alt={`spell2-${summoner.spell2}`} 
+                <img alt={`spell2-${summoner.spell2.data}`} 
                 onClick={() => {
                   setCurrentSelectingSpellNumber(2)
                   setCurrentSelectingIndex(index)
@@ -627,9 +621,9 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
                 }}
                 data-current-target={currentSelectingTeam === 'blue' && currentSelectingIndex === index && pickBanPhase === 'Spell' && currentSelectingSpellNumber === 2}
                 src={ 
-                  summoner.spell2 === ''
+                  summoner.spell2.data === '' 
                   ? transparencyImg
-                  : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/${summoner.spell2}.png`
+                  : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/${summoner.spell2.data}.png`
                 }/>
               </div>
               <input className="player" type='text' value={player[`blue${index + 1}`]} spellCheck='false'
@@ -665,12 +659,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
                 data-picked={isPickedChampion(championData.id)} 
                 data-banned={isBannedChampion(championData.id)}
                 onClick={()=>{
-                  if(pickBanPhase === 'Pick'){
-                    setPickedChampion(championData.id)                 
-                  }
-                  else{
-                    setBannedChampion(championData.id)
-                  };            
+                  setSummonerData('pickedChampion', championData.id)     
                 }}
                 >
                   <img className="champion__img" alt={championData.id} src={`${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${championData.id}.png`}/>
@@ -703,7 +692,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
           <div className="champions">
             <div className="champion__card"
               onClick={()=>{    
-                setBannedChampion('noBan')
+                setSummonerData('bannedChampion', 'noBan')    
               }}
               >
               <img className="champion__img" alt="no-ban-icon" src={noBanIcon} />
@@ -715,12 +704,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
                 data-picked={isPickedChampion(championData.id)} 
                 data-banned={isBannedChampion(championData.id)}
                 onClick={()=>{
-                  if(pickBanPhase === 'Pick'){
-                    setPickedChampion(championData.id)                 
-                  }
-                  else{
-                    setBannedChampion(championData.id)
-                  };            
+                  setSummonerData('bannedChampion', championData.id)    
                 }}
                 >
                   <img className="champion__img" alt={championData.id} src={`${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/champion/${championData.id}.png`}/>
@@ -767,7 +751,6 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
               <div className="spell__card" key={index}
               data-picked-spell={isPickedSpell(spell.id)}
               onClick={()=>{
-                setSpell(spell.id)
                 onClickCurrentSelectingSpellNumberHandler()
               }}>                  
                 <img className="spell__img" alt={`spell-img-${spell.id}`} src={`${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/${spell.id}.png`}/>
@@ -863,7 +846,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       {
         redTeamSummoner.map((summoner, index)=>(
           <div className="summoner" key={index} data-current-target={currentSelectingTeam === 'red' && currentSelectingIndex === index && pickBanPhase === 'Pick'}>
-            <img className="champion" id={`${summoner.pickedChampion}`} alt={`${summoner.pickedChampion}`}
+            <img className="champion" id={`${summoner.pickedChampion.data}`} alt={`${summoner.pickedChampion.data}`}
             data-current-target={currentSelectingTeam === 'red' && currentSelectingIndex === index && pickBanPhase === 'Pick'}
             onClick={() =>{
               setCurrentSelectingIndex(index)
@@ -872,9 +855,9 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
               setGlobalPhase('PickBan')
             }}  
             src={                  
-              summoner.pickedChampion === ''
+              summoner.pickedChampion.data === ''
               ? transparencyImg
-              : `${process.env.REACT_APP_API_BASE_URL}/cdn/img/champion/splash/${summoner.pickedChampion}_0.jpg`
+              : `${process.env.REACT_APP_API_BASE_URL}/cdn/img/champion/splash/${summoner.pickedChampion.data}_0.jpg`
             }/>
             <div className="spell">
               <img alt="spell1"
@@ -886,9 +869,9 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
               }}
               data-current-target={currentSelectingTeam === 'red' && currentSelectingIndex === index && pickBanPhase === 'Spell' && currentSelectingSpellNumber === 1}
               src={
-                summoner.spell1 === ''
+                summoner.spell1.data === ''
                 ? transparencyImg
-                : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/${summoner.spell1}.png`
+                : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/${summoner.spell1.data}.png`
               }/>
               <img alt="spell2" 
               onClick={() => {
@@ -899,9 +882,9 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
               }}
               data-current-target={currentSelectingTeam === 'red' && currentSelectingIndex === index && pickBanPhase === 'Spell' && currentSelectingSpellNumber === 2}
               src={                  
-                summoner.spell2 === ''
+                summoner.spell2.data === ''
                 ? transparencyImg
-                : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/${summoner.spell2}.png`
+                : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/${summoner.spell2.data}.png`
               }/>
             </div>
             <input className="player" type='text' value={player[`red${index + 1}`]} spellCheck='false'
@@ -919,7 +902,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
         blueTeamSummoner.map((summoner, index) => (
           <div className='banned-champion-wrap' key={index} 
           data-current-target={currentSelectingTeam === 'blue' && currentSelectingIndex === index && pickBanPhase === 'Ban'}>
-            <img className='banned-champion' alt={`blueTeam-banned-${index}-${summoner.bannedChampion}`}
+            <img className='banned-champion' alt={`blueTeam-banned-${index}-${summoner.bannedChampion.data}`}
             data-current-target={currentSelectingTeam === 'blue' && currentSelectingIndex === index && pickBanPhase === 'Ban'}
             onClick={()=>{
               setCurrentSelectingTeam('blue')
@@ -944,7 +927,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
         redTeamSummoner.map((summoner, index) => (
           <div className='banned-champion-wrap' key={index}
           data-current-target={currentSelectingTeam === 'red' && currentSelectingIndex === index && pickBanPhase === 'Ban'}>
-            <img className='banned-champion' alt={`redTeam-banned-${index}-${summoner.bannedChampion}`}
+            <img className='banned-champion' alt={`redTeam-banned-${index}-${summoner.bannedChampion.data}`}
             data-current-target={currentSelectingTeam === 'red' && currentSelectingIndex === index && pickBanPhase === 'Ban'}
             onClick={()=>{
               setCurrentSelectingTeam('red')
