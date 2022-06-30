@@ -2,7 +2,6 @@ import React,{ useEffect, useState , useRef, useCallback} from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import ReactTooltip from 'react-tooltip'
 import Hangul from 'hangul-js';
-
 import {Editor, Viewer} from '@toast-ui/react-editor'
 import '@toast-ui/editor/dist/toastui-editor.css'
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
@@ -105,6 +104,15 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
         spell2 : {data: this.spell1.data , isConfirmed: false}
       })
     }
+
+    confirmSpells(){
+      return new Summoner({
+        pickedChampion : this.pickedChampion,
+        bannedChampion : this.bannedChampion,
+        spell1 : {data: this.spell1.data , isConfirmed: true},
+        spell2 : {data: this.spell2.data , isConfirmed: true}
+      })
+    }
   }
 
 
@@ -189,37 +197,33 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     setTeam(updatedArr)
   }
 
-  const isCurrentSelectingDataEmpty = () => {    
+  const isCurrentSelectingDataEmpty = (type) => {    
     let team = currentSelectingTeam === 'blue' ? blueTeamSummoner : redTeamSummoner
-    return team[currentSelectingIndex].isEmpty(currentSelectingType())
+    return team[currentSelectingIndex].isEmpty(type)
   }
 
   const onClickChampionPickButton = () => {
-    if(!isCurrentSelectingDataEmpty()){
+    if(!isCurrentSelectingDataEmpty(currentSelectingType())){
       updateSummonerData({type: 'pickedChampion', isConfirmed : true})
     }
   }  
 
   const onClickChampionBanButton = () => {
-    if(!isCurrentSelectingDataEmpty()){
+    if(!isCurrentSelectingDataEmpty(currentSelectingType())){
       updateSummonerData({type: 'bannedChampion' ,isConfirmed : true})
     }
   }  
 
   const onClickSpellSelectButton = () =>{
-    if(!isCurrentSelectingDataEmpty()){
-      updateSummonerData({type : 'spell1', isConfirmed : true})
-      updateSummonerData({type : 'spell2', isConfirmed : true})     
+    if(!isCurrentSelectingDataEmpty('spell1') &&
+    !isCurrentSelectingDataEmpty('spell2')){
+      let [team, setTeam] = currentSelectingTeam === 'blue' ? [blueTeamSummoner, setBlueTeamSummoner] : [redTeamSummoner, setRedTeamSummoner]
+      let updatedArr = [...team]
+      
+      updatedArr[currentSelectingIndex] = team[currentSelectingIndex].confirmSpells()
+      setTeam(updatedArr)
     }
   }
-
-  const onClickCurrentSelectingSpellNumberHandler = () => {
-    if(currentSelectingSpellNumber === 1){
-      setCurrentSelectingSpellNumber(2)
-      return
-    }
-    setCurrentSelectingSpellNumber(1)
-  } 
     
   const activatePlayerPrefix = useCallback(() => {
     setPlayer(prev => ({...prev,  
@@ -324,14 +328,14 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   }  
 
   const currentSelectingIndexController = () =>{
-    const firstEmptyIndexChecker = () =>{        
-      let emptyIndex
+    const notConfirmedIndexChecker = () =>{        
+      let notConfirmedIndex
       let team = currentSelectingTeam === 'blue' ? blueTeamSummoner : redTeamSummoner
       
-      emptyIndex = team.map(summoner => summoner[currentSelectingType()].data).findIndex(data => data === '')    
+      notConfirmedIndex = team.map(summoner => summoner[currentSelectingType()].isConfirmed).findIndex(isConfirmed => isConfirmed === false)    
   
-      if(emptyIndex >= 0){
-        setCurrentSelectingIndex(emptyIndex)
+      if(notConfirmedIndex >= 0){
+        setCurrentSelectingIndex(notConfirmedIndex)
         return
       }
     }
@@ -340,12 +344,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       setCurrentSelectingIndex(currentSelectingIndex + 1)
       return
     }    
-    firstEmptyIndexChecker()
-    
-    if(!isCurrentSelectingTeamDataConfirmed()){
-      setCurrentSelectingIndex(0)
-      return
-    }        
+    notConfirmedIndexChecker()         
   } 
   const currentSelectingTeamController = () => {
     setCurrentSelectingIndex(0)
@@ -355,8 +354,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     } else{
       setCurrentSelectingTeam('blue')
     }    
-  }  
-
+  }
   const currentPhaseController = () => {   
     setCurrentSelectingTeam('blue')
     
@@ -391,7 +389,26 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       return
     }
   }
+  const currentSelectingSpellNumberController = () => { 
+    const isCurrentIndexSpellAllConfirmed = () => {
+      let team = currentSelectingTeam === 'blue' ? blueTeamSummoner : redTeamSummoner
+      let spell1Confirmed = team[currentSelectingIndex].spell1.isConfirmed
+      let spell2Confirmed = team[currentSelectingIndex].spell2.isConfirmed
+      
+      return spell1Confirmed && spell2Confirmed
+    }
 
+    if(isCurrentIndexSpellAllConfirmed()){
+      setCurrentSelectingSpellNumber(1)
+      return
+    }
+
+    if(currentSelectingSpellNumber === 1){
+      setCurrentSelectingSpellNumber(2)
+      return
+    }
+    setCurrentSelectingSpellNumber(1)
+  } 
 
   const isPickPhaseEnd = () => {
     let blueTeamPickPhaseEnd =  !blueTeamSummoner.map(summoner=>summoner.pickedChampion.isConfirmed).includes(false)
@@ -440,30 +457,38 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     return blueTeamDataConfirmed && redTeamDataConfirmed
   }
 
-  useEffect(()=>{    
+  useEffect(()=>{   
     if(isCurrentSelectingIndexDataConfirmed()){
-      console.log('index 0 ~ 4 순서 이펙트')
       currentSelectingIndexController()
+      console.log('index 0 ~ 4 순서 이펙트')
     }
   },[blueTeamSummoner,redTeamSummoner])
 
   useEffect(()=>{
     if(isCurrentSelectingTeamDataConfirmed()){
-      console.log('team ~ team 순서 이펙트')  
       currentSelectingTeamController()      
+      console.log('team ~ team 순서 이펙트')  
     }
   },[blueTeamSummoner,redTeamSummoner])
 
   useEffect(()=>{
     if(isCurrentSelectingBothTeamDataConfirmed()){
-      console.log('phase ~ phase 순서 이펙트')
       currentPhaseController()
+      console.log('phase ~ phase 순서 이펙트')
     }
   },[blueTeamSummoner,redTeamSummoner])
 
   useEffect(()=>{
     setGoalEditPhase('Editing')
   },[globalPhase])
+  
+  useEffect(()=>{  
+    if(pickBanPhase === 'Spell'){
+      currentSelectingSpellNumberController()    
+      console.log('spellNumber 변경 이펙트')  
+    }
+  },[blueTeamSummoner,redTeamSummoner])
+
 
   useEffect(()=>{ //activatePlayerPrefix
     activatePlayerPrefix()       
@@ -488,13 +513,9 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   
   useEffect(()=>{
     setSearchInput('')
-    console.log('서치인풋 초기화')
+    console.log('Initialize search input')
   },[currentSelectingIndex])
 
-  useEffect(()=>{
-    console.log('redTeamSummoner: ', redTeamSummoner);
-    console.log('blueTeamSummoner: ', blueTeamSummoner);
-  },[pickBanPhase])
 
   const showBoard = {
     setting :
@@ -787,7 +808,6 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
               <div className="spell__card" key={index}
               data-picked-spell={isPickedSpell(spell.id)}
               onClick={()=>{
-                onClickCurrentSelectingSpellNumberHandler()
                 updateSpell(spell.id)
               }}>                  
                 <img className="spell__img" alt={`spell-img-${spell.id}`} src={`${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/${spell.id}.png`}/>
