@@ -29,8 +29,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
   `기본, 초성 검색이 가능합니다🧐<br>
   띄어쓰기도 걱정하지 마세요! ex)리 신, 탐 켄치 
   `
-
-
+  
   const teamArr = ['KDF', 'T1', 'DK' ,'BRO' , 'DRX', 'GEN', 'HLE', 'KT', 'LSB', 'NS']
   
   const isMountedRef = useRef(false);
@@ -179,7 +178,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     updatedArr[currentSelectingIndex] = team[currentSelectingIndex].updateSummoner({type : type, data : data , isConfirmed : isConfirmed})
     
     setTeam(updatedArr)
-  }  
+  }
   
   const updateSpell = (spellName) => {
     let [team, setTeam] = currentSelectingTeam === 'blue' ? [blueTeamSummoner, setBlueTeamSummoner] : [redTeamSummoner, setRedTeamSummoner]
@@ -325,8 +324,39 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     }
 
     return type
-  }  
+  }
 
+
+  const isPickPhaseEnd = () => {
+    let blueTeamPickPhaseEnd =  !blueTeamSummoner.map(summoner=>summoner.pickedChampion.isConfirmed).includes(false)
+    let redTeamPickPhaseEnd =  !redTeamSummoner.map(summoner=>summoner.pickedChampion.isConfirmed).includes(false)
+
+    return blueTeamPickPhaseEnd && redTeamPickPhaseEnd
+  }
+
+  const isBanPhaseEnd = () => {
+    let blueTeamPickPhaseEnd =  !blueTeamSummoner.map(summoner=>summoner.bannedChampion.isConfirmed).includes(false)
+    let redTeamPickPhaseEnd =  !redTeamSummoner.map(summoner=>summoner.bannedChampion.isConfirmed).includes(false)
+
+    return blueTeamPickPhaseEnd && redTeamPickPhaseEnd
+  }
+  
+  const isSpellPhaseEnd = () => {
+    let blueTeamSpell1Confirmed =  !blueTeamSummoner.map(summoner=>summoner.spell1.isConfirmed).includes(false)
+    let blueTeamSpell2Confirmed =  !blueTeamSummoner.map(summoner=>summoner.spell2.isConfirmed).includes(false)
+    let redTeamSpell1Confirmed =  !redTeamSummoner.map(summoner=>summoner.spell1.isConfirmed).includes(false)
+    let redTeamSpell2Confirmed =  !redTeamSummoner.map(summoner=>summoner.spell2.isConfirmed).includes(false)
+
+    let blueTeamSpellPhaseEnd = blueTeamSpell1Confirmed && blueTeamSpell2Confirmed
+    let redTeamSpellPhaseEnd = redTeamSpell1Confirmed && redTeamSpell2Confirmed
+    
+    return blueTeamSpellPhaseEnd && redTeamSpellPhaseEnd
+  }
+
+  const isAllPickBanPhaseEnd = () => {
+    return isPickPhaseEnd() && isBanPhaseEnd() && isSpellPhaseEnd()
+  }
+  
   const currentSelectingIndexController = () =>{
     const notConfirmedIndexChecker = () =>{        
       let notConfirmedIndex
@@ -341,11 +371,12 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     }
 
     if(currentSelectingIndex < 4){
-      setCurrentSelectingIndex(currentSelectingIndex + 1)
+      setCurrentSelectingIndex(before => before + 1)
       return
     }    
     notConfirmedIndexChecker()         
-  } 
+  }
+
   const currentSelectingTeamController = () => {
     setCurrentSelectingIndex(0)
 
@@ -410,36 +441,6 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     setCurrentSelectingSpellNumber(1)
   } 
 
-  const isPickPhaseEnd = () => {
-    let blueTeamPickPhaseEnd =  !blueTeamSummoner.map(summoner=>summoner.pickedChampion.isConfirmed).includes(false)
-    let redTeamPickPhaseEnd =  !redTeamSummoner.map(summoner=>summoner.pickedChampion.isConfirmed).includes(false)
-
-    return blueTeamPickPhaseEnd && redTeamPickPhaseEnd
-  }
-
-  const isBanPhaseEnd = () => {
-    let blueTeamPickPhaseEnd =  !blueTeamSummoner.map(summoner=>summoner.bannedChampion.isConfirmed).includes(false)
-    let redTeamPickPhaseEnd =  !redTeamSummoner.map(summoner=>summoner.bannedChampion.isConfirmed).includes(false)
-
-    return blueTeamPickPhaseEnd && redTeamPickPhaseEnd
-  }
-  
-  const isSpellPhaseEnd = () => {
-    let blueTeamSpell1Confirmed =  !blueTeamSummoner.map(summoner=>summoner.spell1.isConfirmed).includes(false)
-    let blueTeamSpell2Confirmed =  !blueTeamSummoner.map(summoner=>summoner.spell2.isConfirmed).includes(false)
-    let redTeamSpell1Confirmed =  !redTeamSummoner.map(summoner=>summoner.spell1.isConfirmed).includes(false)
-    let redTeamSpell2Confirmed =  !redTeamSummoner.map(summoner=>summoner.spell2.isConfirmed).includes(false)
-
-    let blueTeamSpellPhaseEnd = blueTeamSpell1Confirmed && blueTeamSpell2Confirmed
-    let redTeamSpellPhaseEnd = redTeamSpell1Confirmed && redTeamSpell2Confirmed
-    
-    return blueTeamSpellPhaseEnd && redTeamSpellPhaseEnd
-  }
-
-  const isAllPickBanPhaseEnd = () => {
-    return isPickPhaseEnd() && isBanPhaseEnd() && isSpellPhaseEnd()
-  }
-
   const isCurrentSelectingIndexDataConfirmed = () => {
     let team = currentSelectingTeam === 'blue' ? blueTeamSummoner : redTeamSummoner
     return team[currentSelectingIndex][currentSelectingType()].isConfirmed
@@ -457,11 +458,12 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
     return blueTeamDataConfirmed && redTeamDataConfirmed
   }
 
-  useEffect(()=>{   
+  useEffect(()=>{      
     if(isCurrentSelectingIndexDataConfirmed()){
       currentSelectingIndexController()
       console.log('index 0 ~ 4 순서 이펙트')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[blueTeamSummoner,redTeamSummoner])
 
   useEffect(()=>{
@@ -469,6 +471,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       currentSelectingTeamController()      
       console.log('team ~ team 순서 이펙트')  
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[blueTeamSummoner,redTeamSummoner])
 
   useEffect(()=>{
@@ -476,6 +479,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       currentPhaseController()
       console.log('phase ~ phase 순서 이펙트')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[blueTeamSummoner,redTeamSummoner])
 
   useEffect(()=>{
@@ -487,6 +491,7 @@ export default function Board({recentVersion, ascendingChampionDataList , classi
       currentSelectingSpellNumberController()    
       console.log('spellNumber 변경 이펙트')  
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[blueTeamSummoner,redTeamSummoner])
 
 
