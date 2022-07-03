@@ -4,5 +4,6 @@
   ],
   "editor.formatOnSave": true,
   "editor.rename.enablePreview": true,
-  "workbench.editor.enablePreview": false
+  "workbench.editor.enablePreview": false,
+  "prettier.jsxSingleQuote": true
 }
