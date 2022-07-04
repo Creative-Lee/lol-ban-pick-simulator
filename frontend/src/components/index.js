@@ -1,4 +1,2 @@
-export { default as Board } from './Board'
-export { default as Main } from './Main'
-export { default as Layout } from './Layout'
-
+export { default as BanpickBoard } from './BanpickBoard/index.js'
+export { default as SettingBoard } from './SettingBoard/index.js'

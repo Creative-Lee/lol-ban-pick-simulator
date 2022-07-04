@@ -1,9 +1,11 @@
 @import './scss/reset' ;
 @import './scss/_fonts';
-@import './scss/_Board';
-@import './scss/_Header';
+@import './scss/Board/_BanpickBoard';
+@import './scss/Board/_SettingBoard';
+
+@import './scss/Layout/_Header';
+@import './scss/Layout/_Footer';
 @import './scss/_Main';
-@import './scss/_Footer';
 @import './scss/_editorCustom';
 
 .App{
