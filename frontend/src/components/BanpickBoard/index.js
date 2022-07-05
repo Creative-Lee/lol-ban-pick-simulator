@@ -17,6 +17,10 @@ import {
   noBanIcon,
 } from '../../Assets/img/import_img'
 
+import MatchInfo from './MatchInfo'
+import SummonerCard from './SummonerCard'
+import TeamSelectMenu from './TeamSelectMenu'
+
 export default function BanpickBoard({
   boardPhase,
   mode,
@@ -66,8 +70,7 @@ export default function BanpickBoard({
   })
 
   const [searchInput, setSearchInput] = useState('')
-  const [date, setDate] = useState('2022-00-00')
-  const [round, setRound] = useState('GAME 1')
+
   const [matchResult, setMatchResult] = useState('Win or Lose')
   const [goalPatchVersion, setGoalPatchVersion] = useState('Patch version : ')
   const [viewerInput, setViewerInput] = useState('')
@@ -651,218 +654,15 @@ export default function BanpickBoard({
   return (
     <Container id="ban-pick-board" className="ban-pick-board">
       <Row id="board-top" className="board-top">
-        <label className="blue-team">
-          <div className="blue-team__name">
-            <input
-              type="button"
-              id="blue-name-input"
-              className="name__button"
-              onClick={() => {
-                toggleIsTeamSelectMenuOpen('blue')
-              }}
-              onBlur={() => {
-                closeTeamSelectMenu('blue')
-              }}
-              value={selectedBlueTeam}
-            />
-            <ul className="name__select" data-html2canvas-ignore>
-              {isTeamSelectMenuOpen.blue &&
-                teamArr.map((team, index) => (
-                  <li
-                    className={`name__option`}
-                    key={index}
-                    onMouseDown={() => {
-                      setSelectedBlueTeam(team)
-                    }}
-                  >
-                    <img
-                      className="option__logo"
-                      alt="logo"
-                      src={`${process.env.PUBLIC_URL}/assets/team_logo/${team}.png`}
-                    />
-                    <span className="option__span">{team}</span>
-                  </li>
-                ))}
-            </ul>
-          </div>
-          <div className="blue-team__logo">
-            {selectedBlueTeam === 'Blue' ? (
-              <img
-                className="logo"
-                alt={`blue-team-logo-${selectedBlueTeam}`}
-                src={transparencyImg}
-              />
-            ) : (
-              <img
-                className="logo"
-                alt={`blue-team-logo-${selectedBlueTeam}`}
-                src={`${process.env.PUBLIC_URL}/assets/team_logo/${selectedBlueTeam}.png`}
-              />
-            )}
-          </div>
-        </label>
-
-        <Col className="match-info">
-          <div className="date-wrap">
-            <input
-              id="date"
-              className="date"
-              type="text"
-              value={date}
-              spellCheck="false"
-              onChange={(e) => setDate(e.target.value)}
-            />
-          </div>
-          <div className="round-wrap">
-            <input
-              id="round"
-              className="round"
-              type="text"
-              value={round}
-              spellCheck="false"
-              onChange={(e) => setRound(e.target.value)}
-            />
-          </div>
-        </Col>
-
-        <label className="red-team">
-          <div className="red-team__logo">
-            {selectedRedTeam === 'Red' ? (
-              <img
-                className="logo"
-                alt={`red-team-logo-${selectedBlueTeam}`}
-                src={transparencyImg}
-              />
-            ) : (
-              <img
-                className="logo"
-                alt={`red-team-logo-${selectedBlueTeam}`}
-                src={`${process.env.PUBLIC_URL}/assets/team_logo/${selectedRedTeam}.png`}
-              />
-            )}
-          </div>
-
-          <div className="red-team__name">
-            <input
-              type="button"
-              id="red-name-input"
-              className="name__button"
-              onClick={() => {
-                toggleIsTeamSelectMenuOpen('red')
-              }}
-              onBlur={() => {
-                closeTeamSelectMenu('red')
-              }}
-              value={selectedRedTeam}
-            />
-            <ul className="name__select" data-html2canvas-ignore>
-              {isTeamSelectMenuOpen.red &&
-                teamArr.map((team, index) => (
-                  <li
-                    className={`name__option`}
-                    key={index}
-                    onMouseDown={() => setSelectedRedTeam(team)}
-                  >
-                    <img
-                      className="option__logo"
-                      alt="logo"
-                      src={`${process.env.PUBLIC_URL}/assets/team_logo/${team}.png`}
-                    />
-                    <span className="option__span">{team}</span>
-                  </li>
-                ))}
-            </ul>
-          </div>
-        </label>
+        <TeamSelectMenu />
+        <MatchInfo />
+        <TeamSelectMenu />
       </Row>
 
       <Row className="board-middle">
         <div className="blue-team__summoners">
           {blueTeamSummoner.map((summoner, index) => (
-            <div
-              className="summoner"
-              key={index}
-              data-current-target={
-                currentSelectingTeam === 'blue' &&
-                currentSelectingIndex === index &&
-                pickBanPhase === 'Pick'
-              }
-            >
-              <img
-                className="champion"
-                id={`${summoner.pickedChampion.data}`}
-                alt={`blueTeam-${index}-${summoner.pickedChampion.data}`}
-                data-current-target={
-                  currentSelectingTeam === 'blue' &&
-                  currentSelectingIndex === index &&
-                  pickBanPhase === 'Pick'
-                }
-                onClick={() => {
-                  setCurrentSelectingIndex(index)
-                  setCurrentSelectingTeam('blue')
-                  setPickBanPhase('Pick')
-                  setGlobalPhase('PickBan')
-                }}
-                src={
-                  summoner.pickedChampion.data === ''
-                    ? transparencyImg
-                    : `${process.env.REACT_APP_API_BASE_URL}/cdn/img/champion/splash/${summoner.pickedChampion.data}_0.jpg`
-                }
-              />
-              <div className="spell">
-                <img
-                  alt={`spell1-${summoner.spell1.data}`}
-                  onClick={() => {
-                    setCurrentSelectingSpellNumber(1)
-                    setCurrentSelectingIndex(index)
-                    setCurrentSelectingTeam('blue')
-                    setPickBanPhase('Spell')
-                    setGlobalPhase('PickBan')
-                  }}
-                  data-current-target={
-                    currentSelectingTeam === 'blue' &&
-                    currentSelectingIndex === index &&
-                    pickBanPhase === 'Spell' &&
-                    currentSelectingSpellNumber === 1
-                  }
-                  src={
-                    summoner.spell1.data === ''
-                      ? transparencyImg
-                      : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/${summoner.spell1.data}.png`
-                  }
-                />
-                <img
-                  alt={`spell2-${summoner.spell2.data}`}
-                  onClick={() => {
-                    setCurrentSelectingSpellNumber(2)
-                    setCurrentSelectingIndex(index)
-                    setCurrentSelectingTeam('blue')
-                    setPickBanPhase('Spell')
-                    setGlobalPhase('PickBan')
-                  }}
-                  data-current-target={
-                    currentSelectingTeam === 'blue' &&
-                    currentSelectingIndex === index &&
-                    pickBanPhase === 'Spell' &&
-                    currentSelectingSpellNumber === 2
-                  }
-                  src={
-                    summoner.spell2.data === ''
-                      ? transparencyImg
-                      : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/${summoner.spell2.data}.png`
-                  }
-                />
-              </div>
-              <input
-                className="player"
-                type="text"
-                value={player[`blue${index + 1}`]}
-                spellCheck="false"
-                onChange={(e) => {
-                  onChangePlayer(e, `blue${index + 1}`)
-                }}
-              />
-            </div>
+            <SummonerCard />
           ))}
         </div>
 
@@ -1205,88 +1005,7 @@ export default function BanpickBoard({
 
         <div className="red-team__summoners">
           {redTeamSummoner.map((summoner, index) => (
-            <div
-              className="summoner"
-              key={index}
-              data-current-target={
-                currentSelectingTeam === 'red' &&
-                currentSelectingIndex === index &&
-                pickBanPhase === 'Pick'
-              }
-            >
-              <img
-                className="champion"
-                id={`${summoner.pickedChampion.data}`}
-                alt={`${summoner.pickedChampion.data}`}
-                data-current-target={
-                  currentSelectingTeam === 'red' &&
-                  currentSelectingIndex === index &&
-                  pickBanPhase === 'Pick'
-                }
-                onClick={() => {
-                  setCurrentSelectingIndex(index)
-                  setCurrentSelectingTeam('red')
-                  setPickBanPhase('Pick')
-                  setGlobalPhase('PickBan')
-                }}
-                src={
-                  summoner.pickedChampion.data === ''
-                    ? transparencyImg
-                    : `${process.env.REACT_APP_API_BASE_URL}/cdn/img/champion/splash/${summoner.pickedChampion.data}_0.jpg`
-                }
-              />
-              <div className="spell">
-                <img
-                  alt="spell1"
-                  onClick={() => {
-                    setCurrentSelectingSpellNumber(1)
-                    setCurrentSelectingIndex(index)
-                    setCurrentSelectingTeam('red')
-                    setPickBanPhase('Spell')
-                  }}
-                  data-current-target={
-                    currentSelectingTeam === 'red' &&
-                    currentSelectingIndex === index &&
-                    pickBanPhase === 'Spell' &&
-                    currentSelectingSpellNumber === 1
-                  }
-                  src={
-                    summoner.spell1.data === ''
-                      ? transparencyImg
-                      : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/${summoner.spell1.data}.png`
-                  }
-                />
-                <img
-                  alt="spell2"
-                  onClick={() => {
-                    setCurrentSelectingSpellNumber(2)
-                    setCurrentSelectingIndex(index)
-                    setCurrentSelectingTeam('red')
-                    setPickBanPhase('Spell')
-                  }}
-                  data-current-target={
-                    currentSelectingTeam === 'red' &&
-                    currentSelectingIndex === index &&
-                    pickBanPhase === 'Spell' &&
-                    currentSelectingSpellNumber === 2
-                  }
-                  src={
-                    summoner.spell2.data === ''
-                      ? transparencyImg
-                      : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/${summoner.spell2.data}.png`
-                  }
-                />
-              </div>
-              <input
-                className="player"
-                type="text"
-                value={player[`red${index + 1}`]}
-                spellCheck="false"
-                onChange={(e) => {
-                  onChangePlayer(e, `red${index + 1}`)
-                }}
-              />
-            </div>
+            <SummonerCard />
           ))}
         </div>
       </Row>

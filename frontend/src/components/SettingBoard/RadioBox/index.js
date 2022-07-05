@@ -1,8 +1,6 @@
 import React from 'react'
 import ReactTooltip from 'react-tooltip'
 import { tooltipIcon } from '../../../Assets/img/import_img'
-const modeToolTip = `[빠른 결과 모드] 는 Ban-Pick 순서와는 상관없이 빠르게 데이터 입력이 가능하고, 기본 스펠이 자동으로 입력됩니다.<br>
-[토너먼트 드래프트 모드] 는 전통 Ban-Pick 룰에 따라 진행됩니다. (현재 개발중입니다^^)`
 
 export default function RadioBox({ setMode }) {
   const onChangeMode = (e) => setMode(e.target.value)
@@ -51,3 +49,6 @@ export default function RadioBox({ setMode }) {
     </div>
   )
 }
+
+const modeToolTip = `[빠른 결과 모드] 는 Ban-Pick 순서와는 상관없이 빠르게 데이터 입력이 가능하고, 기본 스펠이 자동으로 입력됩니다.<br>
+[토너먼트 드래프트 모드] 는 전통 Ban-Pick 룰에 따라 진행됩니다. (현재 개발중입니다^^)`

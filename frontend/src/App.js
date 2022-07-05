@@ -17,6 +17,12 @@ export default function App() {
   const [classicSpellList, setClassicSpellList] = useState([])
   const isMounted = useRef(false)
 
+  const boardProps = {
+    recentVersion: recentVersion,
+    ascendingChampionDataList: ascendingChampionDataList,
+    classicSpellList: classicSpellList,
+  }
+
   useEffect(() => {
     getRecentVersion().then((response) => setRecentVersion(response))
   }, [])
@@ -40,16 +46,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout recentVersion={recentVersion} />}>
           <Route index element={<Main />} />
-          <Route
-            path="board"
-            element={
-              <Board
-                recentVersion={recentVersion}
-                ascendingChampionDataList={ascendingChampionDataList}
-                classicSpellList={classicSpellList}
-              />
-            }
-          />
+          <Route path="board" element={<Board {...boardProps} />} />
           <Route path="analysis" element={<div></div>} />
         </Route>
       </Routes>

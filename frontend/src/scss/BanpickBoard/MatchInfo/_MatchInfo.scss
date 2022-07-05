@@ -1,0 +1,28 @@
+.match-info {
+  position: relative;
+  display: flex;
+  flex: 1 2 20%;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  z-index: 1;
+
+  .date,
+  .round {
+    width: 100%;
+    text-align: center;
+    border: none;
+    background-color: transparent;
+    color: #fff;
+
+    &:hover {
+      background-color: #bcbcbc78;
+    }
+  }
+  .date {
+    font-size: 1.7vw;
+  }
+  .round {
+    font-size: 1.7vw;
+  }
+}
