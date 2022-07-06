@@ -1,29 +1,70 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { transparencyImg } from '../../../Assets/img/import_img/index'
 
-export default function TeamSelectMenu() {
+export default function TeamSelectMenu({
+  teamColor,
+  teamName,
+  setTeamName,
+  inlineStyle,
+}) {
+  const [isTeamSelectMenuOpen, setIsTeamSelectMenuOpen] = useState({
+    blue: false,
+    red: false,
+  })
+
+  const teamArr = [
+    'KDF',
+    'T1',
+    'DK',
+    'BRO',
+    'DRX',
+    'GEN',
+    'HLE',
+    'KT',
+    'LSB',
+    'NS',
+  ]
+
+  const toggleIsTeamSelectMenuOpen = (teamColor) => {
+    setIsTeamSelectMenuOpen((prevState) => ({
+      ...prevState,
+      [teamColor]: !prevState[teamColor],
+    }))
+  }
+  const closeTeamSelectMenu = (teamColor) => {
+    setIsTeamSelectMenuOpen((prevState) => ({
+      ...prevState,
+      [teamColor]: false,
+    }))
+  }
+
   return (
-    <label className="team__select-menu">
+    <label className="team__select-menu" style={inlineStyle.teamSelectMenu}>
       <div className="team__name">
         <input
           className="name__button"
           type="button"
-          id="blue-name-input"
+          id="name-input"
           onClick={() => {
-            toggleIsTeamSelectMenuOpen('blue')
+            toggleIsTeamSelectMenuOpen(teamColor)
           }}
           onBlur={() => {
-            closeTeamSelectMenu('blue')
+            closeTeamSelectMenu(teamColor)
           }}
-          value={selectedBlueTeam}
+          value={teamName}
         />
-        <ul className="name__select" data-html2canvas-ignore>
-          {isTeamSelectMenuOpen.blue &&
+        <ul
+          className="name__select"
+          style={inlineStyle.nameSelect}
+          data-html2canvas-ignore
+        >
+          {isTeamSelectMenuOpen[teamColor] &&
             teamArr.map((team, index) => (
               <li
                 className="name__option"
                 key={index}
                 onMouseDown={() => {
-                  setSelectedBlueTeam(team)
+                  setTeamName(team)
                 }}
               >
                 <img
@@ -39,12 +80,12 @@ export default function TeamSelectMenu() {
       <div className="team__logo">
         <img
           className="logo"
-          // alt={`blue-team-logo-${selectedBlueTeam}`}
-          // src={
-          //   selectedBlueTeam === ''
-          //     ? transparencyImg
-          //     : `${process.env.PUBLIC_URL}/assets/team_logo/${selectedBlueTeam}.png`
-          // }
+          alt={`${teamColor}-team-logo-${teamName}`}
+          src={
+            teamName === 'Blue' || teamName === 'Red'
+              ? transparencyImg
+              : `${process.env.PUBLIC_URL}/assets/team_logo/${teamName}.png`
+          }
         />
       </div>
     </label>

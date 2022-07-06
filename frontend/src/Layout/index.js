@@ -1,13 +1,14 @@
 import React from 'react'
-import {Outlet} from 'react-router-dom'
-import {Header, Footer} from './Components'
+import { Outlet } from 'react-router-dom'
+import Header from './Header'
+import Footer from './Footer'
 
-export default function Layout({recentVersion}) {
+export default function Layout({ recentVersion }) {
   return (
     <>
-      <Header recentVersion={recentVersion}/>
-      <Outlet/>     
-      <Footer/>
+      <Header recentVersion={recentVersion} />
+      <Outlet />
+      <Footer />
     </>
-  ) 
+  )
 }

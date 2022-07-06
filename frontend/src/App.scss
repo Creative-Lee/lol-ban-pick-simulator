@@ -1,14 +1,12 @@
-@import './scss/reset' ;
-@import './scss/_fonts';
-@import './scss/BanpickBoard/_BanpickBoard';
-@import './scss/SettingBoard/_SettingBoard';
+@import "./scss/_reset";
+@import "./scss/_fonts";
 
-@import './scss/Layout/_Header';
-@import './scss/Layout/_Footer';
-@import './scss/_Main';
-@import './scss/_editorCustom';
+@import "./scss/Board/_Board";
+@import "./scss/Layout/_Layout";
+@import "./scss/Main/_Main";
+@import "./scss/_editorCustom";
 
-.App{
+.App {
   font-family: "Spoqa Han Sans Neo";
 }
 

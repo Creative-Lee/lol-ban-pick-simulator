@@ -1,3 +1,10 @@
+@import "./BanChampCard/_BanChampCard";
+@import "./MatchInfo/_MatchInfo";
+@import "./MatchResult/_MatchResult";
+@import "./SelectBoard/_SelectBoard";
+@import "./SummonerCard/_SummonerCard";
+@import "./TeamSelectMenu/_TeamSelectMenu";
+
 .ban-pick-board {
   position: relative;
   height: 90vh;
@@ -12,7 +19,7 @@
     left: 0;
     height: 100%;
     width: 100%;
-    background-image: url(../../Assets/img/css_url_img/board_background.jpg);
+    background-image: url(../../../Assets/img/css_url_img/board_background.jpg);
     background-size: cover;
     opacity: 1;
     z-index: 0;
@@ -686,237 +693,6 @@
     }
   }
   */
-
-  .champion-select-board {
-    flex: 1.5 0;
-    width: 100%;
-    align-items: center;
-    margin: 0 2vw;
-
-    .champion__select-option {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-end;
-
-      width: 100%;
-      padding: 10px 0;
-
-      .search {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        background-color: #cccccc8f;
-
-        .search-input-label {
-          display: flex;
-          width: 15px;
-          height: 15px;
-          margin-left: 5px;
-
-          cursor: pointer;
-
-          .search-icon {
-            width: 100%;
-            height: 100%;
-          }
-        }
-
-        .search-input {
-          background-color: transparent;
-          border: none;
-
-          &::placeholder {
-            font-size: 15px;
-            font-weight: 700;
-            color: white;
-          }
-          &:active {
-            border: 0;
-          }
-        }
-      }
-    }
-
-    .champions {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-content: flex-start;
-      gap: 0px 8px;
-      overflow: auto;
-      height: 70%;
-
-      .champion__card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 4vw;
-        margin: 0.3vw 0;
-        cursor: pointer;
-        filter: contrast(1.1);
-
-        &:hover {
-          opacity: 0.5;
-        }
-
-        &[data-picked="true"] {
-          opacity: 0.5;
-          pointer-events: none;
-        }
-        &[data-banned="true"] {
-          opacity: 0.5;
-          pointer-events: none;
-        }
-
-        // img[alt='no-ban-icon']{
-        //   border : 1px solid rgb(66, 66, 66);
-        // }
-        .champion__name {
-          width: 100%;
-          text-align: center;
-          font-size: 10px;
-          font-weight: 700;
-          letter-spacing: 1px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-      }
-    }
-
-    .champion__select-button {
-      position: relative;
-      width: 15vw;
-      height: 3vw;
-      margin-top: 20px;
-      border: none;
-      border-radius: 7px;
-      color: #fff;
-      letter-spacing: 1px;
-      background-color: #00000093;
-      z-index: 1;
-
-      &:hover {
-        background-color: #000000bb;
-      }
-    }
-  }
-
-  .spell-select-board {
-    flex: 1.5 1;
-    height: calc(70vh - 0.5vw);
-    margin: 0.5vw 2vw 0 2vw;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &[data-helper-text-color="blue"] {
-      background-color: #6e83f81c;
-    }
-    &[data-helper-text-color="red"] {
-      background-color: #f86e6e1c;
-    }
-
-    .spell__select-helper {
-      flex: 1 1 40%;
-      width: 100%;
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 1vw;
-
-      .select-helper__text {
-        flex: 1 1;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        align-items: center;
-        text-align: center;
-        color: #fff;
-
-        p {
-          font-size: 1.5vw;
-        }
-      }
-      .select-helper__zoom-view {
-        flex: 1.5 1;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0 1vw;
-
-        img {
-          width: 5vw;
-          height: 5vw;
-          border: 2px solid transparent;
-          border-image: linear-gradient(60deg, rgb(255, 200, 0), rgb(255, 255, 255), rgb(255, 225, 118)) 1;
-          cursor: pointer;
-
-          &:hover {
-            background-color: #bcbcbc78;
-            filter: brightness(1.1);
-            box-shadow: 1px 1px 3px 3px #0000003a;
-          }
-          &[data-current-target="true"] {
-            background-color: #bcbcbc78;
-            box-shadow: 1px 1px 3px 5px #0000003a, -1px -1px 5px 5px #0000003a;
-          }
-        }
-      }
-    }
-
-    .spells {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      flex: 1 1 40%;
-      width: 50%;
-      gap: 1vw 1vw;
-      justify-content: space-between;
-
-      .spell__card {
-        cursor: pointer;
-
-        &[data-picked-spell="true"] {
-          opacity: 0.5;
-        }
-
-        .spell__img {
-          width: 3.5vw;
-          border: 2px solid transparent;
-          border-image: linear-gradient(60deg, rgb(255, 200, 0), rgb(255, 255, 255), rgb(255, 225, 118)) 1;
-
-          &:hover {
-            filter: brightness(1.2) contrast(1.2);
-          }
-        }
-      }
-    }
-
-    .spell__select-button-wrap {
-      flex: 1 1 20%;
-
-      .spell__select-button {
-        flex: 1 1;
-        width: 15vw;
-        height: 3vw;
-        margin-top: 20px;
-        border: none;
-        border-radius: 7px;
-        color: #fff;
-        letter-spacing: 1px;
-        background-color: #00000093;
-
-        &:hover {
-          background-color: #000000bb;
-        }
-      }
-    }
-  }
 }
 
 .board-bottom {
@@ -929,47 +705,12 @@
   .red-team__ban {
     display: flex;
     align-items: center;
-
-    flex: 2 1;
-
-    .banned-champion-wrap {
-      position: relative;
-      width: 4.2vw;
-      height: 4.2vw;
-      cursor: pointer;
-
-      &::after {
-        content: "";
-        width: 1.1vw;
-        height: 1.1vw;
-        position: absolute;
-        bottom: 0%;
-        left: 50%;
-        transform: translate(-50%, 50%);
-        z-index: 5;
-        background: url(../../Assets/img/css_url_img/banned-icon.png) no-repeat center;
-        background-size: cover;
-      }
-
-      .banned-champion {
-        filter: brightness(0.7);
-
-        &[data-current-target="true"] {
-          filter: brightness(1);
-          background-color: #bcbcbc78;
-        }
-
-        &:hover {
-          filter: brightness(1);
-        }
-      }
-    }
+    flex: 2 1 40%;
   }
 
   .blue-team__ban {
     flex-direction: row;
     margin-left: 1vw;
-    flex: 2 1 40%;
 
     & div:nth-child(3) {
       margin-right: 15px;
@@ -993,7 +734,6 @@
   .red-team__ban {
     flex-direction: row-reverse;
     margin-right: 1vw;
-    flex: 2 1 40%;
 
     & div:nth-child(3) {
       margin-left: 15px;
@@ -1013,40 +753,9 @@
       }
     }
   }
-
-  .match-result-wrap {
-    display: flex;
-    flex: 1 1 20%;
-    margin-top: 20px;
-    justify-content: center;
-    position: relative;
-
-    .match-result {
-      border: none;
-      background-color: transparent;
-      color: #fff;
-      text-align: center;
-      font-size: 2vw;
-      font-weight: 700;
-      line-height: 1.5;
-      &:hover {
-        background-color: #bcbcbc78;
-      }
-    }
-  }
 }
 
 .board-top,
 .board-bottom {
   flex-wrap: nowrap !important ;
 }
-
-// /*------------ HD+ -------------- */
-// @media (min-width: 1600px) {
-
-// }
-
-// /*------------ FHD -------------- */
-// @media (min-width: 1920px) {
-
-// }

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Col } from 'react-bootstrap'
 
 export default function MatchInfo() {
   const [date, setDate] = useState('2022-00-00')
@@ -13,7 +12,7 @@ export default function MatchInfo() {
   }
 
   return (
-    <Col className="match-info">
+    <div className="match-info">
       <div className="date-wrap">
         <input
           id="date"
@@ -34,6 +33,6 @@ export default function MatchInfo() {
           onChange={onChangeRound}
         />
       </div>
-    </Col>
+    </div>
   )
 }

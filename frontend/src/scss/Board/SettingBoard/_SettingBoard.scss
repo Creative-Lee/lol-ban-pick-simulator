@@ -1,4 +1,4 @@
-@import './RadioBox';
+@import "./RadioBox/_RadioBox";
 
 .setting-container {
   position: relative;
@@ -18,7 +18,7 @@
     left: 0;
     height: 100%;
     width: 100%;
-    background-image: url(../../Assets/img/css_url_img/setting_background.png);
+    background-image: url(../../../Assets/img/css_url_img/setting_background.png);
     background-size: cover;
     filter: brightness(0.5);
     opacity: 1;
@@ -43,7 +43,7 @@
         border-bottom: 1px solid #fff;
         vertical-align: middle;
       }
-    }    
+    }
 
     .go-banpick-button-wrap {
       width: 70%;
@@ -60,7 +60,7 @@
         &:hover {
           background-color: #fc916077;
           transition: background-color 0.2s ease;
-          box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.2), -1px -1px 5px 5px rgba(0, 0, 0, 0.2) ;
+          box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.2), -1px -1px 5px 5px rgba(0, 0, 0, 0.2);
         }
       }
     }
