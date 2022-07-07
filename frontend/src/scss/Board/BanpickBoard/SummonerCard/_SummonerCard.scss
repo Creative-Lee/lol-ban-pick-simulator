@@ -16,18 +16,25 @@
   &:nth-child(5) {
     margin: 0;
   }
+}
 
-  .summoner__spell-wrap {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transform: translate(0%, -50%);
-    z-index: 1;
-    top: 50%;
+.blue-team__summoners {
+  .summoner__card {
+    background-color: #6e83f81c;
 
-    & img:nth-child(1) {
-      margin-bottom: 2px;
+    &[data-current-target="true"] {
+      border-right: solid 5px rgb(85, 85, 255);
+    }
+  }
+}
+
+.red-team__summoners {
+  align-items: flex-end;
+
+  .summoner__card {
+    background-color: #f86e6e1c;
+    &[data-current-target="true"] {
+      border-left: solid 5px rgb(255, 85, 85);
     }
   }
 }

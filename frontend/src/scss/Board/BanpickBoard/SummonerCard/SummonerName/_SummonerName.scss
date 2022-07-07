@@ -10,3 +10,21 @@
   text-align: center;
   font-size: 1vw;
 }
+
+.blue-team__summoners {
+  .summoner__name {
+    right: 0.3vw;
+    &:hover {
+      background-color: #bcbcbc78;
+    }
+  }
+}
+
+.red-team__summoners {
+  .summoner__name {
+    left: 0.3vw;
+    &:hover {
+      background-color: #ccccccb7;
+    }
+  }
+}

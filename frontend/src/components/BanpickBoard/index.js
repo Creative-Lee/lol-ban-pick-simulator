@@ -1,13 +1,8 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react'
-import ReactTooltip from 'react-tooltip'
-import Hangul from 'hangul-js'
 import { Container, Row, Col } from 'react-bootstrap'
+import Hangul from 'hangul-js'
 
-import {
-  searchIcon,
-  transparencyImg,
-  noBanIcon,
-} from '../../Assets/img/import_img'
+import { transparencyImg, noBanIcon } from '../../Assets/img/import_img'
 
 import MatchInfo from './MatchInfo'
 import SummonerCard from './SummonerCard'
@@ -31,8 +26,6 @@ export default function BanpickBoard({
   const [goalEditPhase, setGoalEditPhase] = useState('Editing') // Editing, EditDone, End
   const [currentSelectingTeam, setCurrentSelectingTeam] = useState('blue') // blue, red
   const [currentSelectingIndex, setCurrentSelectingIndex] = useState(0) // 0 ~ 4
-  const [currentSelectingSpellNumber, setCurrentSelectingSpellNumber] =
-    useState(1) // 1, 2
 
   class Summoner {
     constructor({
@@ -150,17 +143,17 @@ export default function BanpickBoard({
     return team[currentSelectingIndex].isEmpty(type)
   }
 
-  // const onClickChampionPickButton = () => {
-  //   if (!isCurrentSelectingDataEmpty(currentSelectingType())) {
-  //     updateSummonerData({ type: 'pickedChampion', isConfirmed: true })
-  //   }
-  // }
+  const onClickChampionPickButton = () => {
+    if (!isCurrentSelectingDataEmpty(currentSelectingType())) {
+      updateSummonerData({ type: 'pickedChampion', isConfirmed: true })
+    }
+  }
 
-  // const onClickChampionBanButton = () => {
-  //   if (!isCurrentSelectingDataEmpty(currentSelectingType())) {
-  //     updateSummonerData({ type: 'bannedChampion', isConfirmed: true })
-  //   }
-  // }
+  const onClickChampionBanButton = () => {
+    if (!isCurrentSelectingDataEmpty(currentSelectingType())) {
+      updateSummonerData({ type: 'bannedChampion', isConfirmed: true })
+    }
+  }
 
   const onClickSpellSelectButton = () => {
     if (
@@ -509,24 +502,110 @@ export default function BanpickBoard({
   //   console.log('Initialize search input')
   // }, [currentSelectingIndex])
 
+  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//
+
+  const [summonerName, setSummonerName] = useState({
+    blue0: '',
+    blue1: '',
+    blue2: '',
+    blue3: '',
+    blue4: '',
+    red0: '',
+    red1: '',
+    red2: '',
+    red3: '',
+    red4: '',
+  })
   const [blueTeamName, setBlueTeamName] = useState('Blue')
   const [redTeamName, setRedTeamName] = useState('Red')
+  const [currentSelectingSpellNumber, setCurrentSelectingSpellNumber] =
+    useState(1) // 1, 2
+  const [champDataList, setChampDataList] = useState([])
+  const [searchInput, setSearchInput] = useState('')
 
   const redTeamInlineStyle = {
     teamSelectMenu: { flexDirection: 'row-reverse' },
     nameSelect: { right: 0, left: `${20}%` },
   }
 
+  const activateSummonerNamePrefix = useCallback(() => {
+    setSummonerName((prev) => ({
+      ...prev,
+      blue0: `${blueTeamName} TOP`,
+      blue1: `${blueTeamName} JGL`,
+      blue2: `${blueTeamName} MID`,
+      blue3: `${blueTeamName} BOT`,
+      blue4: `${blueTeamName} SUP`,
+      red0: `${redTeamName} TOP`,
+      red1: `${redTeamName} JGL`,
+      red2: `${redTeamName} MID`,
+      red3: `${redTeamName} BOT`,
+      red4: `${redTeamName} SUP`,
+    }))
+  }, [blueTeamName, redTeamName])
+
+  const updateMatchChampDataList = useCallback(() => {
+    const championNameList = ascendingChampionDataList.map((data) => data.name)
+    let searcher = new Hangul.Searcher(searchInput)
+
+    const letterMatchedChampNameList = championNameList.filter(
+      (championName) => searcher.search(championName) >= 0
+    )
+    const letterMatchedChampNameListWithoutSpace = championNameList.filter(
+      (championName) => searcher.search(championName.replace(/ /gi, '')) >= 0
+    )
+    const chosungMatchedChampNameList = championNameList.filter(
+      (championName) => {
+        const champChosungStrArr = Hangul.d(championName, true)
+          .map((disEachLetterList) => disEachLetterList[0]) // ['ㄱ', 'ㄹ'] and ['ㄱ', 'ㄹ', 'ㅇ'] ...something
+          .join('') // ['ㄱㄹ'] and ['ㄱㄹㅇ'] ...something
+          .replace(/ /gi, '') // 띄어쓰기 제거
+
+        const searchInputChosungStrArr = Hangul.d(searchInput).join('') // ['ㄱ','ㄹ'] -> ['ㄱㄹ']
+        return champChosungStrArr.includes(searchInputChosungStrArr)
+      }
+    )
+
+    const mergedChampNameList = letterMatchedChampNameList.concat(
+      letterMatchedChampNameListWithoutSpace,
+      chosungMatchedChampNameList
+    )
+    const duplicatesRemovedChampNameList = mergedChampNameList.filter(
+      (name, index) => mergedChampNameList.indexOf(name) === index
+    )
+
+    const matchedChampDataList = ascendingChampionDataList.filter((data) =>
+      duplicatesRemovedChampNameList.includes(data.name)
+    )
+
+    setChampDataList(matchedChampDataList)
+  }, [ascendingChampionDataList, searchInput])
+
+  useEffect(() => {
+    // updateMatchChampDataList
+    updateMatchChampDataList()
+    console.log('matchedChampDataList update compleat')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchInput, boardPhase])
+
+  useEffect(() => {
+    //activateSummonerNamePrefix
+    activateSummonerNamePrefix()
+    console.log('activate SummonerNamePrefix')
+  }, [activateSummonerNamePrefix])
+
   return (
-    <Container id="ban-pick-board" className="ban-pick-board">
-      <Row id="board-top" className="board-top">
+    <Container id='ban-pick-board' className='ban-pick-board'>
+      <Row id='board-top' className='board-top'>
         <TeamSelectMenu
           teamColor={'blue'}
           teamName={blueTeamName}
           setTeamName={setBlueTeamName}
           inlineStyle={{}}
         />
+
         <MatchInfo />
+
         <TeamSelectMenu
           teamColor={'red'}
           teamName={redTeamName}
@@ -535,37 +614,83 @@ export default function BanpickBoard({
         />
       </Row>
 
-      <Row className="board-middle">
-        <div className="blue-team__summoners">
+      <Row className='board-middle'>
+        <div className='blue-team__summoners'>
           {blueTeamSummoner.map((summoner, index) => (
-            <SummonerCard key={index} />
+            <SummonerCard
+              summoner={summoner}
+              teamColor={'blue'}
+              key={index}
+              index={index}
+              currentSelectingTeam={currentSelectingTeam}
+              setCurrentSelectingTeam={setCurrentSelectingTeam}
+              currentSelectingIndex={currentSelectingIndex}
+              setCurrentSelectingIndex={setCurrentSelectingIndex}
+              pickBanPhase={pickBanPhase}
+              setPickBanPhase={setPickBanPhase}
+              setGlobalPhase={setGlobalPhase}
+              summonerName={summonerName}
+              setSummonerName={setSummonerName}
+              currentSelectingSpellNumber={currentSelectingSpellNumber}
+              setCurrentSelectingSpellNumber={setCurrentSelectingSpellNumber}
+              recentVersion={recentVersion}
+            />
           ))}
         </div>
 
         {globalPhase === 'PickBan' && (
-          <SelectBoard classicSpellList={classicSpellList} />
+          <SelectBoard
+            classicSpellList={classicSpellList}
+            searchInput={searchInput}
+            setSearchInput={setSearchInput}
+            pickBanPhase={pickBanPhase}
+            updateSummonerData={updateSummonerData}
+            champDataList={champDataList}
+            onClickChampionBanButton={onClickChampionBanButton}
+            onClickChampionPickButton={onClickChampionPickButton}
+            isPickedChampion={isPickedChampion}
+            isBannedChampion={isBannedChampion}
+            recentVersion={recentVersion}
+          />
         )}
         {globalPhase === 'GoalEdit' && <GoalBoard />}
 
-        <div className="red-team__summoners">
+        <div className='red-team__summoners'>
           {redTeamSummoner.map((summoner, index) => (
-            <SummonerCard key={index} />
+            <SummonerCard
+              summoner={summoner}
+              teamColor={'red'}
+              key={index}
+              index={index}
+              currentSelectingTeam={currentSelectingTeam}
+              setCurrentSelectingTeam={setCurrentSelectingTeam}
+              currentSelectingIndex={currentSelectingIndex}
+              setCurrentSelectingIndex={setCurrentSelectingIndex}
+              pickBanPhase={pickBanPhase}
+              setPickBanPhase={setPickBanPhase}
+              setGlobalPhase={setGlobalPhase}
+              summonerName={summonerName}
+              setSummonerName={setSummonerName}
+              currentSelectingSpellNumber={currentSelectingSpellNumber}
+              setCurrentSelectingSpellNumber={setCurrentSelectingSpellNumber}
+              recentVersion={recentVersion}
+            />
           ))}
         </div>
       </Row>
 
-      <Row className="board-bottom">
-        <div className="blue-team__ban">
+      <Row className='board-bottom'>
+        <div className='blue-team__ban'>
           {blueTeamSummoner.map((summoner, index) => (
-            <BanChampCard />
+            <BanChampCard summoner={summoner} />
           ))}
         </div>
 
         <MatchResult />
 
-        <div className="red-team__ban">
+        <div className='red-team__ban'>
           {redTeamSummoner.map((summoner, index) => (
-            <BanChampCard />
+            <BanChampCard summoner={summoner} />
           ))}
         </div>
       </Row>
