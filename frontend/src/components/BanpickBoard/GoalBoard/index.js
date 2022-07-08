@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import GoalEditor from './GoalEditor'
 import GoalViewer from './GoalViewer'
 import { getDownloadResultPngFile } from '../../../apis/get'
+import ReactTooltip from 'react-tooltip'
 
 const resultDownToolTip1 = `밴픽 결과를 이미지 파일로 변환하여 자동 다운로드 합니다.<br>
 주의하세요💩 : 소환사 챔피언 이미지와 일부 텍스트 사이즈가 조정되어 보이는 화면과 차이가 있습니다.<br>
@@ -9,43 +10,50 @@ const resultDownToolTip1 = `밴픽 결과를 이미지 파일로 변환하여 �
 const resultDownToolTip2 = `결과 캡쳐를 위해 버튼 탭이 사라지고, 전체화면으로 전환되며, 스크롤이 조정됩니다.<br>  
 (업데이트와 함께 사라질 기능입니다^^)`
 
-export default function GoalBoard() {
-  const editorRef = useRef()
+export default function GoalBoard({ goalEditPhase, setGoalEditPhase }) {
   const [goalPatchVersion, setGoalPatchVersion] = useState('Patch version : ')
   const [viewerInput, setViewerInput] = useState('')
   const onChangeGoalPatchVersion = (e) => setGoalPatchVersion(e.target.value)
+  const editorRef = useRef()
   const onChangeEditor = () => {
     const editorInputHtml = editorRef.current.getInstance().getHTML()
     setViewerInput(editorInputHtml)
   }
 
   return (
-    <div id="todays-goal" className="todays-goal">
-      <div className="goal__patch-version-wrap">
+    <div id='todays-goal' className='todays-goal'>
+      <div className='goal__patch-version-wrap'>
         <input
-          id="goal__patch-version"
-          className="goal__patch-version"
-          type="text"
-          // value={goalPatchVersion}
-          // onChange={(e) => onChangeGoalPatchVersion(e)}
+          id='goal__patch-version'
+          className='goal__patch-version'
+          type='text'
+          value={goalPatchVersion}
+          onChange={(e) => onChangeGoalPatchVersion(e)}
         />
       </div>
 
       <div
-        className="goal__editor-wrap"
-        // onClick={() => setGoalEditPhase('Editing')}
+        className='goal__editor-wrap'
+        onClick={() => setGoalEditPhase('Editing')}
       >
-        <GoalEditor />
-        {/* {goalEditPhase === 'Editing' && <GoalEditor />}
-        {goalEditPhase === 'EditDone' && <GoalViewer />} */}
+        {goalEditPhase === 'Editing' && (
+          <GoalEditor
+            viewerInput={viewerInput}
+            editorRef={editorRef}
+            onChangeEditor={onChangeEditor}
+          />
+        )}
+        {(goalEditPhase === 'EditDone' || goalEditPhase === 'End') && (
+          <GoalViewer viewerInput={viewerInput} />
+        )}
       </div>
 
       <div
-        id="goal__button-wrap"
-        className="goal__button-wrap"
+        id='goal__button-wrap'
+        className='goal__button-wrap'
         data-html2canvas-ignore
       >
-        {/* {goalEditPhase === 'Editing' && (
+        {goalEditPhase === 'Editing' && (
           <button onClick={() => setGoalEditPhase('EditDone')}>
             작성 완료
           </button>
@@ -53,23 +61,23 @@ export default function GoalBoard() {
         {goalEditPhase === 'EditDone' && (
           <>
             <button
-              data-for="button-tooltip1"
+              data-for='button-tooltip1'
               data-tip={resultDownToolTip1}
-              data-class="result-down-tooltip"
+              data-class='result-down-tooltip'
               onClick={() => getDownloadResultPngFile('ban-pick-board')}
             >
               결과 다운로드
             </button>
             <ReactTooltip
-              id="button-tooltip1"
+              id='button-tooltip1'
               multiline={true}
               delayShow={100}
             />
 
             <button
-              data-for="button-tooltip2"
+              data-for='button-tooltip2'
               data-tip={resultDownToolTip2}
-              data-class="result-down-tooltip"
+              data-class='result-down-tooltip'
               onClick={() => {
                 setGoalEditPhase('End')
                 document.documentElement
@@ -85,19 +93,18 @@ export default function GoalBoard() {
               직접 캡쳐
             </button>
             <ReactTooltip
-              id="button-tooltip2"
+              id='button-tooltip2'
               multiline={true}
               delayShow={100}
             />
           </>
-        )} */}
+        )}
       </div>
     </div>
   )
 }
 
-{
-  /* // {
+/* // {
 //   goalEditPhase === 'End' && (
 //     <div
 //       className="goal__editor-wrap"
@@ -107,4 +114,3 @@ export default function GoalBoard() {
 //     </div>
 //   )
 // } */
-}

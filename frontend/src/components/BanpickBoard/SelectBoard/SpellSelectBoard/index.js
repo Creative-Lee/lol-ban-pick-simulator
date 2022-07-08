@@ -1,53 +1,71 @@
 import React from 'react'
 import SpellCard from './SpellCard'
 
-export default function SpellSelectBoard({ classicSpellList }) {
+export default function SpellSelectBoard({
+  classicSpellList,
+  currentSelectingTeam,
+  currentSelectingIndex,
+  currentSelectingSpellNumber,
+  setCurrentSelectingSpellNumber,
+  zoomViewImgSrc,
+  onClickSpellSelectButton,
+  summonerName,
+  recentVersion,
+  isPickedSpell,
+  updateSpell,
+}) {
   return (
     <div
-      className="spell-select-board"
-      // data-helper-text-color={`${currentSelectingTeam}`}
+      className='spell-select-board'
+      data-helper-text-color={`${currentSelectingTeam}`}
     >
-      <div className="spell__select-helper">
-        <div className="select-helper__text">
+      <div className='spell__select-helper'>
+        <div className='select-helper__text'>
           <p>
-            {/* {currentSelectingTeam === 'blue'
-              ? `${player[`blue${currentSelectingIndex + 1}`]}`
-              : `${player[`red${currentSelectingIndex + 1}`]}`}{' '} */}
+            {currentSelectingTeam === 'blue'
+              ? `${summonerName[`blue${currentSelectingIndex}`]}`
+              : `${summonerName[`red${currentSelectingIndex}`]}`}{' '}
             스펠 선택중입니다.
           </p>
         </div>
-        <div className="select-helper__zoom-view">
+        <div className='select-helper__zoom-view'>
           <img
-          // alt={`zoom-view-spell1`}
-          // data-current-target={currentSelectingSpellNumber === 1}
-          // onClick={() => {
-          //   setCurrentSelectingSpellNumber(1)
-          // }}
-          // src={zoomViewImgSrc(1)}
+            alt={`zoom-view-spell1`}
+            data-current-target={currentSelectingSpellNumber === 1}
+            onClick={() => {
+              setCurrentSelectingSpellNumber(1)
+            }}
+            src={zoomViewImgSrc(1)}
           />
           <img
-          // alt={`zoom-view-spell2`}
-          // data-current-target={currentSelectingSpellNumber === 2}
-          // onClick={() => {
-          //   setCurrentSelectingSpellNumber(2)
-          // }}
-          // src={zoomViewImgSrc(2)}
+            alt={`zoom-view-spell2`}
+            data-current-target={currentSelectingSpellNumber === 2}
+            onClick={() => {
+              setCurrentSelectingSpellNumber(2)
+            }}
+            src={zoomViewImgSrc(2)}
           />
         </div>
       </div>
-      <div className="spells">
+      <div className='spells'>
         {classicSpellList.map((spell, index) => (
-          <SpellCard />
+          <SpellCard
+            spell={spell}
+            key={index}
+            recentVersion={recentVersion}
+            isPickedSpell={isPickedSpell}
+            updateSpell={updateSpell}
+          />
         ))}
       </div>
-      <div className="spell__select-button-wrap">
+      <div className='spell__select-button-wrap'>
         <input
-          className="spell__select-button"
-          type="button"
-          //   value={pickBanPhase}
-          //   onClick={() => {
-          //     onClickSpellSelectButton()
-          //   }}
+          className='spell__select-button'
+          type='button'
+          value={'Spell'}
+          onClick={() => {
+            onClickSpellSelectButton()
+          }}
         />
       </div>
     </div>

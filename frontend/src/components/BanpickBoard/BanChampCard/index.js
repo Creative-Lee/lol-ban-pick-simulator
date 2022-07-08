@@ -1,25 +1,37 @@
 import React from 'react'
 
-export default function BanChampCard() {
+export default function BanChampCard({
+  summoner,
+  index,
+  teamColor,
+  currentSelectingTeam,
+  setCurrentSelectingTeam,
+  setCurrentSelectingIndex,
+  currentSelectingIndex,
+  pickBanPhase,
+  setPickBanPhase,
+  setGlobalPhase,
+  bannedChampionImgSrc,
+}) {
   return (
     <div
       className='banned-champion-wrap'
       data-current-target={
-        currentSelectingTeam === 'blue' &&
+        currentSelectingTeam === teamColor &&
         currentSelectingIndex === index &&
         pickBanPhase === 'Ban'
       }
     >
       <img
         className='banned-champion'
-        alt={`blueTeam-banned-${index}-${summoner.bannedChampion.data}`}
+        alt={`${teamColor}Team-banned-${index}-${summoner.bannedChampion.data}`}
         data-current-target={
-          currentSelectingTeam === 'blue' &&
+          currentSelectingTeam === teamColor &&
           currentSelectingIndex === index &&
           pickBanPhase === 'Ban'
         }
         onClick={() => {
-          setCurrentSelectingTeam('blue')
+          setCurrentSelectingTeam(teamColor)
           setCurrentSelectingIndex(index)
           setPickBanPhase('Ban')
           setGlobalPhase('PickBan')

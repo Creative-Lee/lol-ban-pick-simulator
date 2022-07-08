@@ -14,25 +14,48 @@ export default function SelectBoard({
   onClickChampionBanButton,
   isPickedChampion,
   isBannedChampion,
+
+  summonerName,
+  onClickSpellSelectButton,
+  zoomViewImgSrc,
+  currentSelectingSpellNumber,
+  setCurrentSelectingSpellNumber,
+  currentSelectingTeam,
+  currentSelectingIndex,
+  isPickedSpell,
+  updateSpell,
 }) {
   return (
     <>
-      <ChampSelectBoard
-        searchInput={searchInput}
-        setSearchInput={setSearchInput}
-        onClickChampionBanButton={onClickChampionBanButton}
-        onClickChampionPickButton={onClickChampionPickButton}
-        champDataList={champDataList}
-        updateSummonerData={updateSummonerData}
-        pickBanPhase={pickBanPhase}
-        isPickedChampion={isPickedChampion}
-        isBannedChampion={isBannedChampion}
-        recentVersion={recentVersion}
-      />
-      {/* {(pickBanPhase === 'Ban' || pickBanPhase === 'Pick') && (
-        <ChampSelectBoard />
+      {(pickBanPhase === 'Ban' || pickBanPhase === 'Pick') && (
+        <ChampSelectBoard
+          searchInput={searchInput}
+          setSearchInput={setSearchInput}
+          onClickChampionBanButton={onClickChampionBanButton}
+          onClickChampionPickButton={onClickChampionPickButton}
+          champDataList={champDataList}
+          updateSummonerData={updateSummonerData}
+          pickBanPhase={pickBanPhase}
+          isPickedChampion={isPickedChampion}
+          isBannedChampion={isBannedChampion}
+          recentVersion={recentVersion}
+        />
       )}
-      {pickBanPhase === 'Spell' && <SpellSelectBoard classicSpellList={classicSpellList}/>} */}
+      {pickBanPhase === 'Spell' && (
+        <SpellSelectBoard
+          classicSpellList={classicSpellList}
+          currentSelectingTeam={currentSelectingTeam}
+          currentSelectingIndex={currentSelectingIndex}
+          currentSelectingSpellNumber={currentSelectingSpellNumber}
+          setCurrentSelectingSpellNumber={setCurrentSelectingSpellNumber}
+          zoomViewImgSrc={zoomViewImgSrc}
+          onClickSpellSelectButton={onClickSpellSelectButton}
+          summonerName={summonerName}
+          recentVersion={recentVersion}
+          isPickedSpell={isPickedSpell}
+          updateSpell={updateSpell}
+        />
+      )}
     </>
   )
 }
