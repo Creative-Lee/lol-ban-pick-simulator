@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import SummonerChamp from './SummonerChamp'
 import SummonerName from './SummonerName'
 import SummonerSpell from './SummonerSpell'

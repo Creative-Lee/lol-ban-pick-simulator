@@ -5,13 +5,13 @@ export default function MatchResult() {
   const onChangeMatchResult = (e) => setMatchResult(e.target.value)
 
   return (
-    <div id="match-result-wrap" className="match-result-wrap">
+    <div id='match-result-wrap' className='match-result-wrap'>
       <input
-        className="match-result"
-        type="text"
-        id="match-result"
+        className='match-result'
+        type='text'
+        id='match-result'
         value={matchResult}
-        spellCheck="false"
+        spellCheck='false'
         onChange={onChangeMatchResult}
       />
     </div>

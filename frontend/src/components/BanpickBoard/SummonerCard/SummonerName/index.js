@@ -11,10 +11,10 @@ export default function SummonerName({
 
   return (
     <input
-      className="summoner__name"
-      type="text"
+      className='summoner__name'
+      type='text'
       value={`${summonerName[`${teamColor}${index}`]}`}
-      spellCheck="false"
+      spellCheck='false'
       onChange={(e) => {
         onChangeSummonerName(e, `${teamColor}${index}`)
       }}

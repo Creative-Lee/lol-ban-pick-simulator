@@ -12,24 +12,24 @@ export default function MatchInfo() {
   }
 
   return (
-    <div className="match-info">
-      <div className="date-wrap">
+    <div className='match-info'>
+      <div className='date-wrap'>
         <input
-          id="date"
-          className="date"
-          type="text"
+          id='date'
+          className='date'
+          type='text'
           value={date}
-          spellCheck="false"
+          spellCheck='false'
           onChange={onChangeDate}
         />
       </div>
-      <div className="round-wrap">
+      <div className='round-wrap'>
         <input
-          id="round"
-          className="round"
-          type="text"
+          id='round'
+          className='round'
+          type='text'
           value={round}
-          spellCheck="false"
+          spellCheck='false'
           onChange={onChangeRound}
         />
       </div>

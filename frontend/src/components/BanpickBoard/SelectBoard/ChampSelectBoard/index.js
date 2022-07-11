@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React from 'react'
 import ChampCard from './ChampCard'
 import { searchIcon, noBanIcon } from '../../../../Assets/img/import_img'
 import ReactTooltip from 'react-tooltip'

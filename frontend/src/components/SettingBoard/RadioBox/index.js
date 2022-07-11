@@ -6,44 +6,44 @@ export default function RadioBox({ setMode }) {
   const onChangeMode = (e) => setMode(e.target.value)
 
   return (
-    <div className="radio-box">
-      <div className="radio-box__title">
+    <div className='radio-box'>
+      <div className='radio-box__title'>
         <p>
           모드 선택
           <img
-            className="mode-tooltip-icon"
-            alt="tooltip-mark"
+            className='mode-tooltip-icon'
+            alt='tooltip-mark'
             src={tooltipIcon}
-            data-for="mode-tooltip"
+            data-for='mode-tooltip'
             data-tip={modeToolTip}
-            data-class="mode-tooltip-text"
+            data-class='mode-tooltip-text'
           />
         </p>
-        <ReactTooltip id="mode-tooltip" multiline={true} delayShow={100} />
+        <ReactTooltip id='mode-tooltip' multiline={true} delayShow={100} />
       </div>
-      <div className="radio-button-wrap">
-        <div className="radio-button">
+      <div className='radio-button-wrap'>
+        <div className='radio-button'>
           <input
-            id="rapid"
-            type="radio"
-            name="mode"
-            value="rapid"
+            id='rapid'
+            type='radio'
+            name='mode'
+            value='rapid'
             onChange={onChangeMode}
             defaultChecked
           />
-          <label htmlFor="rapid">빠른 결과</label>
+          <label htmlFor='rapid'>빠른 결과</label>
         </div>
 
-        <div className="radio-button">
+        <div className='radio-button'>
           <input
-            id="simulation"
-            type="radio"
-            name="mode"
-            value="simulation"
+            id='simulation'
+            type='radio'
+            name='mode'
+            value='simulation'
             onChange={onChangeMode}
             disabled
           />
-          <label htmlFor="simulation">토너먼트 드래프트</label>
+          <label htmlFor='simulation'>토너먼트 드래프트</label>
         </div>
       </div>
     </div>
