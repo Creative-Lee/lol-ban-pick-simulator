@@ -10,10 +10,16 @@ const resultDownToolTip1 = `밴픽 결과를 이미지 파일로 변환하여 �
 const resultDownToolTip2 = `결과 캡쳐를 위해 버튼 탭이 사라지고, 전체화면으로 전환되며, 스크롤이 조정됩니다.<br>  
 (업데이트와 함께 사라질 기능입니다^^)`
 
-export default function GoalBoard({ goalEditPhase, setGoalEditPhase }) {
+export default function GoalBoard({
+  goalEditPhase,
+  setGoalEditPhase,
+  globalPhase,
+  viewerInput,
+  setViewerInput,
+}) {
   const [goalPatchVersion, setGoalPatchVersion] = useState('Patch version : ')
-  const [viewerInput, setViewerInput] = useState('')
   const onChangeGoalPatchVersion = (e) => setGoalPatchVersion(e.target.value)
+
   const editorRef = useRef()
   const onChangeEditor = () => {
     const editorInputHtml = editorRef.current.getInstance().getHTML()
@@ -41,6 +47,7 @@ export default function GoalBoard({ goalEditPhase, setGoalEditPhase }) {
             viewerInput={viewerInput}
             editorRef={editorRef}
             onChangeEditor={onChangeEditor}
+            globalPhase={globalPhase}
           />
         )}
         {(goalEditPhase === 'EditDone' || goalEditPhase === 'End') && (

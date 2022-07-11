@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import React, { useEffect, useState, useCallback } from 'react'
+import { Container, Row } from 'react-bootstrap'
 import Hangul from 'hangul-js'
 
 import { transparencyImg, noBanIcon } from '../../Assets/img/import_img'
@@ -19,8 +19,6 @@ export default function BanpickBoard({
   ascendingChampionDataList,
   classicSpellList,
 }) {
-  const isMountedRef = useRef(false)
-
   const [globalPhase, setGlobalPhase] = useState('PickBan') // PickBan, GoalEdit, End
   const [pickBanPhase, setPickBanPhase] = useState('Pick') // Pick, Ban, Spell, End
   const [goalEditPhase, setGoalEditPhase] = useState('Editing') // Editing, EditDone, End
@@ -520,6 +518,7 @@ export default function BanpickBoard({
     useState(1) // 1, 2
   const [champDataList, setChampDataList] = useState([])
   const [searchInput, setSearchInput] = useState('')
+  const [viewerInput, setViewerInput] = useState('')
 
   const redTeamInlineStyle = {
     teamSelectMenu: { flexDirection: 'row-reverse' },
@@ -662,6 +661,8 @@ export default function BanpickBoard({
         )}
         {globalPhase === 'GoalEdit' && (
           <GoalBoard
+            viewerInput={viewerInput}
+            setViewerInput={setViewerInput}
             goalEditPhase={goalEditPhase}
             setGoalEditPhase={setGoalEditPhase}
           />

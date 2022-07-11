@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { Editor } from '@toast-ui/react-editor'
 
 import '@toast-ui/editor/dist/toastui-editor.css'
@@ -7,7 +7,7 @@ import 'tui-color-picker/dist/tui-color-picker.css'
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css'
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax'
 
-export default function GoalEditor({ viewerInput, editorRef, onChangeEditor }) {
+export default function GoalEditor({ editorRef, onChangeEditor, viewerInput }) {
   return (
     <Editor
       initialValue={viewerInput}
