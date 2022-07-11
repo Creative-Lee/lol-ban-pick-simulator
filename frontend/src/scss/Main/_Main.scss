@@ -1,0 +1,38 @@
+.main-banner-wrap {
+  margin: 0 0 30px 0;
+
+  .main-banner {
+    width: 100%;
+  }
+}
+
+.spirit-img-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-image: url(../../Assets/img/css_url_img/KWANGDONG_background.jpg);
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+
+  .spirit-img {
+    width: 30%;
+    margin-left: 30px;
+  }
+  .text-wrap {
+    margin-right: 70px;
+    .spirit__text {
+      display: block;
+      font-size: 50px;
+      font-weight: 700;
+      color: #fff;
+    }
+  }
+}
+.spirit-banner-wrap {
+  margin-top: 30px;
+
+  .spirit-banner {
+    width: 100%;
+  }
+}

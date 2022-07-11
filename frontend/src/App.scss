@@ -1,12 +1,12 @@
-@import './scss/reset' ;
-@import './scss/_fonts';
-@import './scss/_Board';
-@import './scss/_Header';
-@import './scss/_Main';
-@import './scss/_Footer';
-@import './scss/_editorCustom';
+@import "./scss/_reset";
+@import "./scss/_fonts";
 
-.App{
+@import "./scss/Board/_Board";
+@import "./scss/Layout/_Layout";
+@import "./scss/Main/_Main";
+@import "./scss/_editorCustom";
+
+.App {
   font-family: "Spoqa Han Sans Neo";
 }
 

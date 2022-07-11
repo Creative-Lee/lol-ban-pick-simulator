@@ -1,0 +1,194 @@
+@import "./BanChampCard/_BanChampCard";
+@import "./MatchInfo/_MatchInfo";
+@import "./MatchResult/_MatchResult";
+@import "./SelectBoard/_SelectBoard";
+@import "./SummonerCard/_SummonerCard";
+@import "./TeamSelectMenu/_TeamSelectMenu";
+
+.ban-pick-board {
+  position: relative;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url(../../../Assets/img/css_url_img/board_background.jpg);
+    background-size: cover;
+    opacity: 1;
+    z-index: 0;
+  }
+}
+
+.board-top {
+  position: relative;
+  flex-wrap: nowrap;
+  height: 12vh;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #0026ff, transparent, #ff3831);
+    opacity: 0.2;
+  }
+}
+
+.board-middle {
+  height: 65vh;
+  position: relative;
+  z-index: 1;
+
+  .blue-team__summoners,
+  .red-team__summoners,
+  .todays-goal,
+  .spell-select-board {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1;
+    padding: 0.5vw 0 0;
+    height: 100%;
+  }
+
+  .todays-goal {
+    position: relative;
+    align-items: center;
+    flex: 1.5 0;
+    margin: 0 2vw;
+
+    .goal__patch-version-wrap {
+      position: relative;
+      align-self: flex-end;
+      flex: 1 1 15%;
+
+      .goal__patch-version {
+        position: absolute;
+        right: 0;
+        top: 20%;
+        border: none;
+        text-align: center;
+        background-color: transparent;
+        color: #fff;
+        font-size: 1.2vw;
+        font-weight: 700;
+        line-height: 2;
+
+        &:hover {
+          background-color: #bcbcbc78;
+        }
+      }
+    }
+
+    .goal__editor-wrap {
+      width: 100%;
+      flex: 1 1 70%;
+      overflow: hidden;
+      cursor: text;
+      &:hover {
+        background-color: #bcbcbc78;
+      }
+    }
+
+    .goal__button-wrap {
+      display: flex;
+      width: 100%;
+      flex: 1 1 15%;
+      justify-content: space-evenly;
+      align-items: center;
+
+      button {
+        width: 15vw;
+        height: 40px;
+        margin-top: 20px;
+        border: none;
+        border-radius: 7px;
+        color: #fff;
+        letter-spacing: 1px;
+        background-color: rgba(0, 0, 0, 0.55);
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.65);
+        }
+      }
+
+      .result-down-tooltip .multi-line {
+        text-align: left !important;
+      }
+    }
+  }
+}
+
+.board-bottom {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  height: 13vh;
+
+  .blue-team__ban,
+  .red-team__ban {
+    display: flex;
+    align-items: center;
+    flex: 2 1 40%;
+  }
+
+  .blue-team__ban {
+    flex-direction: row;
+    margin-left: 1vw;
+
+    & div:nth-child(3) {
+      margin-right: 15px;
+    }
+
+    .banned-champion-wrap {
+      margin-right: 2px;
+      background-color: #6e83f81c;
+      transform: skewX(10deg);
+
+      &[data-current-target="true"] {
+        border-top: solid 3px rgb(85, 85, 255);
+      }
+
+      &:hover {
+        background-color: #bcbcbc78;
+      }
+    }
+  }
+
+  .red-team__ban {
+    flex-direction: row-reverse;
+    margin-right: 1vw;
+
+    & div:nth-child(3) {
+      margin-left: 15px;
+    }
+
+    .banned-champion-wrap {
+      margin-left: 2px;
+      background-color: #f86e6e1c;
+      transform: skewX(-10deg);
+
+      &[data-current-target="true"] {
+        border-top: solid 3px rgb(255, 85, 85);
+      }
+
+      &:hover {
+        background-color: #cccccc7d;
+      }
+    }
+  }
+}
+
+.board-top,
+.board-bottom {
+  flex-wrap: nowrap !important ;
+}

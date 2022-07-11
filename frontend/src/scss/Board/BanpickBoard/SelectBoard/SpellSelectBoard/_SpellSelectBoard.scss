@@ -1,0 +1,114 @@
+.spell-select-board {
+  flex: 1.5 1;
+  height: calc(70vh - 0.5vw);
+  margin: 0.5vw 2vw 0 2vw;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &[data-helper-text-color="blue"] {
+    background-color: #6e83f81c;
+  }
+  &[data-helper-text-color="red"] {
+    background-color: #f86e6e1c;
+  }
+
+  .spell__select-helper {
+    flex: 1 1 40%;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1vw;
+
+    .select-helper__text {
+      flex: 1 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+
+      p {
+        font-size: 1.5vw;
+      }
+    }
+    .select-helper__zoom-view {
+      flex: 1.5 1;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0 1vw;
+
+      img {
+        width: 5vw;
+        height: 5vw;
+        border: 2px solid transparent;
+        border-image: linear-gradient(60deg, rgb(255, 200, 0), rgb(255, 255, 255), rgb(255, 225, 118)) 1;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #bcbcbc78;
+          filter: brightness(1.1);
+          box-shadow: 1px 1px 3px 3px #0000003a;
+        }
+        &[data-current-target="true"] {
+          background-color: #bcbcbc78;
+          box-shadow: 1px 1px 3px 5px #0000003a, -1px -1px 5px 5px #0000003a;
+        }
+      }
+    }
+  }
+
+  .spells {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: 1 1 40%;
+    width: 50%;
+    gap: 1vw 1vw;
+    justify-content: space-between;
+
+    .spell__card {
+      cursor: pointer;
+
+      &[data-picked-spell="true"] {
+        opacity: 0.5;
+      }
+
+      .spell__img {
+        width: 3.5vw;
+        border: 2px solid transparent;
+        border-image: linear-gradient(60deg, rgb(255, 200, 0), rgb(255, 255, 255), rgb(255, 225, 118)) 1;
+
+        &:hover {
+          filter: brightness(1.2) contrast(1.2);
+        }
+      }
+    }
+  }
+
+  .spell__select-button-wrap {
+    flex: 1 1 20%;
+
+    .spell__select-button {
+      flex: 1 1;
+      width: 15vw;
+      height: 3vw;
+      margin-top: 20px;
+      border: none;
+      border-radius: 7px;
+      color: #fff;
+      letter-spacing: 1px;
+      background-color: #00000093;
+
+      &:hover {
+        background-color: #000000bb;
+      }
+    }
+  }
+}

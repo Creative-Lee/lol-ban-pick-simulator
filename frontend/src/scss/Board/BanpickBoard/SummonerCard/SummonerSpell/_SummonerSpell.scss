@@ -1,0 +1,47 @@
+.summoner__spell-wrap {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translate(0%, -50%);
+  z-index: 1;
+  top: 50%;
+
+  & img:nth-child(1) {
+    margin-bottom: 2px;
+  }
+  .summoner__spell {
+    width: 2.2vw;
+    border: 1px solid transparent;
+    border-image: linear-gradient(60deg, rgba(255, 200, 0, 0.5), rgba(255, 255, 255, 0.5), rgba(255, 225, 118, 0.5)) 1;
+  }
+}
+
+.blue-team__summoners {
+  .summoner__spell-wrap {
+    left: 0.5vw;
+    background-color: transparent;
+
+    img:hover {
+      background-color: #bcbcbc78;
+      filter: brightness(1.2);
+    }
+    img[data-current-target="true"] {
+      background-color: #bcbcbc78;
+    }
+  }
+}
+
+.red-team__summoners {
+  .summoner__spell-wrap {
+    right: 10px;
+
+    img:hover {
+      background-color: #cccccc8f;
+      filter: brightness(1.2);
+    }
+    img[data-current-target="true"] {
+      background-color: #bcbcbc78;
+    }
+  }
+}

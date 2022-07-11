@@ -1,50 +1,55 @@
-import React, {useState , useEffect, useRef} from 'react';
-import {Routes, Route} from 'react-router-dom'
+import React, { useState, useEffect, useRef } from 'react'
+import { Routes, Route } from 'react-router-dom'
 
-import {Board, Main, Layout} from './components'
-import {getAscendingChampionDataList, getRecentVersion, getClassicSpell} from './apis/get'
+import Layout from './Layout'
+import { Main, Board } from './pages'
+import {
+  getAscendingChampionDataList,
+  getRecentVersion,
+  getClassicSpell,
+} from './apis/get'
 
 import './App.scss'
 
 export default function App() {
-
-  const [recentVersion, setRecentVersion] = useState('') 
-  const [ascendingChampionDataList, setAscendingChampionDataList] = useState([]);
+  const [recentVersion, setRecentVersion] = useState('')
+  const [ascendingChampionDataList, setAscendingChampionDataList] = useState([])
   const [classicSpellList, setClassicSpellList] = useState([])
   const isMounted = useRef(false)
 
-  useEffect(() => {
-    getRecentVersion()
-    .then(response => setRecentVersion(response))
-  },[])
+  const boardProps = {
+    recentVersion: recentVersion,
+    ascendingChampionDataList: ascendingChampionDataList,
+    classicSpellList: classicSpellList,
+  }
 
   useEffect(() => {
-    if(isMounted.current){
-      getAscendingChampionDataList(recentVersion)
-      .then(response => setAscendingChampionDataList(response));
+    getRecentVersion().then((response) => setRecentVersion(response))
+  }, [])
 
-      getClassicSpell(recentVersion)
-      .then(response => setClassicSpellList(response));
-    }
-    else{
-      isMounted.current = true 
-    }
-  },[recentVersion])
+  useEffect(() => {
+    if (isMounted.current) {
+      getAscendingChampionDataList(recentVersion).then((response) =>
+        setAscendingChampionDataList(response)
+      )
 
-  return (  
-    <div id='App' className="App">
+      getClassicSpell(recentVersion).then((response) =>
+        setClassicSpellList(response)
+      )
+    } else {
+      isMounted.current = true
+    }
+  }, [recentVersion])
+
+  return (
+    <div id="App" className="App">
       <Routes>
-        <Route path="/" element={<Layout recentVersion={recentVersion}/>}>
-          <Route index element={<Main />}/>
-          <Route path="board" element={
-            <Board 
-            recentVersion={recentVersion} 
-            ascendingChampionDataList={ascendingChampionDataList}
-            classicSpellList={classicSpellList}/>
-          }/>
-          <Route path="analysis" element={<div></div>}/>
+        <Route path="/" element={<Layout recentVersion={recentVersion} />}>
+          <Route index element={<Main />} />
+          <Route path="board" element={<Board {...boardProps} />} />
+          <Route path="analysis" element={<div></div>} />
         </Route>
       </Routes>
-    </div>   
+    </div>
   )
 }

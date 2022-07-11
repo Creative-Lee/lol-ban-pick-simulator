@@ -1,0 +1,30 @@
+.summoner__name {
+  position: absolute;
+  bottom: 0.3vw;
+
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 8vw;
+  border: none;
+  color: #fff;
+  z-index: 2;
+  text-align: center;
+  font-size: 1vw;
+}
+
+.blue-team__summoners {
+  .summoner__name {
+    right: 0.3vw;
+    &:hover {
+      background-color: #bcbcbc78;
+    }
+  }
+}
+
+.red-team__summoners {
+  .summoner__name {
+    left: 0.3vw;
+    &:hover {
+      background-color: #ccccccb7;
+    }
+  }
+}

@@ -1,0 +1,119 @@
+.champion-select-board {
+  display: flex;
+  flex: 1.5 0;
+  width: 100%;
+  height: 100%;
+  padding: 0.5vw 0 0;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 1.5vw;
+
+  .champion__select-option {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+
+    width: 100%;
+    padding: 10px 0;
+
+    .search {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background-color: #cccccc8f;
+
+      .search-input-label {
+        display: flex;
+        width: 15px;
+        height: 15px;
+        margin-left: 5px;
+
+        cursor: pointer;
+
+        .search-icon {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .search-input {
+        background-color: transparent;
+        border: none;
+
+        &::placeholder {
+          font-size: 15px;
+          font-weight: 700;
+          color: white;
+        }
+        &:active {
+          border: 0;
+        }
+      }
+    }
+  }
+
+  .champions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 0px 8px;
+    overflow: auto;
+    height: 70%;
+
+    .champion__card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 4vw;
+      margin: 0.3vw 0;
+      cursor: pointer;
+      filter: contrast(1.1);
+
+      &:hover {
+        opacity: 0.5;
+      }
+
+      &[data-picked="true"] {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+      &[data-banned="true"] {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+
+      // img[alt='no-ban-icon']{
+      //   border : 1px solid rgb(66, 66, 66);
+      // }
+      .champion__name {
+        width: 100%;
+        text-align: center;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .champion__select-button {
+    position: relative;
+    width: 15vw;
+    height: 3vw;
+    margin-top: 20px;
+    border: none;
+    border-radius: 7px;
+    color: #fff;
+    letter-spacing: 1px;
+    background-color: #00000093;
+    z-index: 1;
+
+    &:hover {
+      background-color: #000000bb;
+    }
+  }
+}

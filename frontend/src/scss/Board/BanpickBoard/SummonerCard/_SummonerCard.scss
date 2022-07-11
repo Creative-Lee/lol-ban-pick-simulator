@@ -1,0 +1,40 @@
+@import "./SummonerChamp/_SummonerChamp";
+@import "./SummonerName/_SummonerName";
+@import "./SummonerSpell/_SummonerSpell";
+
+.summoner__card {
+  position: relative;
+  width: 90%;
+  height: 100%;
+  margin-bottom: 0.3vw;
+  overflow: hidden;
+  cursor: pointer;
+
+  &:nth-child(3) {
+    margin-bottom: 1vw;
+  }
+  &:nth-child(5) {
+    margin: 0;
+  }
+}
+
+.blue-team__summoners {
+  .summoner__card {
+    background-color: #6e83f81c;
+
+    &[data-current-target="true"] {
+      border-right: solid 5px rgb(85, 85, 255);
+    }
+  }
+}
+
+.red-team__summoners {
+  align-items: flex-end;
+
+  .summoner__card {
+    background-color: #f86e6e1c;
+    &[data-current-target="true"] {
+      border-left: solid 5px rgb(255, 85, 85);
+    }
+  }
+}

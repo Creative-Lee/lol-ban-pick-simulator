@@ -1,0 +1,32 @@
+.banned-champion-wrap {
+  position: relative;
+  width: 4.2vw;
+  height: 4.2vw;
+  cursor: pointer;
+
+  &::after {
+    content: "";
+    width: 1.1vw;
+    height: 1.1vw;
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    z-index: 5;
+    background: url(../../../../Assets/img/css_url_img/banned-icon.png) no-repeat center;
+    background-size: cover;
+  }
+
+  .banned-champion {
+    filter: brightness(0.7);
+
+    &[data-current-target="true"] {
+      filter: brightness(1);
+      background-color: #bcbcbc78;
+    }
+
+    &:hover {
+      filter: brightness(1);
+    }
+  }
+}
