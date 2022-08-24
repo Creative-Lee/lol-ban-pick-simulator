@@ -5,7 +5,7 @@
   width: 100%;
   height: 100%;
   z-index: 1;
-  object-fit: none;
+  object-fit: cover;
   filter: contrast(120%) brightness(1);
 
   &[data-current-target="true"] {
@@ -19,414 +19,551 @@
   }
 
   &[id="Garen"] {
+    object-fit: none;
     object-position: 91% 32%;
   }
   &[id="Galio"] {
+    object-fit: none;
     object-position: 48% 6%;
   }
   &[id="Gangplank"] {
+    object-fit: none;
     object-position: 79% 20%;
   }
   &[id="Gragas"] {
+    object-fit: none;
     object-position: 60% 20%;
   }
   &[id="Graves"] {
+    object-fit: none;
     object-position: 86% 7%;
   }
   &[id="Gwen"] {
+    object-fit: none;
     object-position: 50% 10%;
   }
   &[id="Gnar"] {
+    object-fit: none;
     object-position: 82% 60%;
   }
   &[id="Nami"] {
+    object-fit: none;
     object-position: 89% 23%;
   }
   &[id="Nasus"] {
+    object-fit: none;
     object-position: 71% 18%;
   }
   &[id="Nautilus"] {
+    object-fit: none;
     object-position: 83% 19%;
   }
   &[id="Nocturne"] {
+    object-fit: none;
     object-position: 65% 49%;
   }
   &[id="Nunu"] {
+    object-fit: none;
     object-position: 73% 75%;
   }
   &[id="Nidalee"] {
+    object-fit: none;
     object-position: 88% 12%;
   }
   &[id="Neeko"] {
+    object-fit: none;
     object-position: 48% 23%;
   }
   &[id="Darius"] {
+    object-fit: none;
     object-position: 56% 9%;
   }
   &[id="Diana"] {
+    object-fit: none;
     object-position: 76% 36%;
   }
   &[id="Draven"] {
+    object-fit: none;
     object-position: 82% 26%;
   }
   &[id="Ryze"] {
+    object-fit: none;
     object-position: 90% 35%;
   }
   &[id="Rakan"] {
+    object-fit: none;
     object-position: 55% 10%;
   }
   &[id="Rammus"] {
+    object-fit: none;
     object-position: 67% 45%;
   }
   &[id="Lux"] {
+    object-fit: none;
     object-position: 62% 23%;
   }
   &[id="Rumble"] {
+    object-fit: none;
     object-position: 76% 25%;
   }
   &[id="Renata"] {
+    object-fit: none;
     object-position: 55% 7%;
   }
   &[id="Renekton"] {
+    object-fit: none;
     object-position: 65% 17%;
   }
   &[id="Leona"] {
+    object-fit: none;
     object-position: 86% 7%;
   }
   &[id="RekSai"] {
+    object-fit: none;
     object-position: 55% 45%;
   }
   &[id="Rell"] {
+    object-fit: none;
     object-position: 45% 14%;
   }
   &[id="Rengar"] {
+    object-fit: none;
     object-position: 74% 32%;
   }
   &[id="Lucian"] {
+    object-fit: none;
     object-position: 81% 40%;
   }
   &[id="Lulu"] {
+    object-fit: none;
     object-position: 78% 37%;
   }
   &[id="Leblanc"] {
+    object-fit: none;
     object-position: 45% 43%;
   }
   &[id="LeeSin"] {
+    object-fit: none;
     object-position: 70% 17%;
   }
   &[id="Riven"] {
+    object-fit: none;
     object-position: 87% 19%;
   }
   &[id="Lissandra"] {
+    object-fit: none;
     object-position: 74% 13%;
   }
   &[id="Lillia"] {
+    object-fit: none;
     object-position: 40% 17%;
   }
   &[id="MasterYi"] {
+    object-fit: none;
     object-position: 93% 28%;
   }
   &[id="Maokai"] {
+    object-fit: none;
     object-position: 66% 40%;
   }
   &[id="Malzahar"] {
+    object-fit: none;
     object-position: 70% 16%;
   }
   &[id="Malphite"] {
+    object-fit: none;
     object-position: 74% 68%;
   }
   &[id="Mordekaiser"] {
+    object-fit: none;
     object-position: 42% 12%;
   }
   &[id="Morgana"] {
+    object-fit: none;
     object-position: 86% 24%;
   }
   &[id="DrMundo"] {
+    object-fit: none;
     object-position: 54% 12%;
   }
   &[id="MissFortune"] {
+    object-fit: none;
     object-position: 85% 30%;
   }
   &[id="Bard"] {
+    object-fit: none;
     object-position: 65% 20%;
   }
   &[id="Varus"] {
+    object-fit: none;
     object-position: 55% 11%;
   }
   &[id="Vi"] {
+    object-fit: none;
     object-position: 75% 23%;
   }
   &[id="Veigar"] {
+    object-fit: none;
     object-position: 71% 25%;
   }
   &[id="Vayne"] {
+    object-fit: none;
     object-position: 97% 19%;
   }
   &[id="Vex"] {
+    object-fit: none;
     object-position: 70% 30%;
   }
   &[id="Velkoz"] {
+    object-fit: none;
     object-position: 61% 40%;
   }
   &[id="Volibear"] {
+    object-fit: none;
     object-position: 57% 9%;
   }
   &[id="Braum"] {
+    object-fit: none;
     object-position: 90% 13%;
   }
   &[id="Brand"] {
+    object-fit: none;
     object-position: 88% 20%;
   }
   &[id="Vladimir"] {
+    object-fit: none;
     object-position: 87% 15%;
   }
   &[id="Blitzcrank"] {
+    object-fit: none;
     object-position: 78% 30%;
   }
   &[id="Viego"] {
+    object-fit: none;
     object-position: 87% 9%;
   }
   &[id="Viktor"] {
+    object-fit: none;
     object-position: 69% 20%;
   }
   &[id="Belveth"] {
+    object-fit: none;
     object-position: 50% 5%;
   }
   &[id="Poppy"] {
+    object-fit: none;
     object-position: 74% 20%;
   }
   &[id="Samira"] {
+    object-fit: none;
     object-position: 60% 15%;
   }
   &[id="Sion"] {
+    object-fit: none;
     object-position: 75% 13%;
   }
   &[id="Sylas"] {
+    object-fit: none;
     object-position: 53% 22%;
   }
   &[id="Shaco"] {
+    object-fit: none;
     object-position: 77% 18%;
   }
   &[id="Senna"] {
+    object-fit: none;
     object-position: 52% 20%;
   }
   &[id="Seraphine"] {
+    object-fit: none;
     object-position: 42% 11%;
   }
   &[id="Sejuani"] {
+    object-fit: none;
     object-position: 57% 10%;
   }
   &[id="Sett"] {
+    object-fit: none;
     object-position: 48% 3%;
   }
   &[id="Sona"] {
+    object-fit: none;
     object-position: 72% 15%;
   }
   &[id="Soraka"] {
+    object-fit: none;
     object-position: 54% 10%;
   }
   &[id="Shen"] {
+    object-fit: none;
     object-position: 89% 7%;
   }
   &[id="Shyvana"] {
+    object-fit: none;
     object-position: 78% 16%;
   }
   &[id="Swain"] {
+    object-fit: none;
     object-position: 76% 9%;
   }
   &[id="Skarner"] {
+    object-fit: none;
     object-position: 82% 38%;
   }
   &[id="Sivir"] {
+    object-fit: none;
     object-position: 60% 33%;
   }
   &[id="XinZhao"] {
+    object-fit: none;
     object-position: 52% 18%;
   }
   &[id="Syndra"] {
+    object-fit: none;
     object-position: 83% 19%;
   }
   &[id="Singed"] {
+    object-fit: none;
     object-position: 82% 18%;
   }
   &[id="Thresh"] {
+    object-fit: none;
     object-position: 67% 22%;
   }
   &[id="Ahri"] {
+    object-fit: none;
     object-position: 65% 17%;
   }
   &[id="Amumu"] {
+    object-fit: none;
     object-position: 76% 30%;
   }
   &[id="AurelionSol"] {
+    object-fit: none;
     object-position: 65% 17%;
   }
   &[id="Ivern"] {
+    object-fit: none;
     object-position: 55% 20%;
   }
   &[id="Azir"] {
+    object-fit: none;
     object-position: 85% 18%;
   }
   &[id="Akali"] {
+    object-fit: none;
     object-position: 50% 10%;
   }
   &[id="Akshan"] {
+    object-fit: none;
     object-position: 75% 55%;
   }
   &[id="Aatrox"] {
+    object-fit: none;
     object-position: 74% 27%;
   }
   &[id="Aphelios"] {
+    object-fit: none;
     object-position: 56% 15%;
   }
   &[id="Alistar"] {
+    object-fit: none;
     object-position: 63% 42%;
   }
   &[id="Annie"] {
+    object-fit: none;
     object-position: 91% 33%;
   }
   &[id="Anivia"] {
+    object-fit: none;
     object-position: 51% 38%;
   }
   &[id="Ashe"] {
+    object-fit: none;
     object-position: 73% 20%;
   }
   &[id="Yasuo"] {
+    object-fit: none;
     object-position: 90% 33%;
   }
   &[id="Ekko"] {
+    object-fit: none;
     object-position: 82% 18%;
   }
   &[id="Elise"] {
+    object-fit: none;
     object-position: 81% 15%;
   }
   &[id="MonkeyKing"] {
+    object-fit: none;
     object-position: 67% 25%;
   }
   &[id="Ornn"] {
+    object-fit: none;
     object-position: 50% 33%;
   }
   &[id="Orianna"] {
+    object-fit: none;
     object-position: 89% 10%;
   }
   &[id="Olaf"] {
+    object-fit: none;
     object-position: 67% 26%;
   }
   &[id="Yone"] {
+    object-fit: none;
     object-position: 62% 5%;
   }
   &[id="Yorick"] {
+    object-fit: none;
     object-position: 70% 6%;
   }
   &[id="Udyr"] {
-    object-position: 50% 50%;
+    object-fit: none;
+    object-position: 60% 10%;
   }
   &[id="Urgot"] {
+    object-fit: none;
     object-position: 59% 8%;
   }
   &[id="Warwick"] {
+    object-fit: none;
     object-position: 73% 60%;
   }
   &[id="Yuumi"] {
+    object-fit: none;
     object-position: 43% 18%;
   }
   &[id="Irelia"] {
+    object-fit: none;
     object-position: 50% 5%;
   }
   &[id="Evelynn"] {
+    object-fit: none;
     object-position: 51% 13%;
   }
   &[id="Ezreal"] {
+    object-fit: none;
     object-position: 67% 28%;
   }
   &[id="Illaoi"] {
+    object-fit: none;
     object-position: 63% 2%;
   }
   &[id="JarvanIV"] {
+    object-fit: none;
     object-position: 82% 18%;
   }
   &[id="Xayah"] {
+    object-fit: none;
     object-position: 70% 28%;
   }
   &[id="Zyra"] {
+    object-fit: none;
     object-position: 85% 23%;
   }
   &[id="Zac"] {
+    object-fit: none;
     object-position: 74% 59%;
   }
   &[id="Janna"] {
+    object-fit: none;
     object-position: 94% 27%;
   }
   &[id="Jax"] {
+    object-fit: none;
     object-position: 77% 18%;
   }
   &[id="Zed"] {
+    object-fit: none;
     object-position: 70% 13%;
   }
   &[id="Xerath"] {
+    object-fit: none;
     object-position: 60% 8%;
   }
   &[id="Zeri"] {
+    object-fit: none;
     object-position: 59% 23%;
   }
   &[id="Jayce"] {
+    object-fit: none;
     object-position: 90% 25%;
   }
   &[id="Zoe"] {
+    object-fit: none;
     object-position: 57% 22%;
   }
   &[id="Ziggs"] {
+    object-fit: none;
     object-position: 80% 47%;
   }
   &[id="Jhin"] {
+    object-fit: none;
     object-position: 63% 18%;
   }
   &[id="Zilean"] {
+    object-fit: none;
     object-position: 63% 20%;
   }
   &[id="Jinx"] {
+    object-fit: none;
     object-position: 71% 17%;
   }
   &[id="Chogath"] {
+    object-fit: none;
     object-position: 61% 30%;
   }
   &[id="Karma"] {
+    object-fit: none;
     object-position: 83% 14%;
   }
   &[id="Camille"] {
+    object-fit: none;
     object-position: 100% 14%;
   }
   &[id="Kassadin"] {
+    object-fit: none;
     object-position: 72% 5%;
   }
   &[id="Karthus"] {
+    object-fit: none;
     object-position: 76% 9%;
   }
   &[id="Cassiopeia"] {
+    object-fit: none;
     object-position: 65% 33%;
   }
   &[id="Kaisa"] {
+    object-fit: none;
     object-position: 50% 10%;
   }
   &[id="Khazix"] {
+    object-fit: none;
     object-position: 83% 58%;
   }
   &[id="Katarina"] {
+    object-fit: none;
     object-position: 67% 40%;
   }
   &[id="Kalista"] {
+    object-fit: none;
     object-position: 70% 18%;
   }
   &[id="Kennen"] {
+    object-fit: none;
     object-position: 85% 34%;
   }
   &[id="Caitlyn"] {
+    object-fit: none;
     object-position: 84% 15%;
   }
   &[id="Kayn"] {
+    object-fit: none;
     object-position: 50% 45%;
   }
   &[id="Kayle"] {
+    object-fit: none;
     object-position: 83% 23%;
   }
   &[id="KogMaw"] {
@@ -435,28 +572,36 @@
     object-position: 80% 35%;
   }
   &[id="Corki"] {
+    object-fit: none;
     object-position: 75% 28%;
   }
   &[id="Quinn"] {
+    object-fit: none;
     object-position: 70% 30%;
   }
   &[id="Kled"] {
+    object-fit: none;
     object-position: 90% 17%;
   }
   &[id="Qiyana"] {
+    object-fit: none;
     object-position: 53% 18%;
   }
   &[id="Kindred"] {
+    object-fit: none;
     object-position: 63% 33%;
     filter: brightness(2);
   }
   &[id="Taric"] {
+    object-fit: none;
     object-position: 95% 5%;
   }
   &[id="Talon"] {
+    object-fit: none;
     object-position: 72% 30%;
   }
   &[id="Taliyah"] {
+    object-fit: none;
     object-position: 87% 19%;
   }
   &[id="TahmKench"] {
@@ -465,43 +610,60 @@
     object-position: 50% 0%;
   }
   &[id="Trundle"] {
+    object-fit: none;
     object-position: 55% 30%;
   }
   &[id="Tristana"] {
+    object-fit: none;
     object-position: 70% 25%;
   }
   &[id="Tryndamere"] {
+    object-fit: none;
     object-position: 75% 18%;
   }
   &[id="TwistedFate"] {
+    object-fit: none;
     object-position: 85% 20%;
   }
   &[id="Twitch"] {
+    object-fit: none;
     object-position: 65% 35%;
   }
   &[id="Teemo"] {
+    object-fit: none;
     object-position: 73% 28%;
   }
   &[id="Pyke"] {
+    object-fit: none;
     object-position: 50% 32%;
   }
   &[id="Pantheon"] {
+    object-fit: none;
     object-position: 53% 18%;
   }
   &[id="Fiddlesticks"] {
+    object-fit: none;
     object-position: 52% 27%;
   }
   &[id="Fiora"] {
+    object-fit: none;
     object-position: 70% 7%;
   }
   &[id="Fizz"] {
+    object-fit: none;
     object-position: 95% 18%;
   }
   &[id="Heimerdinger"] {
+    object-fit: none;
     object-position: 80% 40%;
   }
   &[id="Hecarim"] {
+    object-fit: none;
     object-position: 85% 10%;
+  }
+  &[id='Nilah']{
+    object-fit: none;
+    object-position: 67% 30%;
   }
 }
 
@@ -535,6 +697,9 @@
       transform: scaleX(-1);
     }
     &[id="Nidalee"] {
+      transform: scaleX(-1);
+    }
+    &[id='Nilah']{
       transform: scaleX(-1);
     }
     &[id="Neeko"] {
@@ -721,9 +886,7 @@
     &[id="Yorick"] {
       transform: scaleX(-1);
     }
-    &[id="Udyr"] {
-      transform: scaleX(-1);
-    }
+   
     &[id="Urgot"] {
       transform: scaleX(-1);
     }
@@ -994,6 +1157,9 @@
       transform: scaleX(-1);
     }
     &[id="Tryndamere"] {
+      transform: scaleX(-1);
+    }
+    &[id="Udyr"] {
       transform: scaleX(-1);
     }
     &[id="Twitch"] {
