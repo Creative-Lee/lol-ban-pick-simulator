@@ -1,1 +1,1 @@
-#LOL ban-pick simulator
+[#LOL ban-pick simulator](https://banpick-simulator.netlify.app)
