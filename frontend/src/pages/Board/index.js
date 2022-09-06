@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { BanpickBoard, SettingBoard } from '../../components'
+import { BanpickBoard, SettingBoard } from '../../Components'
 
 export default function Board({
   recentVersion,
