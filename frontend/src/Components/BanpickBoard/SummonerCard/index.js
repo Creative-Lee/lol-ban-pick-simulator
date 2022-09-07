@@ -1,25 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
+
 import SummonerChamp from './SummonerChamp'
 import SummonerName from './SummonerName'
 import SummonerSpell from './SummonerSpell'
+import { summonerCardContext } from '../index'
 
-export default function SummonerCard({
-  summoner,
-  teamColor,
-  index,
-  currentSelectingTeam,
-  setCurrentSelectingTeam,
-  currentSelectingIndex,
-  setCurrentSelectingIndex,
-  pickBanPhase,
-  setPickBanPhase,
-  setGlobalPhase,
-  summonerName,
-  setSummonerName,
-  currentSelectingSpellNumber,
-  setCurrentSelectingSpellNumber,
-  recentVersion,
-}) {
+export default function SummonerCard({ teamColor, index, summoner }) {
+  const { currentSelectingTeam, currentSelectingIndex, pickBanPhase } =
+    useContext(summonerCardContext)
   return (
     <div
       className='summoner__card'
@@ -29,39 +17,9 @@ export default function SummonerCard({
         pickBanPhase === 'Pick'
       }
     >
-      <SummonerChamp
-        summoner={summoner}
-        teamColor={teamColor}
-        index={index}
-        currentSelectingTeam={currentSelectingTeam}
-        setCurrentSelectingTeam={setCurrentSelectingTeam}
-        currentSelectingIndex={currentSelectingIndex}
-        setCurrentSelectingIndex={setCurrentSelectingIndex}
-        pickBanPhase={pickBanPhase}
-        setPickBanPhase={setPickBanPhase}
-        setGlobalPhase={setGlobalPhase}
-      />
-      <SummonerName
-        teamColor={teamColor}
-        index={index}
-        summonerName={summonerName}
-        setSummonerName={setSummonerName}
-      />
-      <SummonerSpell
-        summoner={summoner}
-        teamColor={teamColor}
-        index={index}
-        currentSelectingTeam={currentSelectingTeam}
-        setCurrentSelectingTeam={setCurrentSelectingTeam}
-        currentSelectingIndex={currentSelectingIndex}
-        setCurrentSelectingIndex={setCurrentSelectingIndex}
-        pickBanPhase={pickBanPhase}
-        setPickBanPhase={setPickBanPhase}
-        setGlobalPhase={setGlobalPhase}
-        currentSelectingSpellNumber={currentSelectingSpellNumber}
-        setCurrentSelectingSpellNumber={setCurrentSelectingSpellNumber}
-        recentVersion={recentVersion}
-      />
+      <SummonerChamp teamColor={teamColor} summoner={summoner} index={index} />
+      <SummonerName teamColor={teamColor} summoner={summoner} index={index} />
+      <SummonerSpell teamColor={teamColor} summoner={summoner} index={index} />
     </div>
   )
 }

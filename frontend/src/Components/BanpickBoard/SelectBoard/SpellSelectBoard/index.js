@@ -1,19 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import SpellCard from './SpellCard'
-
-export default function SpellSelectBoard({
-  classicSpellList,
-  currentSelectingTeam,
-  currentSelectingIndex,
-  currentSelectingSpellNumber,
-  setCurrentSelectingSpellNumber,
-  zoomViewImgSrc,
-  onClickSpellSelectButton,
-  summonerName,
-  recentVersion,
-  isPickedSpell,
-  updateSpell,
-}) {
+import { selectBoardContext } from '../../index'
+export default function SpellSelectBoard() {
+  const {
+    classicSpellList,
+    currentSelectingTeam,
+    currentSelectingIndex,
+    currentSelectingSpellNumber,
+    setCurrentSelectingSpellNumber,
+    zoomViewImgSrc,
+    onClickSpellSelectButton,
+    summonerName,
+  } = useContext(selectBoardContext)
   return (
     <div
       className='spell-select-board'
@@ -49,13 +47,7 @@ export default function SpellSelectBoard({
       </div>
       <div className='spells'>
         {classicSpellList.map((spell, index) => (
-          <SpellCard
-            spell={spell}
-            key={index}
-            recentVersion={recentVersion}
-            isPickedSpell={isPickedSpell}
-            updateSpell={updateSpell}
-          />
+          <SpellCard spell={spell} key={index} />
         ))}
       </div>
       <div className='spell__select-button-wrap'>

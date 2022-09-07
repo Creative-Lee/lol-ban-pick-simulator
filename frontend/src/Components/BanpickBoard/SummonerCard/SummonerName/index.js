@@ -1,11 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { summonerCardContext } from '../../index'
 
-export default function SummonerName({
-  teamColor,
-  index,
-  summonerName,
-  setSummonerName,
-}) {
+export default function SummonerName({ teamColor, index }) {
+  const { summonerName, setSummonerName } = useContext(summonerCardContext)
   const onChangeSummonerName = (e, colorAndIndex) =>
     setSummonerName({ ...summonerName, [colorAndIndex]: e.target.value })
 

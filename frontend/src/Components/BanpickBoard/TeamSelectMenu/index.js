@@ -1,29 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { transparencyImg } from '../../../Assets/img/import_img/index'
+import { teamSelectMenuContext } from '../index'
 
-export default function TeamSelectMenu({
-  teamColor,
-  teamName,
-  setTeamName,
-  inlineStyle,
-}) {
+export default function TeamSelectMenu({ teamColor, inlineStyle }) {
+  const { blueTeamName, setBlueTeamName, redTeamName, setRedTeamName } =
+    useContext(teamSelectMenuContext)
+
+  const teamName = teamColor === 'blue' ? blueTeamName : redTeamName
+  const setTeamName = teamColor === 'blue' ? setBlueTeamName : setRedTeamName
+
   const [isTeamSelectMenuOpen, setIsTeamSelectMenuOpen] = useState({
     blue: false,
     red: false,
   })
 
-  const teamArr = [
-    'KDF',
-    'T1',
-    'DK',
-    'BRO',
-    'DRX',
-    'GEN',
-    'HLE',
-    'KT',
-    'LSB',
-    'NS',
-  ]
+  const teamArr = ['KDF', 'T1', 'DK', 'BRO', 'DRX', 'GEN', 'HLE', 'KT', 'LSB', 'NS']
 
   const toggleIsTeamSelectMenuOpen = (teamColor) => {
     setIsTeamSelectMenuOpen((prevState) => ({
@@ -39,12 +30,12 @@ export default function TeamSelectMenu({
   }
 
   return (
-    <label className="team__select-menu" style={inlineStyle.teamSelectMenu}>
-      <div className="team__name">
+    <label className='team__select-menu' style={inlineStyle.teamSelectMenu}>
+      <div className='team__name'>
         <input
-          className="name__button"
-          type="button"
-          id="name-input"
+          className='name__button'
+          type='button'
+          id='name-input'
           onClick={() => {
             toggleIsTeamSelectMenuOpen(teamColor)
           }}
@@ -54,32 +45,32 @@ export default function TeamSelectMenu({
           value={teamName}
         />
         <ul
-          className="name__select"
+          className='name__select'
           style={inlineStyle.nameSelect}
           data-html2canvas-ignore
         >
           {isTeamSelectMenuOpen[teamColor] &&
             teamArr.map((team, index) => (
               <li
-                className="name__option"
+                className='name__option'
                 key={index}
                 onMouseDown={() => {
                   setTeamName(team)
                 }}
               >
                 <img
-                  className="option__logo"
-                  alt="logo"
+                  className='option__logo'
+                  alt='logo'
                   src={`${process.env.PUBLIC_URL}/assets/team_logo/${team}.png`}
                 />
-                <span className="option__span">{team}</span>
+                <span className='option__span'>{team}</span>
               </li>
             ))}
         </ul>
       </div>
-      <div className="team__logo">
+      <div className='team__logo'>
         <img
-          className="logo"
+          className='logo'
           alt={`${teamColor}-team-logo-${teamName}`}
           src={
             teamName === 'Blue' || teamName === 'Red'

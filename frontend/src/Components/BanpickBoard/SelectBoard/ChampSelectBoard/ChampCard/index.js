@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { selectBoardContext } from '../../../index'
 
-export default function ChampCard({
-  champData,
-  updateSummonerData,
-  isPickedChampion,
-  isBannedChampion,
-  recentVersion,
-  pickBanPhase,
-}) {
+export default function ChampCard({ champData }) {
+  const {
+    updateSummonerData,
+    isPickedChampion,
+    isBannedChampion,
+    recentVersion,
+    pickBanPhase,
+  } = useContext(selectBoardContext)
   return (
     <div
       className='champion__card'
