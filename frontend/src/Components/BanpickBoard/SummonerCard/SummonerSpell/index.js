@@ -1,21 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { transparencyImg } from '../../../../Assets/img/import_img'
+import { summonerCardContext } from '../..'
+export default function SummonerSpell({ teamColor, summoner, index }) {
+  const {
+    currentSelectingTeam,
+    currentSelectingIndex,
+    pickBanPhase,
+    currentSelectingSpellNumber,
+    recentVersion,
 
-export default function SummonerSpell({
-  summoner,
-  teamColor,
-  index,
-  currentSelectingTeam,
-  setCurrentSelectingTeam,
-  currentSelectingIndex,
-  setCurrentSelectingIndex,
-  pickBanPhase,
-  setPickBanPhase,
-  setGlobalPhase,
-  currentSelectingSpellNumber,
-  setCurrentSelectingSpellNumber,
-  recentVersion,
-}) {
+    setCurrentSelectingSpellNumber,
+    setCurrentSelectingIndex,
+    setCurrentSelectingTeam,
+    setPickBanPhase,
+    setGlobalPhase,
+  } = useContext(summonerCardContext)
   return (
     <div className='summoner__spell-wrap'>
       <img

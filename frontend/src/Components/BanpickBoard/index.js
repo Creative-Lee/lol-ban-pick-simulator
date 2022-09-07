@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, createContext } from 'react'
 import { Container, Row } from 'react-bootstrap'
 import Hangul from 'hangul-js'
 
@@ -11,6 +11,11 @@ import SelectBoard from './SelectBoard'
 import GoalBoard from './GoalBoard'
 import BanChampCard from './BanChampCard'
 import MatchResult from './MatchResult'
+
+export const summonerCardContext = createContext({})
+export const selectBoardContext = createContext({})
+export const goalBoardContext = createContext({})
+export const teamSelectMenuContext = createContext({})
 
 export default function BanpickBoard({
   boardPhase,
@@ -100,9 +105,11 @@ export default function BanpickBoard({
         : [redTeamSummoner, setRedTeamSummoner]
     let updatedArr = [...team]
 
-    updatedArr[currentSelectingIndex] = team[
-      currentSelectingIndex
-    ].updateSummoner({ type: type, data: data, isConfirmed: isConfirmed })
+    updatedArr[currentSelectingIndex] = team[currentSelectingIndex].updateSummoner({
+      type: type,
+      data: data,
+      isConfirmed: isConfirmed,
+    })
 
     setTeam(updatedArr)
   }
@@ -120,14 +127,11 @@ export default function BanpickBoard({
       (currentSelectingSpellNumber === 1 && currentSpell2 === spellName) ||
       (currentSelectingSpellNumber === 2 && currentSpell1 === spellName)
     ) {
-      updatedArr[currentSelectingIndex] =
-        team[currentSelectingIndex].switchingSpells()
+      updatedArr[currentSelectingIndex] = team[currentSelectingIndex].switchingSpells()
       setTeam(updatedArr)
       return
     }
-    updatedArr[currentSelectingIndex] = team[
-      currentSelectingIndex
-    ].updateSummoner({
+    updatedArr[currentSelectingIndex] = team[currentSelectingIndex].updateSummoner({
       type: `spell${currentSelectingSpellNumber}`,
       data: spellName,
       isConfirmed: false,
@@ -136,8 +140,7 @@ export default function BanpickBoard({
   }
 
   const isCurrentSelectingDataEmpty = (type) => {
-    let team =
-      currentSelectingTeam === 'blue' ? blueTeamSummoner : redTeamSummoner
+    let team = currentSelectingTeam === 'blue' ? blueTeamSummoner : redTeamSummoner
     return team[currentSelectingIndex].isEmpty(type)
   }
 
@@ -164,8 +167,7 @@ export default function BanpickBoard({
           : [redTeamSummoner, setRedTeamSummoner]
       let updatedArr = [...team]
 
-      updatedArr[currentSelectingIndex] =
-        team[currentSelectingIndex].confirmSpells()
+      updatedArr[currentSelectingIndex] = team[currentSelectingIndex].confirmSpells()
       setTeam(updatedArr)
     }
   }
@@ -174,9 +176,7 @@ export default function BanpickBoard({
     const blueTeamPicked = blueTeamSummoner.map(
       (summoner) => summoner.pickedChampion.data
     )
-    const redTeamPicked = redTeamSummoner.map(
-      (summoner) => summoner.pickedChampion.data
-    )
+    const redTeamPicked = redTeamSummoner.map((summoner) => summoner.pickedChampion.data)
     const allTeamPickedList = [...blueTeamPicked, ...redTeamPicked]
 
     return allTeamPickedList.includes(championName)
@@ -186,22 +186,17 @@ export default function BanpickBoard({
     const blueTeamBanned = blueTeamSummoner.map(
       (summoner) => summoner.bannedChampion.data
     )
-    const redTeamBanned = redTeamSummoner.map(
-      (summoner) => summoner.bannedChampion.data
-    )
+    const redTeamBanned = redTeamSummoner.map((summoner) => summoner.bannedChampion.data)
     const allTeamBannedList = [...blueTeamBanned, ...redTeamBanned]
 
     return allTeamBannedList.includes(championName)
   }
 
   const isPickedSpell = (spellName) => {
-    let team =
-      currentSelectingTeam === 'blue' ? blueTeamSummoner : redTeamSummoner
+    let team = currentSelectingTeam === 'blue' ? blueTeamSummoner : redTeamSummoner
 
-    const isMatchedSummonerSpell1 =
-      team[currentSelectingIndex].spell1.data === spellName
-    const isMatchedSummonerSpell2 =
-      team[currentSelectingIndex].spell2.data === spellName
+    const isMatchedSummonerSpell1 = team[currentSelectingIndex].spell1.data === spellName
+    const isMatchedSummonerSpell2 = team[currentSelectingIndex].spell2.data === spellName
 
     return isMatchedSummonerSpell1 || isMatchedSummonerSpell2
   }
@@ -217,8 +212,7 @@ export default function BanpickBoard({
     }
   }
   const zoomViewImgSrc = (spellNumber) => {
-    let team =
-      currentSelectingTeam === 'blue' ? blueTeamSummoner : redTeamSummoner
+    let team = currentSelectingTeam === 'blue' ? blueTeamSummoner : redTeamSummoner
     return team[currentSelectingIndex][`spell${spellNumber}`].data === ''
       ? transparencyImg
       : `${process.env.REACT_APP_API_BASE_URL}/cdn/${recentVersion}/img/spell/${
@@ -282,8 +276,7 @@ export default function BanpickBoard({
       .map((summoner) => summoner.spell2.isConfirmed)
       .includes(false)
 
-    let blueTeamSpellPhaseEnd =
-      blueTeamSpell1Confirmed && blueTeamSpell2Confirmed
+    let blueTeamSpellPhaseEnd = blueTeamSpell1Confirmed && blueTeamSpell2Confirmed
     let redTeamSpellPhaseEnd = redTeamSpell1Confirmed && redTeamSpell2Confirmed
 
     return blueTeamSpellPhaseEnd && redTeamSpellPhaseEnd
@@ -296,8 +289,7 @@ export default function BanpickBoard({
   const currentSelectingIndexController = () => {
     const notConfirmedIndexChecker = () => {
       let notConfirmedIndex
-      let team =
-        currentSelectingTeam === 'blue' ? blueTeamSummoner : redTeamSummoner
+      let team = currentSelectingTeam === 'blue' ? blueTeamSummoner : redTeamSummoner
 
       notConfirmedIndex = team
         .map((summoner) => summoner[currentSelectingType()].isConfirmed)
@@ -361,8 +353,7 @@ export default function BanpickBoard({
   }
   const currentSelectingSpellNumberController = () => {
     const isCurrentIndexSpellAllConfirmed = () => {
-      let team =
-        currentSelectingTeam === 'blue' ? blueTeamSummoner : redTeamSummoner
+      let team = currentSelectingTeam === 'blue' ? blueTeamSummoner : redTeamSummoner
       let spell1Confirmed = team[currentSelectingIndex].spell1.isConfirmed
       let spell2Confirmed = team[currentSelectingIndex].spell2.isConfirmed
 
@@ -382,14 +373,12 @@ export default function BanpickBoard({
   }
 
   const isCurrentSelectingIndexDataConfirmed = () => {
-    let team =
-      currentSelectingTeam === 'blue' ? blueTeamSummoner : redTeamSummoner
+    let team = currentSelectingTeam === 'blue' ? blueTeamSummoner : redTeamSummoner
     return team[currentSelectingIndex][currentSelectingType()].isConfirmed
   }
 
   const isCurrentSelectingTeamDataConfirmed = () => {
-    let team =
-      currentSelectingTeam === 'blue' ? blueTeamSummoner : redTeamSummoner
+    let team = currentSelectingTeam === 'blue' ? blueTeamSummoner : redTeamSummoner
 
     return !team
       .map((summoner) => summoner[currentSelectingType()].isConfirmed)
@@ -514,8 +503,7 @@ export default function BanpickBoard({
   })
   const [blueTeamName, setBlueTeamName] = useState('Blue')
   const [redTeamName, setRedTeamName] = useState('Red')
-  const [currentSelectingSpellNumber, setCurrentSelectingSpellNumber] =
-    useState(1) // 1, 2
+  const [currentSelectingSpellNumber, setCurrentSelectingSpellNumber] = useState(1) // 1, 2
   const [champDataList, setChampDataList] = useState([])
   const [searchInput, setSearchInput] = useState('')
   const [viewerInput, setViewerInput] = useState('')
@@ -551,17 +539,15 @@ export default function BanpickBoard({
     const letterMatchedChampNameListWithoutSpace = championNameList.filter(
       (championName) => searcher.search(championName.replace(/ /gi, '')) >= 0
     )
-    const chosungMatchedChampNameList = championNameList.filter(
-      (championName) => {
-        const champChosungStrArr = Hangul.d(championName, true)
-          .map((disEachLetterList) => disEachLetterList[0]) // ['ㄱ', 'ㄹ'] and ['ㄱ', 'ㄹ', 'ㅇ'] ...something
-          .join('') // ['ㄱㄹ'] and ['ㄱㄹㅇ'] ...something
-          .replace(/ /gi, '') // 띄어쓰기 제거
+    const chosungMatchedChampNameList = championNameList.filter((championName) => {
+      const champChosungStrArr = Hangul.d(championName, true)
+        .map((disEachLetterList) => disEachLetterList[0]) // ['ㄱ', 'ㄹ'] and ['ㄱ', 'ㄹ', 'ㅇ'] ...something
+        .join('') // ['ㄱㄹ'] and ['ㄱㄹㅇ'] ...something
+        .replace(/ /gi, '') // 띄어쓰기 제거
 
-        const searchInputChosungStrArr = Hangul.d(searchInput).join('') // ['ㄱ','ㄹ'] -> ['ㄱㄹ']
-        return champChosungStrArr.includes(searchInputChosungStrArr)
-      }
-    )
+      const searchInputChosungStrArr = Hangul.d(searchInput).join('') // ['ㄱ','ㄹ'] -> ['ㄱㄹ']
+      return champChosungStrArr.includes(searchInputChosungStrArr)
+    })
 
     const mergedChampNameList = letterMatchedChampNameList.concat(
       letterMatchedChampNameListWithoutSpace,
@@ -590,106 +576,116 @@ export default function BanpickBoard({
     activateSummonerNamePrefix()
     console.log('activate SummonerNamePrefix')
   }, [activateSummonerNamePrefix])
-
   return (
     <Container id='ban-pick-board' className='ban-pick-board'>
       <Row id='board-top' className='board-top'>
-        <TeamSelectMenu
-          teamColor={'blue'}
-          teamName={blueTeamName}
-          setTeamName={setBlueTeamName}
-          inlineStyle={{}}
-        />
-
+        <teamSelectMenuContext.Provider value={{ blueTeamName, setBlueTeamName }}>
+          <TeamSelectMenu teamColor={'blue'} inlineStyle={{}} />
+        </teamSelectMenuContext.Provider>
         <MatchInfo />
 
-        <TeamSelectMenu
-          teamColor={'red'}
-          teamName={redTeamName}
-          setTeamName={setRedTeamName}
-          inlineStyle={redTeamInlineStyle}
-        />
+        <teamSelectMenuContext.Provider value={{ redTeamName, setRedTeamName }}>
+          <TeamSelectMenu teamColor={'red'} inlineStyle={redTeamInlineStyle} />
+        </teamSelectMenuContext.Provider>
       </Row>
 
       <Row className='board-middle'>
-        <div className='blue-team__summoners'>
-          {blueTeamSummoner.map((summoner, index) => (
-            <SummonerCard
-              summoner={summoner}
-              teamColor={'blue'}
-              key={index}
-              index={index}
-              currentSelectingTeam={currentSelectingTeam}
-              setCurrentSelectingTeam={setCurrentSelectingTeam}
-              currentSelectingIndex={currentSelectingIndex}
-              setCurrentSelectingIndex={setCurrentSelectingIndex}
-              pickBanPhase={pickBanPhase}
-              setPickBanPhase={setPickBanPhase}
-              setGlobalPhase={setGlobalPhase}
-              summonerName={summonerName}
-              setSummonerName={setSummonerName}
-              currentSelectingSpellNumber={currentSelectingSpellNumber}
-              setCurrentSelectingSpellNumber={setCurrentSelectingSpellNumber}
-              recentVersion={recentVersion}
-            />
-          ))}
-        </div>
+        <summonerCardContext.Provider
+          value={{
+            currentSelectingTeam,
+            setCurrentSelectingTeam,
+            currentSelectingIndex,
+            setCurrentSelectingIndex,
+            pickBanPhase,
+            setPickBanPhase,
+            setGlobalPhase,
+            summonerName,
+            setSummonerName,
+            currentSelectingSpellNumber,
+            setCurrentSelectingSpellNumber,
+            recentVersion,
+          }}
+        >
+          <div className='blue-team__summoners'>
+            {blueTeamSummoner.map((summoner, index) => (
+              <SummonerCard
+                teamColor={'blue'}
+                summoner={summoner}
+                index={index}
+                key={index}
+              />
+            ))}
+          </div>
+        </summonerCardContext.Provider>
 
         {globalPhase === 'PickBan' && (
-          <SelectBoard
-            classicSpellList={classicSpellList}
-            searchInput={searchInput}
-            setSearchInput={setSearchInput}
-            pickBanPhase={pickBanPhase}
-            updateSummonerData={updateSummonerData}
-            champDataList={champDataList}
-            onClickChampionBanButton={onClickChampionBanButton}
-            onClickChampionPickButton={onClickChampionPickButton}
-            isPickedChampion={isPickedChampion}
-            isBannedChampion={isBannedChampion}
-            recentVersion={recentVersion}
-            currentSelectingTeam={currentSelectingTeam}
-            currentSelectingIndex={currentSelectingIndex}
-            currentSelectingSpellNumber={currentSelectingSpellNumber}
-            setCurrentSelectingSpellNumber={setCurrentSelectingSpellNumber}
-            zoomViewImgSrc={zoomViewImgSrc}
-            onClickSpellSelectButton={onClickSpellSelectButton}
-            summonerName={summonerName}
-            isPickedSpell={isPickedSpell}
-            updateSpell={updateSpell}
-          />
+          <selectBoardContext.Provider
+            value={{
+              classicSpellList,
+              searchInput,
+              setSearchInput,
+              pickBanPhase,
+              updateSummonerData,
+              champDataList,
+              onClickChampionBanButton,
+              onClickChampionPickButton,
+              isPickedChampion,
+              isBannedChampion,
+              recentVersion,
+              currentSelectingTeam,
+              currentSelectingIndex,
+              currentSelectingSpellNumber,
+              setCurrentSelectingSpellNumber,
+              zoomViewImgSrc,
+              onClickSpellSelectButton,
+              summonerName,
+              isPickedSpell,
+              updateSpell,
+            }}
+          >
+            <SelectBoard />
+          </selectBoardContext.Provider>
         )}
         {globalPhase === 'GoalEdit' && (
-          <GoalBoard
-            viewerInput={viewerInput}
-            setViewerInput={setViewerInput}
-            goalEditPhase={goalEditPhase}
-            setGoalEditPhase={setGoalEditPhase}
-          />
+          <goalBoardContext.Provider
+            value={{
+              viewerInput,
+              setViewerInput,
+              goalEditPhase,
+              setGoalEditPhase,
+            }}
+          >
+            <GoalBoard />
+          </goalBoardContext.Provider>
         )}
 
-        <div className='red-team__summoners'>
-          {redTeamSummoner.map((summoner, index) => (
-            <SummonerCard
-              summoner={summoner}
-              teamColor={'red'}
-              key={index}
-              index={index}
-              currentSelectingTeam={currentSelectingTeam}
-              setCurrentSelectingTeam={setCurrentSelectingTeam}
-              currentSelectingIndex={currentSelectingIndex}
-              setCurrentSelectingIndex={setCurrentSelectingIndex}
-              pickBanPhase={pickBanPhase}
-              setPickBanPhase={setPickBanPhase}
-              setGlobalPhase={setGlobalPhase}
-              summonerName={summonerName}
-              setSummonerName={setSummonerName}
-              currentSelectingSpellNumber={currentSelectingSpellNumber}
-              setCurrentSelectingSpellNumber={setCurrentSelectingSpellNumber}
-              recentVersion={recentVersion}
-            />
-          ))}
-        </div>
+        <summonerCardContext.Provider
+          value={{
+            currentSelectingTeam,
+            setCurrentSelectingTeam,
+            currentSelectingIndex,
+            setCurrentSelectingIndex,
+            pickBanPhase,
+            setPickBanPhase,
+            setGlobalPhase,
+            summonerName,
+            setSummonerName,
+            currentSelectingSpellNumber,
+            setCurrentSelectingSpellNumber,
+            recentVersion,
+          }}
+        >
+          <div className='red-team__summoners'>
+            {redTeamSummoner.map((summoner, index) => (
+              <SummonerCard
+                teamColor={'red'}
+                summoner={summoner}
+                index={index}
+                key={index}
+              />
+            ))}
+          </div>
+        </summonerCardContext.Provider>
       </Row>
 
       <Row className='board-bottom'>

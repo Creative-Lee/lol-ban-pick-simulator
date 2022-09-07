@@ -1,20 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import ChampCard from './ChampCard'
 import { searchIcon, noBanIcon } from '../../../../Assets/img/import_img'
 import ReactTooltip from 'react-tooltip'
+import { selectBoardContext } from '../../index'
 
-export default function ChampSelectBoard({
-  searchInput,
-  setSearchInput,
-  pickBanPhase,
-  updateSummonerData,
-  champDataList,
-  onClickChampionPickButton,
-  onClickChampionBanButton,
-  isPickedChampion,
-  isBannedChampion,
-  recentVersion,
-}) {
+export default function ChampSelectBoard() {
+  const {
+    searchInput,
+    setSearchInput,
+    pickBanPhase,
+    updateSummonerData,
+    champDataList,
+    onClickChampionPickButton,
+    onClickChampionBanButton,
+  } = useContext(selectBoardContext)
   const onChangeSearchInput = (e) => setSearchInput(e.target.value)
 
   const searchToolTip = `기본, 초성 검색이 가능합니다🧐<br>
@@ -33,11 +32,7 @@ export default function ChampSelectBoard({
               data-for='search-tooltip'
               data-tip={searchToolTip}
             />
-            <ReactTooltip
-              id='search-tooltip'
-              multiline={true}
-              delayShow={100}
-            />
+            <ReactTooltip id='search-tooltip' multiline={true} delayShow={100} />
           </label>
           <input
             id='search'
@@ -68,15 +63,7 @@ export default function ChampSelectBoard({
           </div>
         )}
         {champDataList.map((champData, index) => (
-          <ChampCard
-            champData={champData}
-            key={index}
-            updateSummonerData={updateSummonerData}
-            isPickedChampion={isPickedChampion}
-            isBannedChampion={isBannedChampion}
-            recentVersion={recentVersion}
-            pickBanPhase={pickBanPhase}
-          />
+          <ChampCard champData={champData} key={index} />
         ))}
       </div>
 
