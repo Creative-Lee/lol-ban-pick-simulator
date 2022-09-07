@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 import SpellCard from './SpellCard'
-import { selectBoardContext } from '../../index'
-export default function SpellSelectBoard() {
+import { SpellSelectBoardContext } from '../index'
+
+const SpellSelectBoard = () => {
   const {
     classicSpellList,
     currentSelectingTeam,
@@ -11,7 +12,7 @@ export default function SpellSelectBoard() {
     zoomViewImgSrc,
     onClickSpellSelectButton,
     summonerName,
-  } = useContext(selectBoardContext)
+  } = useContext(SpellSelectBoardContext)
   return (
     <div
       className='spell-select-board'
@@ -63,3 +64,5 @@ export default function SpellSelectBoard() {
     </div>
   )
 }
+
+export default React.memo(SpellSelectBoard)

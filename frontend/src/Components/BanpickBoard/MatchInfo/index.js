@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function MatchInfo() {
+const MatchInfo = () => {
   const [date, setDate] = useState('2022-00-00')
   const [round, setRound] = useState('GAME 1')
 
@@ -36,3 +36,5 @@ export default function MatchInfo() {
     </div>
   )
 }
+
+export default React.memo(MatchInfo)

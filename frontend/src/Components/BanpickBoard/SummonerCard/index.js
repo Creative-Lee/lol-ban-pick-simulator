@@ -3,11 +3,11 @@ import React, { useContext } from 'react'
 import SummonerChamp from './SummonerChamp'
 import SummonerName from './SummonerName'
 import SummonerSpell from './SummonerSpell'
-import { summonerCardContext } from '../index'
+import { SummonerCardContext } from '../index'
 
 export default function SummonerCard({ teamColor, index, summoner }) {
   const { currentSelectingTeam, currentSelectingIndex, pickBanPhase } =
-    useContext(summonerCardContext)
+    useContext(SummonerCardContext)
   return (
     <div
       className='summoner__card'

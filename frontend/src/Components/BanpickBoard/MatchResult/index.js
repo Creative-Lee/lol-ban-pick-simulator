@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function MatchResult() {
+const MatchResult = () => {
   const [matchResult, setMatchResult] = useState('Win or Lose')
   const onChangeMatchResult = (e) => setMatchResult(e.target.value)
 
@@ -17,3 +17,5 @@ export default function MatchResult() {
     </div>
   )
 }
+
+export default React.memo(MatchResult)

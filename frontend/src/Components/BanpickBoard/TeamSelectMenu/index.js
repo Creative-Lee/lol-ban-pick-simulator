@@ -1,18 +1,17 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { transparencyImg } from '../../../Assets/img/import_img/index'
-import { teamSelectMenuContext } from '../index'
 
-export default function TeamSelectMenu({ teamColor, inlineStyle }) {
-  const { blueTeamName, setBlueTeamName, redTeamName, setRedTeamName } =
-    useContext(teamSelectMenuContext)
-
-  const teamName = teamColor === 'blue' ? blueTeamName : redTeamName
-  const setTeamName = teamColor === 'blue' ? setBlueTeamName : setRedTeamName
-
+const TeamSelectMenu = ({ teamColor, teamName, setTeamName }) => {
   const [isTeamSelectMenuOpen, setIsTeamSelectMenuOpen] = useState({
     blue: false,
     red: false,
   })
+
+  const redTeamInlineStyle = {
+    teamSelectMenu: { flexDirection: 'row-reverse' },
+    nameSelect: { right: 0, left: `${20}%` },
+  }
+  const inlineStyle = teamColor === 'blue' ? {} : redTeamInlineStyle
 
   const teamArr = ['KDF', 'T1', 'DK', 'BRO', 'DRX', 'GEN', 'HLE', 'KT', 'LSB', 'NS']
 
@@ -82,3 +81,5 @@ export default function TeamSelectMenu({ teamColor, inlineStyle }) {
     </label>
   )
 }
+
+export default React.memo(TeamSelectMenu)

@@ -1,14 +1,14 @@
 import React, { useContext } from 'react'
-import { selectBoardContext } from '../../../index'
+import { ChampSelectBoardContext } from '../../index'
 
-export default function ChampCard({ champData }) {
+const ChampCard = ({ champData }) => {
   const {
     updateSummonerData,
     isPickedChampion,
     isBannedChampion,
     recentVersion,
     pickBanPhase,
-  } = useContext(selectBoardContext)
+  } = useContext(ChampSelectBoardContext)
   return (
     <div
       className='champion__card'
@@ -32,3 +32,5 @@ export default function ChampCard({ champData }) {
     </div>
   )
 }
+
+export default React.memo(ChampCard)

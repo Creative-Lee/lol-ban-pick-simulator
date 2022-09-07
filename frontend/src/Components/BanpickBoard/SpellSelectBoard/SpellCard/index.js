@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
-import { selectBoardContext } from '../../../index'
+import { SpellSelectBoardContext } from '../../index'
 
 export default function SpellCard({ spell }) {
-  const { isPickedSpell, updateSpell, recentVersion } =
-    useContext(selectBoardContext)
+  const { isPickedSpell, updateSpell, recentVersion } = useContext(
+    SpellSelectBoardContext
+  )
   return (
     <div
       className='spell__card'

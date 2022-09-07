@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { transparencyImg } from '../../../../Assets/img/import_img'
-import { summonerCardContext } from '../../index'
+import { SummonerCardContext } from '../../index'
 
 export default function SummonerChamp({ teamColor, summoner, index }) {
   const {
@@ -11,7 +11,7 @@ export default function SummonerChamp({ teamColor, summoner, index }) {
     setPickBanPhase,
     setGlobalPhase,
     currentSelectingTeam,
-  } = useContext(summonerCardContext)
+  } = useContext(SummonerCardContext)
   return (
     <img
       className='summoner__champ'
