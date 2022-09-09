@@ -3,7 +3,11 @@ import ChampCard from './ChampCard'
 import Hangul from 'hangul-js'
 import ReactTooltip from 'react-tooltip'
 import { searchIcon, noBanIcon } from '../../../Assets/img/import_img'
-import { ChampSelectBoardContext } from '../index'
+import {
+  ChampSelectBoardContext,
+  BlueTeamDispatchContext,
+  RedTeamDispatchContext,
+} from '../index'
 
 const ChampSelectBoard = () => {
   const searchToolTip = `기본, 초성 검색이 가능합니다🧐<br>
@@ -14,13 +18,16 @@ const ChampSelectBoard = () => {
 
   const {
     pickBanPhase,
-    updateSummonerData,
     onClickChampionPickButton,
     onClickChampionBanButton,
     ascendingChampionDataList,
     currentSelectingIndex,
     boardPhase,
+    currentSelectingTeam,
   } = useContext(ChampSelectBoardContext)
+
+  const { updateBlueTeamBan } = useContext(BlueTeamDispatchContext)
+  const { updateRedTeamBan } = useContext(RedTeamDispatchContext)
 
   const onChangeSearchInput = (e) => setSearchInput(e.target.value)
   const memoizedChampDataList = useMemo(() => champDataList, [champDataList])
@@ -100,11 +107,11 @@ const ChampSelectBoard = () => {
           <div
             className='champion__card'
             onClick={() => {
-              updateSummonerData({
-                type: 'bannedChampion',
-                data: 'noBan',
-                isConfirmed: false,
-              })
+              if (currentSelectingTeam === 'blue') {
+                updateBlueTeamBan('noBan', false)
+              } else {
+                updateRedTeamBan('noBan', false)
+              }
             }}
           >
             <img className='champion__img' alt='no-ban-icon' src={noBanIcon} />

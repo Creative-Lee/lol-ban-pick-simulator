@@ -13,6 +13,7 @@ const SpellSelectBoard = () => {
     onClickSpellSelectButton,
     summonerName,
   } = useContext(SpellSelectBoardContext)
+
   return (
     <div
       className='spell-select-board'

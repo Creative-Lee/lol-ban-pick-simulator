@@ -1,14 +1,36 @@
 import React, { useContext } from 'react'
-import { ChampSelectBoardContext } from '../../index'
+import {
+  ChampSelectBoardContext,
+  BlueTeamDispatchContext,
+  RedTeamDispatchContext,
+} from '../../index'
 
 const ChampCard = ({ champData }) => {
   const {
-    updateSummonerData,
     isPickedChampion,
     isBannedChampion,
     recentVersion,
     pickBanPhase,
+    currentSelectingTeam,
   } = useContext(ChampSelectBoardContext)
+  const { updateBlueTeamBan, updateBlueTeamPick } = useContext(BlueTeamDispatchContext)
+  const { updateRedTeamBan, updateRedTeamPick } = useContext(RedTeamDispatchContext)
+
+  const pickBanController = (data) => {
+    if (pickBanPhase === 'Pick') {
+      if (currentSelectingTeam === 'blue') {
+        updateBlueTeamPick(data, false)
+      } else {
+        updateRedTeamPick(data, false)
+      }
+    } else {
+      if (currentSelectingTeam === 'blue') {
+        updateBlueTeamBan(data, false)
+      } else {
+        updateRedTeamBan(data, false)
+      }
+    }
+  }
   return (
     <div
       className='champion__card'
@@ -16,11 +38,7 @@ const ChampCard = ({ champData }) => {
       data-picked={isPickedChampion(champData.id)}
       data-banned={isBannedChampion(champData.id)}
       onClick={() => {
-        updateSummonerData({
-          type: pickBanPhase === 'Pick' ? 'pickedChampion' : 'bannedChampion',
-          data: champData.id,
-          isConfirmed: false,
-        })
+        pickBanController(champData.id)
       }}
     >
       <img

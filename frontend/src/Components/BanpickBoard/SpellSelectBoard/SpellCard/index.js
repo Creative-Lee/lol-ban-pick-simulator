@@ -1,17 +1,29 @@
 import React, { useContext } from 'react'
-import { SpellSelectBoardContext } from '../../index'
+import {
+  SpellSelectBoardContext,
+  RedTeamDispatchContext,
+  BlueTeamDispatchContext,
+} from '../../index'
 
 export default function SpellCard({ spell }) {
-  const { isPickedSpell, updateSpell, recentVersion } = useContext(
+  const { isPickedSpell, recentVersion, currentSelectingTeam } = useContext(
     SpellSelectBoardContext
   )
+  const { updateBlueTeamSpell } = useContext(BlueTeamDispatchContext)
+  const { updateRedTeamSpell } = useContext(RedTeamDispatchContext)
+
+  const spellController = (spell) => {
+    if (currentSelectingTeam === 'blue') {
+      updateBlueTeamSpell(spell, false)
+    } else {
+      updateRedTeamSpell(spell, false)
+    }
+  }
   return (
     <div
       className='spell__card'
       data-picked-spell={isPickedSpell(spell.id)}
-      onClick={() => {
-        updateSpell(spell.id)
-      }}
+      onClick={() => spellController(spell.id)}
     >
       <img
         className='spell__img'
