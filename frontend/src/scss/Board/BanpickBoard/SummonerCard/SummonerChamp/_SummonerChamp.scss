@@ -8,7 +8,7 @@
   object-fit: cover;
   filter: contrast(120%) brightness(1);
 
-  &[data-current-target="true"] {
+  &[data-current-target='true'] {
     background-color: #bcbcbc78;
     filter: brightness(1.2);
   }
@@ -18,650 +18,654 @@
     filter: brightness(1.2);
   }
 
-  &[id="Garen"] {
+  &[id='Garen'] {
     object-fit: none;
     object-position: 91% 32%;
   }
-  &[id="Galio"] {
+  &[id='Galio'] {
     object-fit: none;
     object-position: 48% 6%;
   }
-  &[id="Gangplank"] {
+  &[id='Gangplank'] {
     object-fit: none;
     object-position: 79% 20%;
   }
-  &[id="Gragas"] {
+  &[id='Gragas'] {
     object-fit: none;
     object-position: 60% 20%;
   }
-  &[id="Graves"] {
+  &[id='Graves'] {
     object-fit: none;
     object-position: 86% 7%;
   }
-  &[id="Gwen"] {
+  &[id='Gwen'] {
     object-fit: none;
     object-position: 50% 10%;
   }
-  &[id="Gnar"] {
+  &[id='Gnar'] {
     object-fit: none;
     object-position: 82% 60%;
   }
-  &[id="Nami"] {
+  &[id='Nami'] {
     object-fit: none;
     object-position: 89% 23%;
   }
-  &[id="Nasus"] {
+  &[id='Nasus'] {
     object-fit: none;
     object-position: 71% 18%;
   }
-  &[id="Nautilus"] {
+  &[id='Nautilus'] {
     object-fit: none;
     object-position: 83% 19%;
   }
-  &[id="Nocturne"] {
+  &[id='Nocturne'] {
     object-fit: none;
     object-position: 65% 49%;
   }
-  &[id="Nunu"] {
+  &[id='Nunu'] {
     object-fit: none;
     object-position: 73% 75%;
   }
-  &[id="Nidalee"] {
+  &[id='Nidalee'] {
     object-fit: none;
     object-position: 88% 12%;
   }
-  &[id="Neeko"] {
+  &[id='Neeko'] {
     object-fit: none;
     object-position: 48% 23%;
   }
-  &[id="Darius"] {
+  &[id='Darius'] {
     object-fit: none;
     object-position: 56% 9%;
   }
-  &[id="Diana"] {
+  &[id='Diana'] {
     object-fit: none;
     object-position: 76% 36%;
   }
-  &[id="Draven"] {
+  &[id='KSante'] {
+    object-fit: none;
+    object-position: 100% 50%;
+  }
+  &[id='Draven'] {
     object-fit: none;
     object-position: 82% 26%;
   }
-  &[id="Ryze"] {
+  &[id='Ryze'] {
     object-fit: none;
     object-position: 90% 35%;
   }
-  &[id="Rakan"] {
+  &[id='Rakan'] {
     object-fit: none;
     object-position: 55% 10%;
   }
-  &[id="Rammus"] {
+  &[id='Rammus'] {
     object-fit: none;
     object-position: 67% 45%;
   }
-  &[id="Lux"] {
+  &[id='Lux'] {
     object-fit: none;
     object-position: 62% 23%;
   }
-  &[id="Rumble"] {
+  &[id='Rumble'] {
     object-fit: none;
     object-position: 76% 25%;
   }
-  &[id="Renata"] {
+  &[id='Renata'] {
     object-fit: none;
     object-position: 55% 7%;
   }
-  &[id="Renekton"] {
+  &[id='Renekton'] {
     object-fit: none;
     object-position: 65% 17%;
   }
-  &[id="Leona"] {
+  &[id='Leona'] {
     object-fit: none;
     object-position: 86% 7%;
   }
-  &[id="RekSai"] {
+  &[id='RekSai'] {
     object-fit: none;
     object-position: 55% 45%;
   }
-  &[id="Rell"] {
+  &[id='Rell'] {
     object-fit: none;
     object-position: 45% 14%;
   }
-  &[id="Rengar"] {
+  &[id='Rengar'] {
     object-fit: none;
     object-position: 74% 32%;
   }
-  &[id="Lucian"] {
+  &[id='Lucian'] {
     object-fit: none;
     object-position: 81% 40%;
   }
-  &[id="Lulu"] {
+  &[id='Lulu'] {
     object-fit: none;
     object-position: 78% 37%;
   }
-  &[id="Leblanc"] {
+  &[id='Leblanc'] {
     object-fit: none;
     object-position: 45% 43%;
   }
-  &[id="LeeSin"] {
+  &[id='LeeSin'] {
     object-fit: none;
     object-position: 70% 17%;
   }
-  &[id="Riven"] {
+  &[id='Riven'] {
     object-fit: none;
     object-position: 87% 19%;
   }
-  &[id="Lissandra"] {
+  &[id='Lissandra'] {
     object-fit: none;
     object-position: 74% 13%;
   }
-  &[id="Lillia"] {
+  &[id='Lillia'] {
     object-fit: none;
     object-position: 40% 17%;
   }
-  &[id="MasterYi"] {
+  &[id='MasterYi'] {
     object-fit: none;
     object-position: 93% 28%;
   }
-  &[id="Maokai"] {
+  &[id='Maokai'] {
     object-fit: none;
     object-position: 66% 40%;
   }
-  &[id="Malzahar"] {
+  &[id='Malzahar'] {
     object-fit: none;
     object-position: 70% 16%;
   }
-  &[id="Malphite"] {
+  &[id='Malphite'] {
     object-fit: none;
     object-position: 74% 68%;
   }
-  &[id="Mordekaiser"] {
+  &[id='Mordekaiser'] {
     object-fit: none;
     object-position: 42% 12%;
   }
-  &[id="Morgana"] {
+  &[id='Morgana'] {
     object-fit: none;
     object-position: 86% 24%;
   }
-  &[id="DrMundo"] {
+  &[id='DrMundo'] {
     object-fit: none;
     object-position: 54% 12%;
   }
-  &[id="MissFortune"] {
+  &[id='MissFortune'] {
     object-fit: none;
     object-position: 85% 30%;
   }
-  &[id="Bard"] {
+  &[id='Bard'] {
     object-fit: none;
     object-position: 65% 20%;
   }
-  &[id="Varus"] {
+  &[id='Varus'] {
     object-fit: none;
     object-position: 55% 11%;
   }
-  &[id="Vi"] {
+  &[id='Vi'] {
     object-fit: none;
     object-position: 75% 23%;
   }
-  &[id="Veigar"] {
+  &[id='Veigar'] {
     object-fit: none;
     object-position: 71% 25%;
   }
-  &[id="Vayne"] {
+  &[id='Vayne'] {
     object-fit: none;
     object-position: 97% 19%;
   }
-  &[id="Vex"] {
+  &[id='Vex'] {
     object-fit: none;
     object-position: 70% 30%;
   }
-  &[id="Velkoz"] {
+  &[id='Velkoz'] {
     object-fit: none;
     object-position: 61% 40%;
   }
-  &[id="Volibear"] {
+  &[id='Volibear'] {
     object-fit: none;
     object-position: 57% 9%;
   }
-  &[id="Braum"] {
+  &[id='Braum'] {
     object-fit: none;
     object-position: 90% 13%;
   }
-  &[id="Brand"] {
+  &[id='Brand'] {
     object-fit: none;
     object-position: 88% 20%;
   }
-  &[id="Vladimir"] {
+  &[id='Vladimir'] {
     object-fit: none;
     object-position: 87% 15%;
   }
-  &[id="Blitzcrank"] {
+  &[id='Blitzcrank'] {
     object-fit: none;
     object-position: 78% 30%;
   }
-  &[id="Viego"] {
+  &[id='Viego'] {
     object-fit: none;
     object-position: 87% 9%;
   }
-  &[id="Viktor"] {
+  &[id='Viktor'] {
     object-fit: none;
     object-position: 69% 20%;
   }
-  &[id="Belveth"] {
+  &[id='Belveth'] {
     object-fit: none;
     object-position: 50% 5%;
   }
-  &[id="Poppy"] {
+  &[id='Poppy'] {
     object-fit: none;
     object-position: 74% 20%;
   }
-  &[id="Samira"] {
+  &[id='Samira'] {
     object-fit: none;
     object-position: 60% 15%;
   }
-  &[id="Sion"] {
+  &[id='Sion'] {
     object-fit: none;
     object-position: 75% 13%;
   }
-  &[id="Sylas"] {
+  &[id='Sylas'] {
     object-fit: none;
     object-position: 53% 22%;
   }
-  &[id="Shaco"] {
+  &[id='Shaco'] {
     object-fit: none;
     object-position: 77% 18%;
   }
-  &[id="Senna"] {
+  &[id='Senna'] {
     object-fit: none;
     object-position: 52% 20%;
   }
-  &[id="Seraphine"] {
+  &[id='Seraphine'] {
     object-fit: none;
     object-position: 42% 11%;
   }
-  &[id="Sejuani"] {
+  &[id='Sejuani'] {
     object-fit: none;
     object-position: 57% 10%;
   }
-  &[id="Sett"] {
+  &[id='Sett'] {
     object-fit: none;
     object-position: 48% 3%;
   }
-  &[id="Sona"] {
+  &[id='Sona'] {
     object-fit: none;
     object-position: 72% 15%;
   }
-  &[id="Soraka"] {
+  &[id='Soraka'] {
     object-fit: none;
     object-position: 54% 10%;
   }
-  &[id="Shen"] {
+  &[id='Shen'] {
     object-fit: none;
     object-position: 89% 7%;
   }
-  &[id="Shyvana"] {
+  &[id='Shyvana'] {
     object-fit: none;
     object-position: 78% 16%;
   }
-  &[id="Swain"] {
+  &[id='Swain'] {
     object-fit: none;
     object-position: 76% 9%;
   }
-  &[id="Skarner"] {
+  &[id='Skarner'] {
     object-fit: none;
     object-position: 82% 38%;
   }
-  &[id="Sivir"] {
+  &[id='Sivir'] {
     object-fit: none;
     object-position: 60% 33%;
   }
-  &[id="XinZhao"] {
+  &[id='XinZhao'] {
     object-fit: none;
     object-position: 52% 18%;
   }
-  &[id="Syndra"] {
+  &[id='Syndra'] {
     object-fit: none;
     object-position: 83% 19%;
   }
-  &[id="Singed"] {
+  &[id='Singed'] {
     object-fit: none;
     object-position: 82% 18%;
   }
-  &[id="Thresh"] {
+  &[id='Thresh'] {
     object-fit: none;
     object-position: 67% 22%;
   }
-  &[id="Ahri"] {
+  &[id='Ahri'] {
     object-fit: none;
     object-position: 65% 17%;
   }
-  &[id="Amumu"] {
+  &[id='Amumu'] {
     object-fit: none;
     object-position: 76% 30%;
   }
-  &[id="AurelionSol"] {
+  &[id='AurelionSol'] {
     object-fit: none;
     object-position: 65% 17%;
   }
-  &[id="Ivern"] {
+  &[id='Ivern'] {
     object-fit: none;
     object-position: 55% 20%;
   }
-  &[id="Azir"] {
+  &[id='Azir'] {
     object-fit: none;
     object-position: 85% 18%;
   }
-  &[id="Akali"] {
+  &[id='Akali'] {
     object-fit: none;
     object-position: 50% 10%;
   }
-  &[id="Akshan"] {
+  &[id='Akshan'] {
     object-fit: none;
     object-position: 75% 55%;
   }
-  &[id="Aatrox"] {
+  &[id='Aatrox'] {
     object-fit: none;
     object-position: 74% 27%;
   }
-  &[id="Aphelios"] {
+  &[id='Aphelios'] {
     object-fit: none;
     object-position: 56% 15%;
   }
-  &[id="Alistar"] {
+  &[id='Alistar'] {
     object-fit: none;
     object-position: 63% 42%;
   }
-  &[id="Annie"] {
+  &[id='Annie'] {
     object-fit: none;
     object-position: 91% 33%;
   }
-  &[id="Anivia"] {
+  &[id='Anivia'] {
     object-fit: none;
     object-position: 51% 38%;
   }
-  &[id="Ashe"] {
+  &[id='Ashe'] {
     object-fit: none;
     object-position: 73% 20%;
   }
-  &[id="Yasuo"] {
+  &[id='Yasuo'] {
     object-fit: none;
     object-position: 90% 33%;
   }
-  &[id="Ekko"] {
+  &[id='Ekko'] {
     object-fit: none;
     object-position: 82% 18%;
   }
-  &[id="Elise"] {
+  &[id='Elise'] {
     object-fit: none;
     object-position: 81% 15%;
   }
-  &[id="MonkeyKing"] {
+  &[id='MonkeyKing'] {
     object-fit: none;
     object-position: 67% 25%;
   }
-  &[id="Ornn"] {
+  &[id='Ornn'] {
     object-fit: none;
     object-position: 50% 33%;
   }
-  &[id="Orianna"] {
+  &[id='Orianna'] {
     object-fit: none;
     object-position: 89% 10%;
   }
-  &[id="Olaf"] {
+  &[id='Olaf'] {
     object-fit: none;
     object-position: 67% 26%;
   }
-  &[id="Yone"] {
+  &[id='Yone'] {
     object-fit: none;
     object-position: 62% 5%;
   }
-  &[id="Yorick"] {
+  &[id='Yorick'] {
     object-fit: none;
     object-position: 70% 6%;
   }
-  &[id="Udyr"] {
+  &[id='Udyr'] {
     object-fit: none;
     object-position: 60% 10%;
   }
-  &[id="Urgot"] {
+  &[id='Urgot'] {
     object-fit: none;
     object-position: 59% 8%;
   }
-  &[id="Warwick"] {
+  &[id='Warwick'] {
     object-fit: none;
     object-position: 73% 60%;
   }
-  &[id="Yuumi"] {
+  &[id='Yuumi'] {
     object-fit: none;
     object-position: 43% 18%;
   }
-  &[id="Irelia"] {
+  &[id='Irelia'] {
     object-fit: none;
     object-position: 50% 5%;
   }
-  &[id="Evelynn"] {
+  &[id='Evelynn'] {
     object-fit: none;
     object-position: 51% 13%;
   }
-  &[id="Ezreal"] {
+  &[id='Ezreal'] {
     object-fit: none;
     object-position: 67% 28%;
   }
-  &[id="Illaoi"] {
+  &[id='Illaoi'] {
     object-fit: none;
     object-position: 63% 2%;
   }
-  &[id="JarvanIV"] {
+  &[id='JarvanIV'] {
     object-fit: none;
     object-position: 82% 18%;
   }
-  &[id="Xayah"] {
+  &[id='Xayah'] {
     object-fit: none;
     object-position: 70% 28%;
   }
-  &[id="Zyra"] {
+  &[id='Zyra'] {
     object-fit: none;
     object-position: 85% 23%;
   }
-  &[id="Zac"] {
+  &[id='Zac'] {
     object-fit: none;
     object-position: 74% 59%;
   }
-  &[id="Janna"] {
+  &[id='Janna'] {
     object-fit: none;
     object-position: 94% 27%;
   }
-  &[id="Jax"] {
+  &[id='Jax'] {
     object-fit: none;
     object-position: 77% 18%;
   }
-  &[id="Zed"] {
+  &[id='Zed'] {
     object-fit: none;
     object-position: 70% 13%;
   }
-  &[id="Xerath"] {
+  &[id='Xerath'] {
     object-fit: none;
     object-position: 60% 8%;
   }
-  &[id="Zeri"] {
+  &[id='Zeri'] {
     object-fit: none;
     object-position: 59% 23%;
   }
-  &[id="Jayce"] {
+  &[id='Jayce'] {
     object-fit: none;
     object-position: 90% 25%;
   }
-  &[id="Zoe"] {
+  &[id='Zoe'] {
     object-fit: none;
     object-position: 57% 22%;
   }
-  &[id="Ziggs"] {
+  &[id='Ziggs'] {
     object-fit: none;
     object-position: 80% 47%;
   }
-  &[id="Jhin"] {
+  &[id='Jhin'] {
     object-fit: none;
     object-position: 63% 18%;
   }
-  &[id="Zilean"] {
+  &[id='Zilean'] {
     object-fit: none;
     object-position: 63% 20%;
   }
-  &[id="Jinx"] {
+  &[id='Jinx'] {
     object-fit: none;
     object-position: 71% 17%;
   }
-  &[id="Chogath"] {
+  &[id='Chogath'] {
     object-fit: none;
     object-position: 61% 30%;
   }
-  &[id="Karma"] {
+  &[id='Karma'] {
     object-fit: none;
     object-position: 83% 14%;
   }
-  &[id="Camille"] {
+  &[id='Camille'] {
     object-fit: none;
     object-position: 100% 14%;
   }
-  &[id="Kassadin"] {
+  &[id='Kassadin'] {
     object-fit: none;
     object-position: 72% 5%;
   }
-  &[id="Karthus"] {
+  &[id='Karthus'] {
     object-fit: none;
     object-position: 76% 9%;
   }
-  &[id="Cassiopeia"] {
+  &[id='Cassiopeia'] {
     object-fit: none;
     object-position: 65% 33%;
   }
-  &[id="Kaisa"] {
+  &[id='Kaisa'] {
     object-fit: none;
     object-position: 50% 10%;
   }
-  &[id="Khazix"] {
+  &[id='Khazix'] {
     object-fit: none;
     object-position: 83% 58%;
   }
-  &[id="Katarina"] {
+  &[id='Katarina'] {
     object-fit: none;
     object-position: 67% 40%;
   }
-  &[id="Kalista"] {
+  &[id='Kalista'] {
     object-fit: none;
     object-position: 70% 18%;
   }
-  &[id="Kennen"] {
+  &[id='Kennen'] {
     object-fit: none;
     object-position: 85% 34%;
   }
-  &[id="Caitlyn"] {
+  &[id='Caitlyn'] {
     object-fit: none;
     object-position: 84% 15%;
   }
-  &[id="Kayn"] {
+  &[id='Kayn'] {
     object-fit: none;
     object-position: 50% 45%;
   }
-  &[id="Kayle"] {
+  &[id='Kayle'] {
     object-fit: none;
     object-position: 83% 23%;
   }
-  &[id="KogMaw"] {
-    content: url("https://ddragon.leagueoflegends.com/cdn/img/champion/splash/KogMaw_5.jpg");
+  &[id='KogMaw'] {
+    content: url('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/KogMaw_5.jpg');
     object-fit: cover;
     object-position: 80% 35%;
   }
-  &[id="Corki"] {
+  &[id='Corki'] {
     object-fit: none;
     object-position: 75% 28%;
   }
-  &[id="Quinn"] {
+  &[id='Quinn'] {
     object-fit: none;
     object-position: 70% 30%;
   }
-  &[id="Kled"] {
+  &[id='Kled'] {
     object-fit: none;
     object-position: 90% 17%;
   }
-  &[id="Qiyana"] {
+  &[id='Qiyana'] {
     object-fit: none;
     object-position: 53% 18%;
   }
-  &[id="Kindred"] {
+  &[id='Kindred'] {
     object-fit: none;
     object-position: 63% 33%;
     filter: brightness(2);
   }
-  &[id="Taric"] {
+  &[id='Taric'] {
     object-fit: none;
     object-position: 95% 5%;
   }
-  &[id="Talon"] {
+  &[id='Talon'] {
     object-fit: none;
     object-position: 72% 30%;
   }
-  &[id="Taliyah"] {
+  &[id='Taliyah'] {
     object-fit: none;
     object-position: 87% 19%;
   }
-  &[id="TahmKench"] {
-    content: url("https://ddragon.leagueoflegends.com/cdn/img/champion/splash/TahmKench_1.jpg");
+  &[id='TahmKench'] {
+    content: url('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/TahmKench_1.jpg');
     object-fit: cover;
     object-position: 50% 0%;
   }
-  &[id="Trundle"] {
+  &[id='Trundle'] {
     object-fit: none;
     object-position: 55% 30%;
   }
-  &[id="Tristana"] {
+  &[id='Tristana'] {
     object-fit: none;
     object-position: 70% 25%;
   }
-  &[id="Tryndamere"] {
+  &[id='Tryndamere'] {
     object-fit: none;
     object-position: 75% 18%;
   }
-  &[id="TwistedFate"] {
+  &[id='TwistedFate'] {
     object-fit: none;
     object-position: 85% 20%;
   }
-  &[id="Twitch"] {
+  &[id='Twitch'] {
     object-fit: none;
     object-position: 65% 35%;
   }
-  &[id="Teemo"] {
+  &[id='Teemo'] {
     object-fit: none;
     object-position: 73% 28%;
   }
-  &[id="Pyke"] {
+  &[id='Pyke'] {
     object-fit: none;
     object-position: 50% 32%;
   }
-  &[id="Pantheon"] {
+  &[id='Pantheon'] {
     object-fit: none;
     object-position: 53% 18%;
   }
-  &[id="Fiddlesticks"] {
+  &[id='Fiddlesticks'] {
     object-fit: none;
     object-position: 52% 27%;
   }
-  &[id="Fiora"] {
+  &[id='Fiora'] {
     object-fit: none;
     object-position: 70% 7%;
   }
-  &[id="Fizz"] {
+  &[id='Fizz'] {
     object-fit: none;
     object-position: 95% 18%;
   }
-  &[id="Heimerdinger"] {
+  &[id='Heimerdinger'] {
     object-fit: none;
     object-position: 80% 40%;
   }
-  &[id="Hecarim"] {
+  &[id='Hecarim'] {
     object-fit: none;
     object-position: 85% 10%;
   }
-  &[id='Nilah']{
+  &[id='Nilah'] {
     object-fit: none;
     object-position: 67% 30%;
   }
@@ -669,342 +673,342 @@
 
 .blue-team__summoners {
   .summoner__champ {
-    &[id="Garen"] {
+    &[id='Garen'] {
       transform: scaleX(-1);
     }
-    &[id="Gangplank"] {
+    &[id='Gangplank'] {
       transform: scaleX(-1);
     }
-    &[id="Gragas"] {
+    &[id='Gragas'] {
       transform: scaleX(-1);
     }
-    &[id="Graves"] {
+    &[id='Graves'] {
       transform: scaleX(-1);
     }
-    &[id="Nami"] {
+    &[id='Nami'] {
       transform: scaleX(-1);
     }
-    &[id="Nasus"] {
+    &[id='Nasus'] {
       transform: scaleX(-1);
     }
-    &[id="Nautilus"] {
+    &[id='Nautilus'] {
       transform: scaleX(-1);
     }
-    &[id="Nocturne"] {
+    &[id='Nocturne'] {
       transform: scaleX(-1);
     }
-    &[id="Nunu"] {
+    &[id='Nunu'] {
       transform: scaleX(-1);
     }
-    &[id="Nidalee"] {
+    &[id='Nidalee'] {
       transform: scaleX(-1);
     }
-    &[id='Nilah']{
+    &[id='Nilah'] {
       transform: scaleX(-1);
     }
-    &[id="Neeko"] {
+    &[id='Neeko'] {
       transform: scaleX(-1);
     }
-    &[id="Darius"] {
+    &[id='Darius'] {
       transform: scaleX(-1);
     }
-    &[id="Diana"] {
+    &[id='Diana'] {
       transform: scaleX(-1);
     }
-    &[id="Draven"] {
-      transform: scaleX(-1);
-    }
-
-    &[id="Rakan"] {
-      transform: scaleX(-1);
-    }
-    &[id="Rammus"] {
+    &[id='Draven'] {
       transform: scaleX(-1);
     }
 
-    &[id="Rumble"] {
+    &[id='Rakan'] {
       transform: scaleX(-1);
     }
-    &[id="Renekton"] {
-      transform: scaleX(-1);
-    }
-    &[id="Leona"] {
-      transform: scaleX(-1);
-    }
-    &[id="RekSai"] {
-      transform: scaleX(-1);
-    }
-    &[id="Lulu"] {
-      transform: scaleX(-1);
-    }
-    &[id="Leblanc"] {
-      transform: scaleX(-1);
-    }
-    &[id="LeeSin"] {
-      transform: scaleX(-1);
-    }
-    &[id="Riven"] {
-      transform: scaleX(-1);
-    }
-    &[id="Lissandra"] {
-      transform: scaleX(-1);
-    }
-    &[id="MasterYi"] {
-      transform: scaleX(-1);
-    }
-    &[id="Maokai"] {
+    &[id='Rammus'] {
       transform: scaleX(-1);
     }
 
-    &[id="Malphite"] {
+    &[id='Rumble'] {
       transform: scaleX(-1);
     }
-    &[id="Morgana"] {
+    &[id='Renekton'] {
       transform: scaleX(-1);
     }
-    &[id="DrMundo"] {
+    &[id='Leona'] {
       transform: scaleX(-1);
     }
-    &[id="MissFortune"] {
+    &[id='RekSai'] {
       transform: scaleX(-1);
     }
-    &[id="Vi"] {
+    &[id='Lulu'] {
       transform: scaleX(-1);
     }
-    &[id="Vayne"] {
+    &[id='Leblanc'] {
       transform: scaleX(-1);
     }
-    &[id="Velkoz"] {
+    &[id='LeeSin'] {
       transform: scaleX(-1);
     }
-    &[id="Volibear"] {
+    &[id='Riven'] {
       transform: scaleX(-1);
     }
-    &[id="Belveth"] {
+    &[id='Lissandra'] {
       transform: scaleX(-1);
     }
-    &[id="Braum"] {
+    &[id='MasterYi'] {
       transform: scaleX(-1);
     }
-    &[id="Viktor"] {
-      transform: scaleX(-1);
-    }
-    &[id="Samira"] {
-      transform: scaleX(-1);
-    }
-    &[id="Sion"] {
-      transform: scaleX(-1);
-    }
-    &[id="Shaco"] {
-      transform: scaleX(-1);
-    }
-    &[id="Senna"] {
-      transform: scaleX(-1);
-    }
-    &[id="Seraphine"] {
+    &[id='Maokai'] {
       transform: scaleX(-1);
     }
 
-    &[id="Sett"] {
+    &[id='Malphite'] {
       transform: scaleX(-1);
     }
-    &[id="Sona"] {
+    &[id='Morgana'] {
       transform: scaleX(-1);
     }
-    &[id="Soraka"] {
+    &[id='DrMundo'] {
       transform: scaleX(-1);
     }
-    &[id="Shen"] {
+    &[id='MissFortune'] {
+      transform: scaleX(-1);
+    }
+    &[id='Vi'] {
+      transform: scaleX(-1);
+    }
+    &[id='Vayne'] {
+      transform: scaleX(-1);
+    }
+    &[id='Velkoz'] {
+      transform: scaleX(-1);
+    }
+    &[id='Volibear'] {
+      transform: scaleX(-1);
+    }
+    &[id='Belveth'] {
+      transform: scaleX(-1);
+    }
+    &[id='Braum'] {
+      transform: scaleX(-1);
+    }
+    &[id='Viktor'] {
+      transform: scaleX(-1);
+    }
+    &[id='Samira'] {
+      transform: scaleX(-1);
+    }
+    &[id='Sion'] {
+      transform: scaleX(-1);
+    }
+    &[id='Shaco'] {
+      transform: scaleX(-1);
+    }
+    &[id='Senna'] {
+      transform: scaleX(-1);
+    }
+    &[id='Seraphine'] {
       transform: scaleX(-1);
     }
 
-    &[id="Swain"] {
+    &[id='Sett'] {
       transform: scaleX(-1);
     }
-    &[id="Skarner"] {
+    &[id='Sona'] {
       transform: scaleX(-1);
     }
-    &[id="Sivir"] {
+    &[id='Soraka'] {
       transform: scaleX(-1);
     }
-    &[id="XinZhao"] {
-      transform: scaleX(-1);
-    }
-    &[id="Syndra"] {
+    &[id='Shen'] {
       transform: scaleX(-1);
     }
 
-    &[id="Thresh"] {
+    &[id='Swain'] {
       transform: scaleX(-1);
     }
-    &[id="Ahri"] {
+    &[id='Skarner'] {
       transform: scaleX(-1);
     }
-    &[id="Amumu"] {
+    &[id='Sivir'] {
+      transform: scaleX(-1);
+    }
+    &[id='XinZhao'] {
+      transform: scaleX(-1);
+    }
+    &[id='Syndra'] {
       transform: scaleX(-1);
     }
 
-    &[id="Azir"] {
+    &[id='Thresh'] {
       transform: scaleX(-1);
     }
-    &[id="Akshan"] {
+    &[id='Ahri'] {
+      transform: scaleX(-1);
+    }
+    &[id='Amumu'] {
+      transform: scaleX(-1);
+    }
+
+    &[id='Azir'] {
+      transform: scaleX(-1);
+    }
+    &[id='Akshan'] {
       transform: scaleY(-1);
     }
-    &[id="Alistar"] {
+    &[id='Alistar'] {
       transform: scaleX(-1);
     }
-    &[id="Annie"] {
+    &[id='Annie'] {
       transform: scaleX(-1);
     }
-    &[id="Anivia"] {
+    &[id='Anivia'] {
       transform: scaleX(-1);
     }
-    &[id="Ashe"] {
+    &[id='Ashe'] {
       transform: scaleX(-1);
     }
-    &[id="Yasuo"] {
+    &[id='Yasuo'] {
       transform: scaleX(-1);
     }
-    &[id="Ekko"] {
+    &[id='Ekko'] {
       transform: scaleX(-1);
     }
-    &[id="Elise"] {
+    &[id='Elise'] {
       transform: scaleX(-1);
     }
-    &[id="MonkeyKing"] {
+    &[id='MonkeyKing'] {
       transform: scaleX(-1);
     }
-    &[id="Ornn"] {
+    &[id='Ornn'] {
       transform: scaleX(-1);
     }
-    &[id="Orianna"] {
+    &[id='Orianna'] {
       transform: scaleX(-1);
     }
-    &[id="Yone"] {
+    &[id='Yone'] {
       transform: scaleX(-1);
     }
-    &[id="Yorick"] {
+    &[id='Yorick'] {
       transform: scaleX(-1);
     }
-   
-    &[id="Urgot"] {
+
+    &[id='Urgot'] {
       transform: scaleX(-1);
     }
-    &[id="Warwick"] {
+    &[id='Warwick'] {
       transform: scaleX(-1);
     }
-    &[id="Yuumi"] {
+    &[id='Yuumi'] {
       transform: scaleX(-1);
     }
-    &[id="Irelia"] {
+    &[id='Irelia'] {
       transform: scaleX(-1);
     }
-    &[id="Ezreal"] {
+    &[id='Ezreal'] {
       transform: scaleX(-1);
     }
-    &[id="JarvanIV"] {
+    &[id='JarvanIV'] {
       transform: scaleX(-1);
     }
-    &[id="Zyra"] {
+    &[id='Zyra'] {
       transform: scaleX(-1);
     }
-    &[id="Zac"] {
+    &[id='Zac'] {
       transform: scaleX(-1);
     }
-    &[id="Janna"] {
+    &[id='Janna'] {
       transform: scaleX(-1);
     }
-    &[id="Zed"] {
+    &[id='Zed'] {
       transform: scaleX(-1);
     }
-    &[id="Xerath"] {
+    &[id='Xerath'] {
       transform: scaleX(-1);
     }
-    &[id="Jayce"] {
+    &[id='Jayce'] {
       transform: scaleX(-1);
     }
-    &[id="Ziggs"] {
+    &[id='Ziggs'] {
       transform: scaleX(-1);
     }
-    &[id="Jhin"] {
+    &[id='Jhin'] {
       transform: scaleX(-1);
     }
-    &[id="Zilean"] {
+    &[id='Zilean'] {
       transform: scaleX(-1);
     }
-    &[id="Jinx"] {
+    &[id='Jinx'] {
       transform: scaleX(-1);
     }
-    &[id="Chogath"] {
+    &[id='Chogath'] {
       transform: scaleX(-1);
     }
-    &[id="Karma"] {
+    &[id='Karma'] {
       transform: scaleX(-1);
     }
-    &[id="Kassadin"] {
+    &[id='Kassadin'] {
       transform: scaleX(-1);
     }
-    &[id="Karthus"] {
+    &[id='Karthus'] {
       transform: scaleX(-1);
     }
-    &[id="Cassiopeia"] {
+    &[id='Cassiopeia'] {
       transform: scaleX(-1);
     }
-    &[id="Kaisa"] {
+    &[id='Kaisa'] {
       transform: scaleX(-1);
     }
-    &[id="Katarina"] {
+    &[id='Katarina'] {
       transform: scaleX(-1);
     }
-    &[id="Kalista"] {
+    &[id='Kalista'] {
       transform: scaleX(-1);
     }
-    &[id="Caitlyn"] {
+    &[id='Caitlyn'] {
       transform: scaleX(-1);
     }
-    &[id="Kayle"] {
+    &[id='Kayle'] {
       transform: scaleX(-1);
     }
-    &[id="KogMaw"] {
+    &[id='KogMaw'] {
       transform: scaleX(-1);
     }
-    &[id="Quinn"] {
+    &[id='Quinn'] {
       transform: scaleX(-1);
     }
-    &[id="Qiyana"] {
+    &[id='Qiyana'] {
       transform: scaleX(-1);
     }
-    &[id="Talon"] {
+    &[id='Talon'] {
       transform: scaleX(-1);
     }
-    &[id="TahmKench"] {
+    &[id='TahmKench'] {
       transform: scaleX(-1);
     }
-    &[id="Trundle"] {
+    &[id='Trundle'] {
       transform: scaleX(-1);
     }
-    &[id="Tristana"] {
+    &[id='Tristana'] {
       transform: scaleX(-1);
     }
-    &[id="TwistedFate"] {
+    &[id='TwistedFate'] {
       transform: scaleX(-1);
     }
-    &[id="Teemo"] {
+    &[id='Teemo'] {
       transform: scaleX(-1);
     }
-    &[id="Fiddlesticks"] {
+    &[id='Fiddlesticks'] {
       transform: scaleX(-1);
     }
-    &[id="Fiora"] {
+    &[id='Fiora'] {
       object-position: 70% 7%;
     }
-    &[id="Fizz"] {
+    &[id='Fizz'] {
       transform: scaleX(-1);
     }
-    &[id="Heimerdinger"] {
+    &[id='Heimerdinger'] {
       transform: scaleX(-1);
     }
-    &[id="Hecarim"] {
+    &[id='Hecarim'] {
       transform: scaleX(-1);
     }
   }
@@ -1012,172 +1016,172 @@
 
 .red-team__summoners {
   .summoner__champ {
-    &[id="Galio"] {
+    &[id='Galio'] {
       transform: scaleX(-1);
     }
-    &[id="Gwen"] {
+    &[id='Gwen'] {
       transform: scaleX(-1);
     }
-    &[id="Gnar"] {
-      transform: scaleX(-1);
-    }
-
-    &[id="Ryze"] {
-      transform: scaleX(-1);
-    }
-    &[id="Renata"] {
+    &[id='Gnar'] {
       transform: scaleX(-1);
     }
 
-    &[id="Rell"] {
+    &[id='Ryze'] {
       transform: scaleX(-1);
     }
-    &[id="Rengar"] {
-      transform: scaleX(-1);
-    }
-    &[id="Lucian"] {
-      transform: scaleX(-1);
-    }
-    &[id="Lux"] {
-      transform: scaleX(-1);
-    }
-    &[id="Lillia"] {
-      transform: scaleX(-1);
-    }
-    &[id="Malzahar"] {
-      transform: scaleX(-1);
-    }
-    &[id="Mordekaiser"] {
-      transform: scaleX(-1);
-    }
-    &[id="Bard"] {
-      transform: scaleX(-1);
-    }
-    &[id="Varus"] {
-      transform: scaleX(-1);
-    }
-    &[id="Veigar"] {
-      transform: scaleX(-1);
-    }
-    &[id="Vex"] {
-      transform: scaleX(-1);
-    }
-    &[id="Brand"] {
-      transform: scaleX(-1);
-    }
-    &[id="Vladimir"] {
-      transform: scaleX(-1);
-    }
-    &[id="Blitzcrank"] {
-      transform: scaleX(-1);
-    }
-    &[id="Viego"] {
-      transform: scaleX(-1);
-    }
-    &[id="Poppy"] {
+    &[id='Renata'] {
       transform: scaleX(-1);
     }
 
-    &[id="Sylas"] {
+    &[id='Rell'] {
       transform: scaleX(-1);
     }
-    &[id="Sejuani"] {
+    &[id='Rengar'] {
       transform: scaleX(-1);
     }
-    &[id="Shyvana"] {
+    &[id='Lucian'] {
       transform: scaleX(-1);
     }
-    &[id="Singed"] {
+    &[id='Lux'] {
       transform: scaleX(-1);
     }
-    &[id="AurelionSol"] {
+    &[id='Lillia'] {
       transform: scaleX(-1);
     }
-    &[id="Ivern"] {
+    &[id='Malzahar'] {
       transform: scaleX(-1);
     }
-    &[id="Akali"] {
+    &[id='Mordekaiser'] {
       transform: scaleX(-1);
     }
-    &[id="Akshan"] {
+    &[id='Bard'] {
+      transform: scaleX(-1);
+    }
+    &[id='Varus'] {
+      transform: scaleX(-1);
+    }
+    &[id='Veigar'] {
+      transform: scaleX(-1);
+    }
+    &[id='Vex'] {
+      transform: scaleX(-1);
+    }
+    &[id='Brand'] {
+      transform: scaleX(-1);
+    }
+    &[id='Vladimir'] {
+      transform: scaleX(-1);
+    }
+    &[id='Blitzcrank'] {
+      transform: scaleX(-1);
+    }
+    &[id='Viego'] {
+      transform: scaleX(-1);
+    }
+    &[id='Poppy'] {
+      transform: scaleX(-1);
+    }
+
+    &[id='Sylas'] {
+      transform: scaleX(-1);
+    }
+    &[id='Sejuani'] {
+      transform: scaleX(-1);
+    }
+    &[id='Shyvana'] {
+      transform: scaleX(-1);
+    }
+    &[id='Singed'] {
+      transform: scaleX(-1);
+    }
+    &[id='AurelionSol'] {
+      transform: scaleX(-1);
+    }
+    &[id='Ivern'] {
+      transform: scaleX(-1);
+    }
+    &[id='Akali'] {
+      transform: scaleX(-1);
+    }
+    &[id='Akshan'] {
       transform: scale(-1, -1);
     }
-    &[id="Aatrox"] {
+    &[id='Aatrox'] {
       transform: scaleX(-1);
     }
-    &[id="Aphelios"] {
+    &[id='Aphelios'] {
       transform: scaleX(-1);
     }
-    &[id="Olaf"] {
+    &[id='Olaf'] {
       transform: scaleX(-1);
     }
-    &[id="Evelynn"] {
+    &[id='Evelynn'] {
       transform: scaleX(-1);
     }
-    &[id="Illaoi"] {
+    &[id='Illaoi'] {
       transform: scaleX(-1);
     }
-    &[id="Xayah"] {
+    &[id='Xayah'] {
       transform: scaleX(-1);
     }
-    &[id="Jax"] {
+    &[id='Jax'] {
       transform: scaleX(-1);
     }
-    &[id="Zeri"] {
+    &[id='Zeri'] {
       transform: scaleX(-1);
     }
-    &[id="Zoe"] {
+    &[id='Zoe'] {
       transform: scaleX(-1);
     }
-    &[id="Camille"] {
+    &[id='Camille'] {
       transform: scaleX(-1);
     }
-    &[id="Khazix"] {
+    &[id='Khazix'] {
       transform: scaleX(-1);
     }
-    &[id="Kennen"] {
+    &[id='Kennen'] {
       transform: scaleX(-1);
     }
-    &[id="Kayn"] {
+    &[id='Kayn'] {
       transform: scaleX(-1);
     }
-    &[id="Corki"] {
+    &[id='Corki'] {
       transform: scaleX(-1);
     }
-    &[id="Kled"] {
+    &[id='Kled'] {
       transform: scaleX(-1);
     }
-    &[id="Kindred"] {
+    &[id='Kindred'] {
       transform: scaleX(-1);
     }
-    &[id="Taric"] {
+    &[id='Taric'] {
       transform: scaleX(-1);
     }
-    &[id="Taliyah"] {
+    &[id='Taliyah'] {
       transform: scaleX(-1);
     }
-    &[id="Tryndamere"] {
+    &[id='Tryndamere'] {
       transform: scaleX(-1);
     }
-    &[id="Udyr"] {
+    &[id='Udyr'] {
       transform: scaleX(-1);
     }
-    &[id="Twitch"] {
+    &[id='Twitch'] {
       transform: scaleX(-1);
     }
-    &[id="Pantheon"] {
+    &[id='Pantheon'] {
       transform: scaleX(-1);
     }
-    &[id="Fiora"] {
+    &[id='Fiora'] {
       transform: scaleX(-1);
     }
-    &[id="Fizz"] {
+    &[id='Fizz'] {
       object-position: 95% 18%;
     }
-    &[id="Heimerdinger"] {
+    &[id='Heimerdinger'] {
       object-position: 80% 40%;
     }
-    &[id="Hecarim"] {
+    &[id='Hecarim'] {
       object-position: 85% 10%;
     }
   }
