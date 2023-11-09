@@ -11,7 +11,7 @@
 
 ## ⚡️ 기술 스택
 
-React, SCSS, CRA
+`React`, `JavaScript`, `SCSS` 
 
 ## 📜 사용 설명서
 
